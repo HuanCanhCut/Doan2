@@ -13,6 +13,7 @@ body {
     color: #fff;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-style: normal;
+    background-color: black;
 }
 
 input[type='number']::-webkit-inner-spin-button,
