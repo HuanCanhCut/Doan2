@@ -1,0 +1,1454 @@
+{
+    "code": "SG",
+    "name": "Hồ Chí Minh",
+    "district": [
+        {
+            "name": "Bình Chánh",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "An Phú Tây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Chánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Hưng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Lợi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đa Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hưng Long",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Lê Minh Xuân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phạm Văn Hai",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phong Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quy Đức",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Kiên",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Nhựt",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Quý Tây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Túc",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Vĩnh Lộc A",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Vĩnh Lộc B",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Bình Tân",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "An Lạc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Lạc A",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Hưng Hòa",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Hưng Hòa A",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Hưng Hòa B",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Trị Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Trị Đông A",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Trị Đông B",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Tạo",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Tạo A",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Bình Thạnh",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "17",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "19",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "21",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "22",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "24",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "25",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "26",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "27",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "28",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Cần Giờ",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "An Thới Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Khánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cần Thạnh ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Lý Nhơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thôn Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thạnh An",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Củ Chi",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "An Nhơn Tây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "An Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "An Phú Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Mỹ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Củ Chi",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Hòa Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Nhuận Đức",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phạm Văn Cội",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phú Hòa Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phú Mỹ Hưng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Thạnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Vĩnh An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân An Hội",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Phú Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thạnh Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thạnh Tây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thông Hội",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thái Mỹ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trung An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trung Lập Hạ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trung Lập Hạ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trung Lập Thượng",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Gò Vấp",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "16",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "17",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Hóc Môn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": " Đông Thạnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": " Hóc Môn",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bà Điểm",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Nhị Bình",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thới Nhì",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Xuân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thới Tam Thôn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trung Chánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Xuân Thới Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Xuân Thới Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Xuân Thới Thượng",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Nhà Bè",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Hiệp Phước",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Thới",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Nhà Bè",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Nhơn Đức",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phú Xuân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Kiển",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Lộc",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Phú Nhuận",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "17",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "25",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 1",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "Bến Nghé",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bến Thành",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cầu Kho",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cầu Ông Lãnh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cô Giang",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Đa Kao",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Nguyễn Cư Trinh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Nguyễn Thái Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phạm Ngũ Lão",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Định",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 10",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 11",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "16",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 12",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "An Phú Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Đông Hưng Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hiệp Thành",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Chánh Hiệp",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Hưng Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thới Hiệp",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thới Nhất",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thạnh Lộc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thạnh Xuân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thới An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Trung Mỹ Tây",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 2",
+            "pre": "",
+            "ward": [
+                {
+                    "name": " Thạnh Mỹ Lợi",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Khánh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Lợi Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Khánh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Trưng Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Trưng Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cát Lái",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thảo Điền",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thủ Thiêm",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 3",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 4",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "16",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "18",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 5",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 6",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 7",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "Bình Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Mỹ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Hưng",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Kiểng",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Phong",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Quy",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thuận Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thuận Tây",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 8",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "16",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Quận 9",
+            "pre": "",
+            "ward": [
+                {
+                    "name": "Hiệp Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Phước",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Thạnh Mỹ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Long Trường",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Hữu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Long A",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Long B",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tăng Nhơn Phú A",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tăng Nhơn Phú B",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Trường Thạnh",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Tân Bình",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "1",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "10",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "11",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "12",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "13",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "14",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "15",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "2",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "3",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "4",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "5",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "6",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "7",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "8",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "9",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Tân Phú",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "Hiệp Tân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Thạnh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Thạnh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Thọ Hòa",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phú Trung",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Sơn Kỳ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Quý",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Sơn Nhì",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thành",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Thới Hòa",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tây Thạnh",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Thủ Đức",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "Bình Chiểu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Thọ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hiệp Bình Chánh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hiệp Bình Phước",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Linh Chiểu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Linh Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Linh Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Linh Trung",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Linh Xuân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tam Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tam Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Trường Thọ",
+                    "pre": "Phường"
+                }
+            ]
+        }
+    ]
+}

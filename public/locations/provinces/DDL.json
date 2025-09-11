@@ -1,0 +1,836 @@
+{
+    "code": "DDL",
+    "name": "Đắk Lắk",
+    "district": [
+        {
+            "name": "Buôn Đôn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cuôr Knia",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Bar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Huar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Nuôl",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Wer",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Na",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Hòa",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Buôn Hồ",
+            "pre": "Thị xã",
+            "ward": [
+                {
+                    "name": "An Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Lạc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Tân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Thuận",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Bao",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đạt Hiếu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Đoàn Kết",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Ea Blang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Drông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Siên",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thiện An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thống Nhất",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Buôn Ma Thuột",
+            "pre": "Thành phố",
+            "ward": [
+                {
+                    "name": "Cư Ebur",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kao",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Ea Tam",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Ea Tu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Khánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Thắng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Thuận",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Xuân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Khánh Xuân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Hoà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Lập",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Lợi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thành",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Tiến",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thắng Lợi",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thành Công",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thành Nhất",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thống Nhất",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tự An",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Cư Kuin",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Ê Wi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dray Bhăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Bhôk",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Hu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Ktur",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Ning",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tiêu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Hiệp",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Cư M'gar",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Dliê M'nông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư M'gar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Suê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cuor Đăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea D'rơng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea H'đing",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kiết",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kpam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kuếh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea M'dróh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea M'nang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Pốk",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Ea Tar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tul",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quảng Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quảng Phú",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Quảng Tiến",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Ea H'Leo",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư A Mung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Mốt",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dlê Yang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Drăng",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Ea Hiao",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea H'leo",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Khăl",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Ral",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Sol",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tir",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Wy",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Ea Kar",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Bông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Elang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Huê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Ni",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Prông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Yang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Đar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kar",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Ea Kmút",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Knốp",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Ea Ô",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Păl",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Sar",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Sô",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tíh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Xuân Phú",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Ea Súp",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Kbang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư M'lan",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Bung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Lê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Rốk",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Súp",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Ia Jlơi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ia Lốp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ia Rvê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ya Tờ Mốt",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Krông Ana",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Băng A Drênh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Buôn Trấp",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Dray Sáp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dur Kmăl",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Bông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Na",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quảng Điền",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Krông Bông",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Drăm",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Kty",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Pui",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dang Kang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Trul",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Lễ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Tân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Thành",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Khuê Ngọc Điền",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Kmar",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Yang Mao",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Yang Reh",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Krông Buk",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Chứ Kbô",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Né",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Pơng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Ngai",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Sin",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Sin",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Pơng Drang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Lập",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Krông Năng",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Klông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dliê Ya",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Dăh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Hồ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Púk",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Tóh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Năng",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Phú Lộc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phú Xuân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Giang",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Krông Pắc",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Ea Hiu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kênh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kly",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Knuec",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Kuăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Phê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Uy",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Yiêng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Yông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hoà Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Tiến",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Búk",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước An",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Tân Tiến",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Vụ Bổn",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Lăk",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Bông Krang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Buôn Tría",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Buôn Triết",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đắk Liêng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đắk Nuê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đắk Phơi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea R'bin",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Nô",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Liên Sơn",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Nam Ka",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Yang Tao",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "M'Đrăk",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cư Króa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư M'ta",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư Prao",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cư San",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea H'mlay",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Lai",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea M' Doal",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Pil",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Riêng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ea Trang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Á",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Krông Jing",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "M'Drắk",
+                    "pre": "Thị trấn"
+                }
+            ]
+        }
+    ]
+}

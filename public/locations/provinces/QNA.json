@@ -1,0 +1,1098 @@
+{
+    "code": "QNA",
+    "name": "Quảng Nam",
+    "district": [
+        {
+            "name": "Bắc Trà My",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Trà Bui",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Đốc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Dương",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Giác",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Giang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Giáp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Ka",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Kót",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà My",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Trà Nú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Tân",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Đại Lộc",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Ái Nghĩa",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Đại An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Chánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Cường",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Đồng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Hồng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Hưng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Lãnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Minh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Nghĩa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Quang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Tân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Thắng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đại Thạnh",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Điện Bàn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Điện An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Dương",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Hồng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Minh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Nam Bắc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Nam Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Nam Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Ngọc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Phương",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Quang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Thắng Bắc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Thắng Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Thắng Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Thọ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Tiến",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Điện Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Vĩnh Điện",
+                    "pre": "Thị trấn"
+                }
+            ]
+        },
+        {
+            "name": "Đông Giang",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "A Rooi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "A Ting",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ba",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Jơ Ngây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ka Dăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Mà Cooi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Prao",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Sông Kôn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tà Lu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tư",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Za Hung",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Duy Xuyên",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Duy Châu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Hải",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Nghĩa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Tân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Thành",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Thu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Trinh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Duy Vinh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Nam Phước",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Phước Nam",
+                    "pre": "Thị trấn"
+                }
+            ]
+        },
+        {
+            "name": "Hiệp Đức",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Bình Lâm",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hiệp Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hiệp Thuận",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Gia",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Trà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Bình",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Lưu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Thọ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Sông Trà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân An",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Thăng Phước",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Hội An",
+            "pre": "Thành phố",
+            "ward": [
+                {
+                    "name": "Cẩm An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cẩm Châu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cẩm Hà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cẩm Kim",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cẩm Nam",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cẩm Phô",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Cẩm Thanh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Cửa Đại",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Minh An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Sơn Phong",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thanh Hà",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Nam Giang",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Cà Dy",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Chà Vàl",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Chơ Chun",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đăk Pree",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đắk Pring",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Đắk Tôi",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "La Dêê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "La Êê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tà Bhing",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tà Pơơ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Thạnh Mỹ",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Zuôih",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Nam Trà My",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Trà Cang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Don",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Dơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Leng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Linh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Mai",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Tập",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Vân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Trà Vinh",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Nông Sơn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Phước Ninh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Lâm",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Lộc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Ninh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Sơn Viên",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Núi Thành",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Núi Thành",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Tam Anh Bắc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Anh Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Giang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Hải",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Mỹ Đông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Mỹ Tây",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Nghĩa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Quang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thạnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Tiến",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Trà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Xuân 1",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Xuân 2",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Phú Ninh",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Phú Thịnh",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Tam An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Đại",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Dân",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Đàn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Lãnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Lộc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thái",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thành",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Vinh",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Phước Sơn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Khâm Đức",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Phước Chánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Công",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Đức",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Hòa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Kim",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Lộc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Mỹ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Năng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Thành",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phước Xuân",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Quế Sơn",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Đông Phú",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Hương An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Phú Thọ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Châu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Cường",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Long",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Minh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Thuận",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Xuân 1",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quế Xuân 2",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Quý Thuận",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Tam Kỳ",
+            "pre": "Thành phố",
+            "ward": [
+                {
+                    "name": "An Mỹ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Phú",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Sơn",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Xuân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Hương",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Hòa",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tam Ngọc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tam Thanh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tân Thạnh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Trường Xuân",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Tây Giang",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "A Nông",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "A Tiêng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "A Vương",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "A Xan",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bha Lê",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ch'ơm",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Dang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Ga Ri",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Lăng",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tr'hy",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Thăng Bình",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Bình An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Chánh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Đào",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Định Bắc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Định Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Dương",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Giang",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Hải",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Lãnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Minh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Nam",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Nguyên",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Phục",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Quế",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Quý",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Sa",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Trị",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Triều",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Trung",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Bình Tú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hà Lam",
+                    "pre": "Thị trấn"
+                }
+            ]
+        },
+        {
+            "name": "Tiên Phước",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Tiên An",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Cẩm",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Cảnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Châu",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Hà",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Hiệp",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Kỳ",
+                    "pre": "Thị trấn"
+                },
+                {
+                    "name": "Tiên Lãnh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Lập",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Lộc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Mỹ",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Ngọc",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Tiên Thọ",
+                    "pre": "Xã"
+                }
+            ]
+        }
+    ]
+}

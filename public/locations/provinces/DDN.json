@@ -1,0 +1,281 @@
+{
+    "code": "DDN",
+    "name": "Đà Nẵng",
+    "district": [
+        {
+            "name": "Cẩm Lệ",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "Hòa An",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Phát",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Thọ Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Thọ Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Xuân",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Khuê Trung",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Hải Châu",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": " Hải Châu I",
+                    "pre": "Phường"
+                },
+                {
+                    "name": " Hòa Thuận Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Hiên",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Bình Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hải Châu II",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Cường Bắc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Cường Nam",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Thuận Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Nam Dương",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Ninh",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thạch Thang",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thanh Bình",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thuận Phước",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Hòa Vang",
+            "pre": "Huyện",
+            "ward": [
+                {
+                    "name": "Hòa Bắc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Châu",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Khương",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Liên",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Nhơn",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Ninh",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Phong",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Phú",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Phước",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Sơn",
+                    "pre": "Xã"
+                },
+                {
+                    "name": "Hòa Tiến",
+                    "pre": "Xã"
+                }
+            ]
+        },
+        {
+            "name": "Hoàng Sa",
+            "pre": "Huyện",
+            "ward": []
+        },
+        {
+            "name": "Liên Chiểu",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "Hòa Hiệp Bắc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Hiệp Nam",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Khánh Bắc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Khánh Nam",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Minh",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Ngũ Hành Sơn",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": " Khuê Mỹ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Hải",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Quý",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Mỹ An",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Sơn Trà",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": " An Hải Bắc",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Hải Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "An Hải Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Mân Thái",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Nại Hiên Đông ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Phước Mỹ",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thọ Quang",
+                    "pre": "Phường"
+                }
+            ]
+        },
+        {
+            "name": "Thanh Khê",
+            "pre": "Quận",
+            "ward": [
+                {
+                    "name": "An Khê",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Chính Gián",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Hòa Khê",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tam Thuận",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Tân Chính",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thạc Gián",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thanh Khê Đông",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thanh Khê Tây",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Thanh Lộc Đán",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Vĩnh Trung",
+                    "pre": "Phường"
+                },
+                {
+                    "name": "Xuân Hà",
+                    "pre": "Phường"
+                }
+            ]
+        }
+    ]
+}
