@@ -6,14 +6,21 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #fa6819;
+    --secondary: #ffe5cf;
+    --background: #f4f4f4;
+    --text-secondary: #8c8c8c;
+}
+
 html,
 body {
-    font-size: 62.5%;
+    font-size: 62.5% !important;
     line-height: 1.6rem;
-    color: #fff;
+    color: #222;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-style: normal;
-    background-color: black;
+    background-color: var(--background);
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -33,7 +40,7 @@ input {
 }
 
 a[href] {
-    color: #fff;
+    color: #222;
     text-decoration: none;
     line-height: 1;
 }

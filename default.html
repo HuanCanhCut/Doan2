@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/static/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nhà đất</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="./src/styles/normalize.css" />
+        <link rel="stylesheet" href="./src/styles/base.css" />
+        <link rel="stylesheet" href="./src/styles/default.css" />
+        <link rel="stylesheet" href="./src/styles/grid.css" />
+    </head>
+    <body>
+        <div id="app">
+            <header id="header" class="grid">
+                <div class="row">
+                    <div class="col col-3 md:col-3 lg:col-3 sm:col-2 xl:col-3">
+                        <div class="header__left">
+                            <button class="header__toggle--sidebar header__item">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <button class="header__province__dropdown">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <p class="col-hidden md:col-block">Hà Nội</p>
+                                <i class="fa-solid fa-caret-down col-hidden md:col-block"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col col-7 md:col-5 lg:col-6 sm:col-8 xl:col-6">
+                        <div class="header__search header__item">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
+                        </div>
+                    </div>
+                    <div class="col col-1 md:col-4 lg:col-3 sm:col-2 xl:col-3">
+                        <div class="header__actions header__item">
+                            <div class="header__actions--heart col-hidden md:col-block">
+                                <a href="favorites.html" class="header__actions__heart">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                            </div>
+
+                            <div class="header__actions--post col-hidden">
+                                <a href="manage-ads.html">
+                                    <button class="header__actions__button header__actions__button--outline">
+                                        Quản lý tin
+                                    </button>
+                                </a>
+                                <a href="login.html">
+                                    <button class="header__actions__button header__actions__button--primary">
+                                        Đăng tin
+                                    </button>
+                                </a>
+                            </div>
+
+                            <div class="header__actions--auth">
+                                <button class="header__actions__button header__actions__button--outline">
+                                    Đăng nhập
+                                </button>
+                                <button class="header__actions__button header__actions__button--primary">
+                                    Đăng ký
+                                </button>
+                            </div>
+
+                            <div class="header__actions--auth col-block md:col-hidden">
+                                <button class="header__actions__button header__actions__button--outline">Auth</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <script type="module" src="./src/js/main.js"></script>
+    </body>
+</html>

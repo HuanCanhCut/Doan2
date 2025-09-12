@@ -8,7 +8,7 @@ const user = [
         created_at: new Date(),
         updated_at: new Date(),
         nickname: 'John Doe',
-        avatar: 'https://via.placeholder.com/150',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcljdiuUsIN7IXwXrUi9wNozpc6CqR6tNK_g&s',
         phone: '1234567890',
     },
     {
@@ -20,7 +20,7 @@ const user = [
         created_at: new Date(),
         updated_at: new Date(),
         nickname: 'Môi giới',
-        avatar: 'https://via.placeholder.com/150',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcljdiuUsIN7IXwXrUi9wNozpc6CqR6tNK_g&s',
         phone: '1234567890',
     },
     {
@@ -32,7 +32,7 @@ const user = [
         created_at: new Date(),
         updated_at: new Date(),
         nickname: 'Jim Doe',
-        avatar: 'https://via.placeholder.com/150',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcljdiuUsIN7IXwXrUi9wNozpc6CqR6tNK_g&s',
         phone: '1234567890',
     },
     {
@@ -44,7 +44,7 @@ const user = [
         created_at: new Date(),
         updated_at: new Date(),
         nickname: 'Jill Doe',
-        avatar: 'https://via.placeholder.com/150',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcljdiuUsIN7IXwXrUi9wNozpc6CqR6tNK_g&s',
         phone: '1234567890',
     },
     {
@@ -56,7 +56,7 @@ const user = [
         created_at: new Date(),
         updated_at: new Date(),
         nickname: 'Jack Doe',
-        avatar: 'https://via.placeholder.com/150',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcljdiuUsIN7IXwXrUi9wNozpc6CqR6tNK_g&s',
         phone: '1234567890',
     },
 ]
