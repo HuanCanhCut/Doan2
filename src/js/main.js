@@ -1,6 +1,12 @@
 const app = {
+    provinces: [],
+
+    handleSelectProvince() {
+        //
+    },
+
     init() {
-        // do something
+        this.handleSelectProvince()
     },
 }
 

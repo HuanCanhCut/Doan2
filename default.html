@@ -20,11 +20,124 @@
                             <button class="header__toggle--sidebar header__item">
                                 <i class="fa-solid fa-bars"></i>
                             </button>
-                            <button class="header__province__dropdown">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <p class="col-hidden md:col-block">Hà Nội</p>
-                                <i class="fa-solid fa-caret-down col-hidden md:col-block"></i>
-                            </button>
+                            <div class="header__province">
+                                <button class="header__province__dropdown">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <p class="col-hidden md:col-block">Hà Nội</p>
+                                    <i class="fa-solid fa-caret-down col-hidden md:col-block"></i>
+                                </button>
+
+                                <div class="header__province__dropdown__select">
+                                    <div id="popper--wrapper" class="header__province__dropdown__select__popper">
+                                        <div>
+                                            <span class="header__province__dropdown__select__popper__title"
+                                                ><i class="fa-solid fa-location-dot"></i> Tìm kiếm theo khu vực</span
+                                            >
+
+                                            <div class="header__province__dropdown__select__popper__content">
+                                                <div id="header__province__dropdown--province">
+                                                    <div
+                                                        class="header__province__dropdown__select__popper__content__title"
+                                                    >
+                                                        Chọn tỉnh thành
+                                                    </div>
+                                                    <p
+                                                        class="header__province__dropdown__select__popper__content__value"
+                                                    >
+                                                        Hà Nội
+                                                    </p>
+                                                </div>
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </div>
+                                            <div class="header__province__dropdown__select__popper__content">
+                                                <div id="header__province__dropdown--district">
+                                                    <div
+                                                        class="header__province__dropdown__select__popper__content__title"
+                                                    >
+                                                        Chọn quận huyện
+                                                    </div>
+                                                    <p
+                                                        class="header__province__dropdown__select__popper__content__value"
+                                                    ></p>
+                                                </div>
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </div>
+                                            <div class="header__province__dropdown__select__popper__content">
+                                                <div id="header__province__dropdown--ward">
+                                                    <div
+                                                        class="header__province__dropdown__select__popper__content__title"
+                                                    >
+                                                        Chọn phường xã
+                                                    </div>
+                                                    <p
+                                                        class="header__province__dropdown__select__popper__content__value"
+                                                    ></p>
+                                                </div>
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="header__province__dropdown--actions">
+                                            <button class="header__province__dropdown__actions--button">Áp dụng</button>
+                                        </div>
+
+                                        <!-- <div id="province__options__wrapper">
+                                            <header class="province__options__header">
+                                                <button>
+                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                </button>
+                                                <p>Chọn tỉnh thành</p>
+                                            </header>
+                                            <div class="province__options__search">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <input type="text" placeholder="Tìm kiếm tỉnh/thành phố" />
+                                            </div>
+                                            <ul class="province__options__list">
+                                                <li class="province__options__list--item">
+                                                    <button>Hà Nội</button>
+                                                    <div class="province__options__list--item--checkbox checked"></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="district__options__wrapper active">
+                                            <header class="province__options__header">
+                                                <button>
+                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                </button>
+                                                <p>Chọn quận huyện</p>
+                                            </header>
+                                            <div class="province__options__search">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <input type="text" placeholder="Tìm kiếm quận huyện" />
+                                            </div>
+                                            <ul class="province__options__list">
+                                                <li class="province__options__list--item">
+                                                    <button>Ba Đình</button>
+                                                    <div class="province__options__list--item--checkbox checked"></div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="ward__options__wrapper">
+                                            <header class="province__options__header">
+                                                <button>
+                                                    <i class="fa-solid fa-chevron-left"></i>
+                                                </button>
+                                                <p>Chọn phường xã</p>
+                                            </header>
+                                            <div class="province__options__search">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <input type="text" placeholder="Tìm kiếm phường xã" />
+                                            </div>
+                                            <ul class="province__options__list">
+                                                <li class="province__options__list--item">
+                                                    <button>Công Việt</button>
+                                                    <div class="province__options__list--item--checkbox checked"></div>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col col-7 md:col-5 lg:col-6 sm:col-8 xl:col-6">
