@@ -23,8 +23,9 @@ const defaultApp = {
                         type: 'success',
                     })
 
-                    break
+                    this.handleLoadHeader()
 
+                    break
                 case 'modal:toast-success':
                     toast({
                         title: 'Thành công',
@@ -65,6 +66,18 @@ const defaultApp = {
         })
     },
 
+    handleLoadHeader() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+        if (currentUser) {
+            document.querySelector('.header__actions--post').classList.remove('col-hidden')
+            document.querySelector('.header__actions--auth').classList.add('col-hidden')
+        } else {
+            document.querySelector('.header__actions--post').classList.add('col-hidden')
+            document.querySelector('.header__actions--auth').classList.remove('col-hidden')
+        }
+    },
+
     openAuthModal(modalName) {
         modal.setAttribute('src', `src/modal/${modalName}.html`)
         modal.classList.add('active')
@@ -78,6 +91,7 @@ const defaultApp = {
 
     init() {
         this.handleEvent()
+        this.handleLoadHeader()
         provincesDropdownApp.init()
     },
 }

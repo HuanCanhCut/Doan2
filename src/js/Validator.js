@@ -139,3 +139,5 @@ Validator.isUrl = function (selector, errorMessage) {
         },
     }
 }
+
+export default Validator
