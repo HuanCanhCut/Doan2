@@ -13,6 +13,8 @@
     </head>
     <body>
         <div id="app">
+            <div id="overlay"></div>
+            <iframe src="" frameborder="0" id="modal"></iframe>
             <header id="header" class="grid">
                 <div class="row">
                     <div class="col col-3 md:col-3 lg:col-3 sm:col-2 xl:col-3">
@@ -168,16 +170,24 @@
                             </div>
 
                             <div class="header__actions--auth">
-                                <button class="header__actions__button header__actions__button--outline">
+                                <button
+                                    class="header__actions__button header__actions__button--outline header__actions__button--login"
+                                >
                                     Đăng nhập
                                 </button>
-                                <button class="header__actions__button header__actions__button--primary">
+                                <button
+                                    class="header__actions__button header__actions__button--primary header__actions__button--register"
+                                >
                                     Đăng ký
                                 </button>
                             </div>
 
                             <div class="header__actions--auth col-block md:col-hidden">
-                                <button class="header__actions__button header__actions__button--outline">Auth</button>
+                                <button
+                                    class="header__actions__button header__actions__button--outline header__actions__button--auth"
+                                >
+                                    Auth
+                                </button>
                             </div>
                         </div>
                     </div>
