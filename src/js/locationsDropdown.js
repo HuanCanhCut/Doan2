@@ -7,7 +7,7 @@ const locationsBackBtns = document.querySelectorAll('.province__options__header 
 
 const locationsDropdownApp = {
     locations: {
-        province: 'Hà Nội',
+        province: '',
         district: '',
         ward: '',
     },
@@ -43,23 +43,14 @@ const locationsDropdownApp = {
 
         const provinceOptionsList = document.querySelector(`.province__options__list[data-type="${type}"]`)
 
+        let data = []
+
         switch (type) {
             case 'province':
                 {
                     const provinces = await this.handleFetchProvince()
 
-                    provinceOptionsList.innerHTML = Object.keys(provinces)
-                        .map((key) => {
-                            return `
-                                <li class="province__options__list--item" data-value="${key}">
-                                    <button>${key}</button>
-                                    <div class="province__options__list--item--checkbox ${
-                                        this.locations.province.normalize() === key.normalize() ? 'checked' : ''
-                                    }"></div>
-                                </li>
-                            `
-                        })
-                        .join('')
+                    data = Object.keys(provinces)
                 }
 
                 break
@@ -67,27 +58,40 @@ const locationsDropdownApp = {
                 {
                     const districts = await this.handleFetchDistrict(this.locations.province)
 
-                    provinceOptionsList.innerHTML = districts
-                        .map((district) => {
-                            return `
-                                <li class="province__options__list--item" data-value="${district.name}">
-                                    <button>${district.pre} ${district.name}</button>
-                                    <div class="province__options__list--item--checkbox ${
-                                        this.locations.district.normalize() === district.name.normalize()
-                                            ? 'checked'
-                                            : ''
-                                    }"></div>
-                                </li>
-                            `
-                        })
-                        .join('')
+                    data = districts
                 }
                 break
             case 'ward':
+                {
+                    if (!this.locations.province || !this.locations.district) {
+                        return
+                    }
+
+                    const districts = await this.handleFetchDistrict(this.locations.province)
+
+                    const wards = districts.find((district) => district.name === this.locations.district).ward
+
+                    data = wards
+                }
                 break
             default:
                 break
         }
+
+        provinceOptionsList.innerHTML = data
+            .map((item) => {
+                return `
+                    <li class="province__options__list--item" data-value="${item.name ? item.name : item}">
+                        <button>${item.name ? `${item.pre} ${item.name}` : item}</button>
+                        <div class="province__options__list--item--checkbox ${
+                            this.locations[type].normalize() === (item.name ? item.name.normalize() : item.normalize())
+                                ? 'checked'
+                                : ''
+                        }"></div>
+                    </li>
+                `
+            })
+            .join('')
 
         const provinceOptionsListItems = provinceOptionsList.querySelectorAll('.province__options__list--item')
 
