@@ -73,6 +73,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding-top: 8px;
 }
 
 .header__province__dropdown__actions--button {
