@@ -1,65 +1,65 @@
 {
     "code": "HN",
-    "name": "Hà Nội",
+    "name": "Hà Nội",
     "district": [
         {
             "name": "Ba Đình",
             "pre": "Quận",
             "ward": [
                 {
-                    "name": "Cống Vị",
+                    "name": "Cống Vị",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Điện Biên",
+                    "name": "Điện Biên",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Đội Cấn",
+                    "name": "Đội Cấn",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Giảng Võ",
+                    "name": "Giảng Võ",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Kim Mã",
+                    "name": "Kim Mã",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Liễu Giai",
+                    "name": "Liễu Giai",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Ngọc Hà",
+                    "name": "Ngọc Hà",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Ngọc Khánh",
+                    "name": "Ngọc Khánh",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Nguyễn Trung Trực",
+                    "name": "Nguyễn Trung Trực",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Phúc Xá",
+                    "name": "Phúc Xá",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Quán Thánh",
+                    "name": "Quán Thánh",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Thành Công",
+                    "name": "Thành Công",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Trúc Bạch",
+                    "name": "Trúc Bạch",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Vĩnh Phúc",
+                    "name": "Vĩnh Phúc",
                     "pre": "Phường"
                 }
             ]
@@ -605,11 +605,11 @@
             "pre": "Quận",
             "ward": [
                 {
-                    "name": "Cát Linh",
+                    "name": "Cát Linh",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Bột",
+                    "name": "Hàng Bột",
                     "pre": "Phường"
                 },
                 {
@@ -617,7 +617,7 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Khương Thượng",
+                    "name": "Khương Thượng",
                     "pre": "Phường"
                 },
                 {
@@ -625,23 +625,23 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Láng Hạ",
+                    "name": "Láng Hạ",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Láng Thượng",
+                    "name": "Láng Thượng",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Nam Đồng",
+                    "name": "Nam Đồng",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Ngã Tư Sở",
+                    "name": "Ngã Tư Sở",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Ô Chợ Dừa",
+                    "name": "Ô Chợ Dừa",
                     "pre": "Phường"
                 },
                 {
@@ -657,27 +657,27 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Quốc Tử Giám",
+                    "name": "Quốc Tử Giám",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Thịnh Quang",
+                    "name": "Thịnh Quang",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Thổ Quan",
+                    "name": "Thổ Quan",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Trung Liệt",
+                    "name": "Trung Liệt",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Trung Phụng",
+                    "name": "Trung Phụng",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Trung Tự",
+                    "name": "Trung Tự",
                     "pre": "Phường"
                 },
                 {
@@ -685,7 +685,7 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Văn Miếu",
+                    "name": "Văn Miếu",
                     "pre": "Phường"
                 }
             ]
@@ -863,39 +863,39 @@
             "pre": "Quận",
             "ward": [
                 {
-                    "name": "Bạch Đằng",
+                    "name": "Bạch Đằng",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Bách Khoa",
+                    "name": "Bách Khoa",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Bạch Mai",
+                    "name": "Bạch Mai",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Bùi Thị Xuân",
+                    "name": "Bùi Thị Xuân",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Cầu Dền",
+                    "name": "Cầu Dền",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Đống Mác",
+                    "name": "Đống Mác",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Đồng Nhân",
+                    "name": "Đồng Nhân",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Đồng Tâm",
+                    "name": "Đồng Tâm",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Lê Đại Hành",
+                    "name": "Lê Đại Hành",
                     "pre": "Phường"
                 },
                 {
@@ -903,27 +903,27 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Ngô Thì Nhậm",
+                    "name": "Ngô Thì Nhậm",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Nguyễn Du",
+                    "name": "Nguyễn Du",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Phạm Đình Hổ",
+                    "name": "Phạm Đình Hổ",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Phố Huế",
+                    "name": "Phố Huế",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Quỳnh Lôi",
+                    "name": "Quỳnh Lôi",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Quỳnh Mai",
+                    "name": "Quỳnh Mai",
                     "pre": "Phường"
                 },
                 {
@@ -931,7 +931,7 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Thanh Nhàn",
+                    "name": "Thanh Nhàn",
                     "pre": "Phường"
                 },
                 {
@@ -939,7 +939,7 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Vĩnh Tuy",
+                    "name": "Vĩnh Tuy",
                     "pre": "Phường"
                 }
             ]
@@ -1035,59 +1035,59 @@
             "pre": "Quận",
             "ward": [
                 {
-                    "name": "Chương Dương Độ",
+                    "name": "Chương Dương Độ",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Cửa Đông",
+                    "name": "Cửa Đông",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Cửa Nam",
+                    "name": "Cửa Nam",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Đồng Xuân",
+                    "name": "Đồng Xuân",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Bạc",
+                    "name": "Hàng Bạc",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Bài",
+                    "name": "Hàng Bài",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Bồ",
+                    "name": "Hàng Bồ",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Bông",
+                    "name": "Hàng Bông",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Buồm",
+                    "name": "Hàng Buồm",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Đào",
+                    "name": "Hàng Đào",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Gai",
+                    "name": "Hàng Gai",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Mã",
+                    "name": "Hàng Mã",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Hàng Trống",
+                    "name": "Hàng Trống",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Lý Thái Tổ",
+                    "name": "Lý Thái Tổ",
                     "pre": "Phường"
                 },
                 {
@@ -1095,15 +1095,15 @@
                     "pre": "Phường"
                 },
                 {
-                    "name": "Phúc Tân",
+                    "name": "Phúc Tân",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Trần Hưng Đạo",
+                    "name": "Trần Hưng Đạo",
                     "pre": "Phường"
                 },
                 {
-                    "name": "Tràng Tiền",
+                    "name": "Tràng Tiền",
                     "pre": "Phường"
                 }
             ]

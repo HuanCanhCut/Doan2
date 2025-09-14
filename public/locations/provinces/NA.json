@@ -7,19 +7,19 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Hùng Sơn",
+                    "name": "Hùng Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Khai Sơn",
+                    "name": "Khai Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Long Sơn",
+                    "name": "Long Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Thọ Sơn ",
+                    "name": "Thọ Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -27,23 +27,23 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Bình Sơn ",
+                    "name": "Bình Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": "Cẩm Sơn ",
+                    "name": "Cẩm Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": "Cao Sơn ",
+                    "name": "Cao Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": "Đỉnh Sơn ",
+                    "name": "Đỉnh Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": "Đức Sơn ",
+                    "name": "Đức Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -51,7 +51,7 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Hội Sơn ",
+                    "name": "Hội Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -59,7 +59,7 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Lĩnh Sơn ",
+                    "name": "Lĩnh Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -71,7 +71,7 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Tào Sơn ",
+                    "name": "Tào Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -79,11 +79,11 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Thành Sơn ",
+                    "name": "Thành Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": "Tường Sơn ",
+                    "name": "Tường Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -97,7 +97,7 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Chi Khê",
+                    "name": "Chi Khê",
                     "pre": "Xã"
                 },
                 {
@@ -351,15 +351,15 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Lạc Sơn",
+                    "name": "Lạc Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Nhân Sơn",
+                    "name": "Nhân Sơn",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Trù Sơn",
+                    "name": "Trù Sơn",
                     "pre": "Xã"
                 },
                 {
@@ -535,11 +535,11 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Hưng Lĩnh",
+                    "name": "Hưng Lĩnh",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Hưng Mỹ",
+                    "name": "Hưng Mỹ",
                     "pre": "Xã"
                 },
                 {
@@ -623,7 +623,7 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Hưng Yên Nam ",
+                    "name": "Hưng Yên Nam",
                     "pre": "Xã"
                 }
             ]
@@ -633,15 +633,15 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Mường Típ",
+                    "name": "Mường Típ",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Phà Đánh",
+                    "name": "Phà Đánh",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Tà Cạ",
+                    "name": "Tà Cạ",
                     "pre": "Xã"
                 },
                 {
@@ -723,15 +723,15 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Kim Liên",
+                    "name": "Kim Liên",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Nam Anh",
+                    "name": "Nam Anh",
                     "pre": "Xã"
                 },
                 {
-                    "name": " Nam Trung",
+                    "name": "Nam Trung",
                     "pre": "Xã"
                 },
                 {
@@ -739,7 +739,7 @@
                     "pre": "Xã"
                 },
                 {
-                    "name": "Hùng Tiến ",
+                    "name": "Hùng Tiến",
                     "pre": "Xã"
                 },
                 {
@@ -825,7 +825,7 @@
             "pre": "Huyện",
             "ward": [
                 {
-                    "name": " Nghi Tiến",
+                    "name": "Nghi Tiến",
                     "pre": "Xã"
                 },
                 {
@@ -1793,7 +1793,7 @@
             "pre": "Thành phố",
             "ward": [
                 {
-                    "name": " Bến Thuỷ",
+                    "name": "Bến Thuỷ",
                     "pre": "Phường"
                 },
                 {
