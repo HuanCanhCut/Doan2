@@ -6,7 +6,7 @@ const app = {
         const redirectLogin = document.querySelector('.form__footer-toggle--login')
 
         redirectLogin.onclick = () => {
-            window.parent.postMessage({ type: 'modal:toggle-modal', data: 'login_modal' }, '*')
+            window.parent.postMessage({ type: 'modal:toggle-modal', data: 'loginModal' }, '*')
         }
     },
 

@@ -51,15 +51,15 @@ const defaultApp = {
         })
 
         loginBtn.addEventListener('click', () => {
-            this.openAuthModal('login_modal')
+            this.openAuthModal('loginModal')
         })
 
         registerBtn.addEventListener('click', () => {
-            this.openAuthModal('register_modal')
+            this.openAuthModal('registerModal')
         })
 
         authBtn.addEventListener('click', () => {
-            this.openAuthModal('login_modal')
+            this.openAuthModal('loginModal')
         })
 
         overlay.addEventListener('click', () => {

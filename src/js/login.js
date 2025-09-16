@@ -6,7 +6,7 @@ const app = {
         const redirectRegister = document.querySelector('.form__footer-toggle--register')
 
         redirectRegister.onclick = () => {
-            window.parent.postMessage({ type: 'modal:toggle-modal', data: 'register_modal' }, '*')
+            window.parent.postMessage({ type: 'modal:toggle-modal', data: 'registerModal' }, '*')
         }
     },
 

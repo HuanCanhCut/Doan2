@@ -22,8 +22,8 @@ export default defineConfig({
             input: {
                 main: 'index.html',
                 default: 'default.html',
-                login_modal: '/src/modal/login_modal.html',
-                register_modal: '/src/modal/register_modal.html',
+                loginModal: '/src/modal/loginModal.html',
+                registerModal: '/src/modal/registerModal.html',
             },
         },
     },
