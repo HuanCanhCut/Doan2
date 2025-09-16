@@ -15,9 +15,8 @@
         "eslint-plugin-prettier": "^5.5.4",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "sass-embedded": "^1.92.1",
-        "vite": "^7.1.2"
-    },
-    "dependencies": {
+        "vite": "^7.1.2",
         "scss": "^0.2.4"
-    }
+    },
+    "dependencies": {}
 }
