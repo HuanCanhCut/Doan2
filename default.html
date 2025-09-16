@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nhà đất</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-        <link rel="stylesheet" href="./src/styles/normalize.css" />
-        <link rel="stylesheet" href="./src/styles/base.css" />
-        <link rel="stylesheet" href="./src/styles/default.css" />
-        <link rel="stylesheet" href="./src/styles/grid.css" />
+        <link rel="stylesheet" href="./src/styles/normalize.scss" />
+        <link rel="stylesheet" href="./src/styles/base.scss" />
+        <link rel="stylesheet" href="./src/styles/default.scss" />
+        <link rel="stylesheet" href="./src/styles/grid.scss" />
     </head>
     <body>
         <div id="app">
@@ -193,6 +193,19 @@
                     </div>
                 </div>
             </header>
+
+            <!-- SIDEBAR -->
+            <aside id="sidebar">
+                <div class="sidebar__wrapper">
+                    <div class="sidebar__user__info">
+                        <img src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg" alt="" />
+                        <h3>John Doe</h3>
+                        <p class="sidebar__user__info--role">Môi giới</p>
+                    </div>
+
+                    <div class="sidebar__auth"></div>
+                </div>
+            </aside>
         </div>
         <script type="module" src="./src/js/default.js"></script>
     </body>

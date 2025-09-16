@@ -1,4 +1,4 @@
-import '../styles/toast.css'
+import '../styles/toast.scss'
 
 const toast = ({ title = '', message = '', type = 'info', duration = 3000 }) => {
     let main = document.getElementById('toast')

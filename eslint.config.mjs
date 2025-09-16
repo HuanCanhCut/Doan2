@@ -12,12 +12,6 @@ export default [
             'simple-import-sort': simpleImportSort,
         },
         rules: {
-            'simple-import-sort/imports': [
-                'warn',
-                {
-                    groups: [['^\\w'], ['^']],
-                },
-            ],
             'simple-import-sort/exports': 'warn',
             'no-unused-vars': 'warn',
             'no-undef': 'error',

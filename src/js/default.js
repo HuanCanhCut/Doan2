@@ -1,5 +1,6 @@
 import provincesDropdownApp from './locationsDropdown'
 import toast from './toast'
+import sidebarApp from './sidebar'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -93,6 +94,7 @@ const defaultApp = {
         this.handleEvent()
         this.handleLoadHeader()
         provincesDropdownApp.init()
+        sidebarApp.init()
     },
 }
 
