@@ -1,3 +1,5 @@
+import toast from './toast'
+
 const locationsDropdownBtn = document.querySelector('.header__province__dropdown')
 const locationsDropdownSelect = document.querySelector('.header__province__dropdown__select')
 const locationsDropdownPopperWrapper = document.querySelector('.header__province__dropdown__select__popper--wrapper')
@@ -30,7 +32,7 @@ const locationsDropdownApp = {
     async handleFetchDistrict(provinceName) {
         const provinces = await this.handleFetchProvince()
 
-        const filePath = provinces[provinceName].file_path
+        const filePath = provinces[provinceName]?.file_path
 
         const response = await fetch(filePath)
         const data = await response.json()
@@ -56,6 +58,16 @@ const locationsDropdownApp = {
                 break
             case 'district':
                 {
+                    if (!this.locations.province) {
+                        toast({
+                            title: 'Cảnh báo',
+                            message: 'Vui lòng chọn tỉnh/thành phố trước',
+                            type: 'error',
+                        })
+
+                        return
+                    }
+
                     const districts = await this.handleFetchDistrict(this.locations.province)
 
                     data = districts
@@ -63,13 +75,41 @@ const locationsDropdownApp = {
                 break
             case 'ward':
                 {
-                    if (!this.locations.province || !this.locations.district) {
+                    if (!this.locations.province) {
+                        toast({
+                            title: 'Cảnh báo',
+                            message: 'Vui lòng chọn tỉnh/thành phố trước',
+                            type: 'error',
+                            duration: 1500,
+                        })
+
+                        return
+                    }
+
+                    if (!this.locations.district) {
+                        toast({
+                            title: 'Cảnh báo',
+                            message: 'Vui lòng chọn quận/huyện trước',
+                            type: 'error',
+                            duration: 1500,
+                        })
+
                         return
                     }
 
                     const districts = await this.handleFetchDistrict(this.locations.province)
 
-                    const wards = districts.find((district) => district.name === this.locations.district).ward
+                    const wards = districts.find((district) => district.name === this.locations.district)?.ward
+
+                    if (!wards) {
+                        toast({
+                            title: 'Cảnh báo',
+                            message: 'Vui lòng chọn tỉnh/thành phố trước',
+                            type: 'error',
+                        })
+
+                        return
+                    }
 
                     data = wards
                 }
