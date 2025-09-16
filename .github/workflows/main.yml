@@ -19,3 +19,5 @@ jobs:
                       cd /var/www/vanilla/Doan2
                       git checkout production
                       git pull
+                      yarn install
+                      pm2 restart doan
