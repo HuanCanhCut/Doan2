@@ -1,6 +1,7 @@
 import provincesDropdownApp from './locationsDropdown'
 import toast from './toast'
 import sidebarApp from './sidebar'
+import { listenEvent } from './helpers/event'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -64,6 +65,13 @@ const defaultApp = {
 
         overlay.addEventListener('click', () => {
             this.closeModal()
+        })
+
+        listenEvent({
+            eventName: 'modal:auth-open',
+            handler: (e) => {
+                this.openAuthModal(e.detail)
+            },
         })
     },
 
