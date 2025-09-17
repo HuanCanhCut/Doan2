@@ -5,6 +5,7 @@ const overlay = document.querySelector('#overlay')
 const sidebar = document.querySelector('#sidebar')
 const loginBtn = document.querySelector('.sidebar__auth--login')
 const registerBtn = document.querySelector('.sidebar__auth--register')
+const closeSidebarBtn = document.querySelector('.sidebar__close--btn')
 
 const sidebarApp = {
     handleEvent() {
@@ -14,6 +15,11 @@ const sidebarApp = {
         }
 
         overlay.onclick = () => {
+            overlay.classList.remove('active')
+            sidebar.classList.remove('active')
+        }
+
+        closeSidebarBtn.onclick = () => {
             overlay.classList.remove('active')
             sidebar.classList.remove('active')
         }

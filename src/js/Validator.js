@@ -47,7 +47,7 @@ function Validator(options) {
         formElement.onsubmit = async function (e) {
             e.preventDefault()
 
-            var isFormValid = true
+            let isFormValid = true
 
             for (let rule of arrayRules) {
                 let inputElement = document.querySelector(rule.selector)
@@ -103,7 +103,7 @@ Validator.isEmail = function (selector, errorMessage) {
     return {
         selector: selector,
         test: function (value) {
-            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+            return /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(value)
                 ? undefined
                 : errorMessage || 'Email không đúng định dạng!'
         },
@@ -131,7 +131,7 @@ Validator.isUrl = function (selector, errorMessage) {
     return {
         selector: selector,
         test: function (value) {
-            return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g.test(
+            return /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/g.test(
                 value
             )
                 ? undefined

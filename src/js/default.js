@@ -25,7 +25,7 @@ const defaultApp = {
                         type: 'success',
                     })
 
-                    this.handleLoadHeader()
+                    this.handleLoadUI()
 
                     break
                 case 'modal:toast-success':
@@ -75,15 +75,26 @@ const defaultApp = {
         })
     },
 
-    handleLoadHeader() {
+    // load ui after login/logout
+    handleLoadUI() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
         if (currentUser) {
             document.querySelector('.header__actions--post').classList.remove('col-hidden')
             document.querySelector('.header__actions--auth').classList.add('col-hidden')
+            document.querySelector('.header__actions--auth[data-type="mobile"]').classList.remove('col-block')
+            document.querySelector('.header__actions__user').classList.add('active')
+
+            document.querySelector('.sidebar__user__info').classList.add('active')
+            document.querySelector('.sidebar__auth').classList.remove('active')
         } else {
             document.querySelector('.header__actions--post').classList.add('col-hidden')
             document.querySelector('.header__actions--auth').classList.remove('col-hidden')
+            document.querySelector('.header__actions--auth[data-type="mobile"]').classList.add('col-block')
+            document.querySelector('.header__actions__user').classList.remove('active')
+
+            document.querySelector('.sidebar__user__info').classList.remove('active')
+            document.querySelector('.sidebar__auth').classList.add('active')
         }
     },
 
@@ -100,7 +111,7 @@ const defaultApp = {
 
     init() {
         this.handleEvent()
-        this.handleLoadHeader()
+        this.handleLoadUI()
         provincesDropdownApp.init()
         sidebarApp.init()
     },

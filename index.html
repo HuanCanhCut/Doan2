@@ -17,7 +17,7 @@
             <iframe src="" frameborder="0" id="modal"></iframe>
             <header id="header" class="grid">
                 <div class="row">
-                    <div class="col col-3 md:col-3 lg:col-3 sm:col-2 xl:col-3">
+                    <div class="col col-3 md:col-3 lg:col-3 sm:col-2 xl:col-2">
                         <div class="header__left">
                             <button class="header__toggle--sidebar header__item">
                                 <i class="fa-solid fa-bars"></i>
@@ -142,20 +142,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-7 md:col-5 lg:col-6 sm:col-8 xl:col-6">
+                    <div class="col col-7 md:col-5 lg:col-6 sm:col-8 xl:col-7">
                         <div class="header__search header__item">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
                         </div>
                     </div>
-                    <div class="col col-1 md:col-4 lg:col-3 sm:col-2 xl:col-3">
+                    <div class="col col-2 md:col-4 lg:col-3 sm:col-2 xl:col-3">
                         <div class="header__actions header__item">
-                            <div class="header__actions--heart col-hidden md:col-block">
-                                <a href="favorites.html" class="header__actions__heart">
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            </div>
-
                             <div class="header__actions--post col-hidden">
                                 <a href="manage-ads.html">
                                     <button class="header__actions__button header__actions__button--outline">
@@ -182,12 +176,19 @@
                                 </button>
                             </div>
 
-                            <div class="header__actions--auth col-block md:col-hidden">
+                            <div class="header__actions--auth col-block md:col-hidden" data-type="mobile">
                                 <button
                                     class="header__actions__button header__actions__button--outline header__actions__button--auth"
                                 >
                                     Auth
                                 </button>
+                            </div>
+
+                            <div class="header__actions__user">
+                                <img
+                                    src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
+                                    alt=""
+                                />
                             </div>
                         </div>
                     </div>
@@ -196,16 +197,58 @@
 
             <!-- SIDEBAR -->
             <aside id="sidebar">
+                <button class="sidebar__close--btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
                 <div class="sidebar__wrapper">
                     <div class="sidebar__user__info">
                         <img src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg" alt="" />
                         <h3>John Doe</h3>
-                        <p class="sidebar__user__info--role">Môi giới</p>
                     </div>
 
-                    <div class="sidebar__auth"></div>
+                    <div class="sidebar__auth active">
+                        <div class="sidebar__auth--slogan">
+                            <h3>Mua thì hời, bán thì lời</h3>
+                            <p>Đăng nhập cái đã!!!</p>
+                        </div>
+                        <div class="sidebar__auth__buttons">
+                            <button class="sidebar__auth--register">Đăng ký</button>
+                            <button class="sidebar__auth--login">Đăng nhập</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar__menu__wrapper">
+                        <h4>Danh mục</h4>
+                        <ul class="sidebar__menu">
+                            <li>
+                                <a href="/">
+                                    <i class="fa-solid fa-house"></i>
+                                    <p>Trang chủ</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa-solid fa-list-check"></i>
+                                    <p>Quản lí tin</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <p>Tin đã thích</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa-solid fa-user"></i>
+                                    <p>Quản lý tài khoản</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </aside>
         </div>
+        <script type="module" src="./src/js/default.js"></script>
     </body>
 </html>
