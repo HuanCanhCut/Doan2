@@ -8,6 +8,8 @@ const registerBtn = document.querySelector('.header__actions__button--register')
 const authBtn = document.querySelector('.header__actions__button--auth')
 const modal = document.querySelector('#modal')
 const overlay = document.querySelector('#overlay')
+const userAvatar = document.querySelector('.header__actions__user img')
+const logoutBtn = document.querySelector('.header__user__action--logout button')
 
 const defaultApp = {
     handleEvent() {
@@ -67,6 +69,23 @@ const defaultApp = {
             this.closeModal()
         })
 
+        userAvatar.onclick = () => {
+            document.querySelector('.header__actions__user__wrapper').classList.toggle('active')
+        }
+
+        logoutBtn.onclick = () => {
+            localStorage.removeItem('currentUser')
+
+            this.handleLoadUI()
+        }
+
+        window.addEventListener('click', (e) => {
+            // if click outside of user menu active, close it
+            if (!e.target.closest('.header__actions__user__wrapper') && !e.target.closest('.header__actions__user')) {
+                document.querySelector('.header__actions__user__wrapper').classList.remove('active')
+            }
+        })
+
         listenEvent({
             eventName: 'modal:auth-open',
             handler: (e) => {
@@ -117,4 +136,4 @@ const defaultApp = {
     },
 }
 
-defaultApp.init()
+export default defaultApp

@@ -60,6 +60,11 @@
     margin-right: 10px;
 }
 
+.header__logo {
+    height: 44px;
+    object-fit: contain;
+}
+
 .header__province {
     position: relative;
 }
@@ -263,6 +268,7 @@
 
 .header__search {
     position: relative;
+    padding: 0 8px;
 }
 
 .header__search .fa-magnifying-glass {
@@ -303,6 +309,53 @@
 
     .header__actions__user.active {
         display: flex;
+        position: relative;
+
+        .header__actions__user__wrapper {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 250px;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+
+                li {
+                    padding: 12px;
+                    border-radius: 8px;
+                    cursor: pointer;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+
+                    &:hover {
+                        background-color: var(--background);
+                    }
+
+                    &.header__user__action--logout {
+                        border-top: 1px solid #ddd;
+
+                        * {
+                            color: red;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -342,7 +395,6 @@
 }
 
 /* SIDEBAR */
-
 #sidebar {
     position: fixed;
     top: 0;

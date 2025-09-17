@@ -17,11 +17,18 @@
             <iframe src="" frameborder="0" id="modal"></iframe>
             <header id="header" class="grid">
                 <div class="row">
-                    <div class="col col-3 md:col-3 lg:col-3 sm:col-2 xl:col-2">
+                    <div class="col col-3 sm:col-2 md:col-3 lg:col-3 xl:col-3">
                         <div class="header__left">
-                            <button class="header__toggle--sidebar header__item">
+                            <button class="header__toggle--sidebar header__item col-block md:col-hidden">
                                 <i class="fa-solid fa-bars"></i>
                             </button>
+                            <img src="/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo" />
+                            <img
+                                src="/static/logo.png"
+                                alt=""
+                                class="col-hidden md:col-block lg:col-hidden header__logo"
+                            />
+
                             <div class="header__province">
                                 <button class="header__province__dropdown">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -142,13 +149,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-7 md:col-5 lg:col-6 sm:col-8 xl:col-7">
+                    <div class="col col-7 sm:col-8 md:col-5 lg:col-6 xl:col-6">
                         <div class="header__search header__item">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
                         </div>
                     </div>
-                    <div class="col col-2 md:col-4 lg:col-3 sm:col-2 xl:col-3">
+                    <div class="col col-2 sm:col-2 md:col-4 lg:col-3 xl:col-3">
                         <div class="header__actions header__item">
                             <div class="header__actions--post col-hidden">
                                 <a href="manage-ads.html">
@@ -189,6 +196,26 @@
                                     src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
                                     alt=""
                                 />
+
+                                <div class="header__actions__user__wrapper">
+                                    <ul>
+                                        <li>
+                                            <a href="">
+                                                <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
+                                            </a>
+                                        </li>
+                                        <li class="header__user__action--logout">
+                                            <button>
+                                                <span><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,7 +268,7 @@
                             <li>
                                 <a href="">
                                     <i class="fa-solid fa-user"></i>
-                                    <p>Quản lý tài khoản</p>
+                                    <p>Thông tin tài khoản</p>
                                 </a>
                             </li>
                         </ul>
@@ -249,6 +276,6 @@
                 </div>
             </aside>
         </div>
-        <script type="module" src="./src/js/default.js"></script>
+        <script type="module" src="./src/js/index.js"></script>
     </body>
 </html>
