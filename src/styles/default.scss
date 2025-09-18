@@ -60,6 +60,17 @@
     margin-right: 10px;
 }
 
+#main {
+    margin-top: 20px;
+
+    .grid.wide {
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+    }
+}
+
 .header__logo {
     height: 44px;
     object-fit: contain;
