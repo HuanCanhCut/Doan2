@@ -1,33 +1,26 @@
 import toast from './toast'
 
-const locationsDropdownBtn = document.querySelector('.header__province__dropdown')
-const locationsDropdownSelect = document.querySelector('.header__province__dropdown__select')
-const locationsDropdownPopperWrapper = document.querySelector('.header__province__dropdown__select__popper--wrapper')
-const selectLocation = document.querySelectorAll('.header__province__dropdown__select__popper__content')
-const locationOptionsWrappers = document.querySelectorAll('#location__options__wrapper')
-const locationsBackBtns = document.querySelectorAll('.province__options__header button')
+class locationsDropdownApp {
+    constructor() {
+        this.locations = {
+            province: '',
+            district: '',
+            ward: '',
+        }
+    }
 
-const locationsDropdownApp = {
-    locations: {
-        province: '',
-        district: '',
-        ward: '',
-    },
-
-    loadSelectedLocation() {
-        const locationSelectedValues = document.querySelectorAll(
-            '.header__province__dropdown__select__popper__content__value'
-        )
+    loadSelectedLocation(root) {
+        const locationSelectedValues = root.querySelectorAll('.province__dropdown__select__popper__content__value')
 
         locationSelectedValues.forEach((item) => {
             item.textContent = this.locations[item.dataset.type]
         })
-    },
+    }
 
     async handleFetchProvince() {
         const response = await fetch('/locations/index.json')
         return await response.json()
-    },
+    }
 
     async handleFetchDistrict(provinceName) {
         const provinces = await this.handleFetchProvince()
@@ -38,12 +31,12 @@ const locationsDropdownApp = {
         const data = await response.json()
 
         return data.district
-    },
+    }
 
-    async handleSelectLocation(item) {
+    async handleSelectLocation(item, root) {
         const type = item.dataset.type
 
-        const provinceOptionsList = document.querySelector(`.province__options__list[data-type="${type}"]`)
+        const provinceOptionsList = root.querySelector(`.province__options__list[data-type="${type}"]`)
 
         let data = []
 
@@ -99,7 +92,9 @@ const locationsDropdownApp = {
 
                     const districts = await this.handleFetchDistrict(this.locations.province)
 
-                    const wards = districts.find((district) => district.name === this.locations.district)?.ward
+                    const wards = districts.find(
+                        (district) => `${district.pre} ${district.name}` === this.locations.district
+                    )?.ward
 
                     if (!wards) {
                         toast({
@@ -121,8 +116,10 @@ const locationsDropdownApp = {
         provinceOptionsList.innerHTML = data
             .map((item) => {
                 return `
-                    <li class="province__options__list--item" data-value="${item.name ? item.name : item}">
-                        <button>${item.name ? `${item.pre} ${item.name}` : item}</button>
+                    <li class="province__options__list--item" data-value="${
+                        item.name ? `${item.pre} ${item.name}` : item
+                    }">
+                        <button type="button">${item.name ? `${item.pre} ${item.name}` : item}</button>
                         <div class="province__options__list--item--checkbox ${
                             this.locations[type].normalize() === (item.name ? item.name.normalize() : item.normalize())
                                 ? 'checked'
@@ -153,17 +150,17 @@ const locationsDropdownApp = {
 
                 this.locations[type] = item.dataset.value
 
-                locationOptionsWrappers.forEach((location) => {
+                root.querySelectorAll('#location__options__wrapper').forEach((location) => {
                     location.classList.remove('active')
                 })
 
-                locationsDropdownPopperWrapper.classList.add('active')
+                root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
 
-                this.loadSelectedLocation()
+                this.loadSelectedLocation(root)
             })
         })
 
-        locationOptionsWrappers.forEach((location) => {
+        root.querySelectorAll('#location__options__wrapper').forEach((location) => {
             if (location.dataset.type === type) {
                 location.classList.toggle('active')
             } else {
@@ -171,58 +168,67 @@ const locationsDropdownApp = {
             }
         })
 
-        locationsDropdownPopperWrapper.classList.remove('active')
-    },
+        root.querySelector('.province__dropdown__select__popper--wrapper').classList.remove('active')
+    }
 
-    handleClickOutsideLocationsDropdown() {
-        locationsDropdownSelect.classList.remove('active')
+    handleClickOutsideLocationsDropdown(root) {
+        root.querySelector('.province__dropdown__select').classList.remove('active')
 
-        locationsDropdownPopperWrapper.classList.add('active')
+        root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
 
-        locationOptionsWrappers.forEach((location) => {
+        root.querySelectorAll('#location__options__wrapper').forEach((location) => {
             location.classList.remove('active')
         })
-    },
+    }
 
-    handleEvent() {
-        locationsDropdownBtn.onclick = () => {
-            locationsDropdownSelect.classList.toggle('active')
+    handleEvent(root, onSubmit) {
+        root.querySelector('.province__dropdown').onclick = () => {
+            root.querySelector('.province__dropdown__select').classList.toggle('active')
         }
 
-        selectLocation.forEach((item) => {
+        root.querySelectorAll('.province__dropdown__select__popper__content').forEach((item) => {
             item.addEventListener('click', async () => {
-                await this.handleSelectLocation(item)
+                await this.handleSelectLocation(item, root)
             })
         })
 
-        locationsBackBtns.forEach((btn) => {
+        root.querySelectorAll('.province__options__header button').forEach((btn) => {
             btn.onclick = () => {
-                locationOptionsWrappers.forEach((location) => {
+                root.querySelectorAll('#location__options__wrapper').forEach((location) => {
                     location.classList.remove('active')
                 })
 
-                locationsDropdownPopperWrapper.classList.add('active')
+                root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
             }
         })
 
+        root.querySelector('.province__dropdown__actions--button').onclick = () => {
+            onSubmit(this.getLocations())
+            this.handleClickOutsideLocationsDropdown(root)
+        }
+
         // handle click outside popper
         window.addEventListener('click', (e) => {
-            if (!e.target.closest('.header__province')) {
-                this.handleClickOutsideLocationsDropdown()
+            if (!e.target.closest('.province')) {
+                this.handleClickOutsideLocationsDropdown(root)
             }
         })
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                this.handleClickOutsideLocationsDropdown()
+                this.handleClickOutsideLocationsDropdown(root)
             }
         })
-    },
+    }
 
-    init() {
-        this.handleEvent()
-        this.loadSelectedLocation()
-    },
+    getLocations() {
+        return this.locations
+    }
+
+    init({ root, onSubmit = () => {} }) {
+        this.handleEvent(root, onSubmit)
+        this.loadSelectedLocation(root)
+    }
 }
 
 export default locationsDropdownApp

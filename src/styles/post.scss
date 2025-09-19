@@ -35,19 +35,12 @@
     }
 }
 
-@media screen and (max-width: 48rem) {
-    .post__images--upload--area {
-        aspect-ratio: 16/9;
-    }
-}
-
 // Post form styles
 #post__form {
     padding: 20px;
 }
 
 .post__form__section {
-    padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
 
     &:last-child {
@@ -106,7 +99,7 @@
 
 .form-group__input input:not(:placeholder-shown) + label {
     top: 0px;
-    background-color: #e6e5f1;
+    background-color: #fff;
     padding: 0 4px;
     font-size: 1.2rem;
 }
@@ -169,6 +162,10 @@
     display: flex;
     gap: 16px;
     margin-bottom: 16px;
+
+    .form-group {
+        flex: 1;
+    }
 }
 
 .post__form__col {
@@ -192,29 +189,21 @@
     gap: 12px;
 }
 
-.post__form__radio {
+.post__form__radio,
+.post__form__role {
     position: relative;
     cursor: pointer;
-
-    input[type='radio'] {
-        display: none;
-    }
-}
-
-.radio-button {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    font-size: 1.3rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
     color: var(--text-color-secondary);
-    background: white;
-    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(189, 189, 189, 0.201);
 
-    &--secondary {
-        color: var(--orange);
-        border-color: var(--orange);
-        background: rgba(255, 152, 0, 0.1);
+    &.active {
+        background: var(--primary);
+        color: white;
     }
 }
 
@@ -281,7 +270,32 @@
     color: var(--text-color-tertiary);
 }
 
-@media screen and (max-width: 768px) {
+.post__form__submit {
+    width: 100%;
+    margin-top: 40px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    box-shadow: 0px 4px 0px #ff7429ca;
+    letter-spacing: 1px;
+
+    &:active {
+        letter-spacing: 0;
+        box-shadow: none;
+        transform: translateY(4px);
+    }
+}
+
+@media screen and (max-width: 40rem) {
+    .post__images--upload--area {
+        aspect-ratio: 16/9;
+    }
+
     .post__form {
         padding: 16px;
     }
@@ -294,9 +308,5 @@
     .post__form__radio-buttons {
         flex-direction: column;
         align-items: flex-start;
-    }
-
-    .post__form__section {
-        padding-bottom: 16px;
     }
 }

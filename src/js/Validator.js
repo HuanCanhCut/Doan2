@@ -1,19 +1,12 @@
-function Validator(options) {
+import getParentElement from './helpers/getParentElement'
+
+const Validator = (options) => {
     let formElement = document.querySelector(options.form)
     let selectorRules = {}
 
-    function getParentElement(element, selector) {
-        while (element.parentElement) {
-            if (element.parentElement.matches(selector)) {
-                return element.parentElement
-            }
-            element = element.parentElement
-        }
-    }
-
     if (formElement) {
         //? function invalid
-        function invalid(inputElement, rule) {
+        const invalid = (inputElement, rule) => {
             let errorElement = getParentElement(inputElement, options.formGroup).querySelector(options.errorSelector)
             let errorMessage
 
@@ -34,8 +27,13 @@ function Validator(options) {
             }
 
             //? input handled
-            inputElement.oninput = function () {
-                document.querySelector('.error-message').innerText = ''
+            inputElement.oninput = () => {
+                const errorMessage = document.querySelector('.error-message')
+
+                if (errorMessage) {
+                    errorMessage.innerText = ''
+                }
+
                 errorElement.innerText = ''
                 getParentElement(inputElement, options.formGroup).classList.remove('invalid')
             }
@@ -44,7 +42,7 @@ function Validator(options) {
 
         let arrayRules = options.rules
         //? handled submit
-        formElement.onsubmit = async function (e) {
+        formElement.onsubmit = async (e) => {
             e.preventDefault()
 
             let isFormValid = true
@@ -90,7 +88,7 @@ function Validator(options) {
     }
 }
 
-Validator.isRequired = function (selector, errorMessage) {
+Validator.isRequired = (selector, errorMessage) => {
     return {
         selector: selector,
         test: function (value) {
@@ -99,7 +97,7 @@ Validator.isRequired = function (selector, errorMessage) {
     }
 }
 
-Validator.isEmail = function (selector, errorMessage) {
+Validator.isEmail = (selector, errorMessage) => {
     return {
         selector: selector,
         test: function (value) {
@@ -109,7 +107,7 @@ Validator.isEmail = function (selector, errorMessage) {
         },
     }
 }
-Validator.isPassword = function (selector, min, errorMessage) {
+Validator.isPassword = (selector, min, errorMessage) => {
     return {
         selector: selector,
         test: function (value) {
@@ -118,7 +116,7 @@ Validator.isPassword = function (selector, min, errorMessage) {
     }
 }
 
-Validator.isConfirm = function (selector, getConfirmValue, errorMessage) {
+Validator.isConfirm = (selector, getConfirmValue, errorMessage) => {
     return {
         selector: selector,
         test: function (value) {
@@ -127,7 +125,7 @@ Validator.isConfirm = function (selector, getConfirmValue, errorMessage) {
     }
 }
 
-Validator.isUrl = function (selector, errorMessage) {
+Validator.isUrl = (selector, errorMessage) => {
     return {
         selector: selector,
         test: function (value) {

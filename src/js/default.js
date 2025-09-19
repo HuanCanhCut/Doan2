@@ -1,4 +1,4 @@
-import provincesDropdownApp from './locationsDropdown'
+import locationsDropdownApp from './locationsDropdown'
 import toast from './toast'
 import sidebarApp from './sidebar'
 import { listenEvent } from './helpers/event'
@@ -131,7 +131,9 @@ const defaultApp = {
     init() {
         this.handleEvent()
         this.handleLoadUI()
-        provincesDropdownApp.init()
+        new locationsDropdownApp().init({
+            root: document.querySelector('#header__location'),
+        })
         sidebarApp.init()
     },
 }
