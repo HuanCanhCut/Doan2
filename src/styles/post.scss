@@ -47,6 +47,10 @@
         border-bottom: none;
         margin-bottom: 0;
     }
+
+    &:nth-child(1) {
+        margin-bottom: 25px;
+    }
 }
 
 .post__form__title {

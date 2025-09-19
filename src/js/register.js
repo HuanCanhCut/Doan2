@@ -37,7 +37,13 @@ const app = {
                     return
                 }
 
-                localStorage.setItem('users', JSON.stringify([...users, { ...mockUser, email, password }]))
+                const lastUserId = users.length > 0 ? users[users.length - 1].id + 1 : 1
+
+                localStorage.setItem(
+                    'users',
+                    JSON.stringify([...users, { ...mockUser, id: lastUserId, email, password }])
+                )
+                localStorage.setItem('currentUser', JSON.stringify({ ...mockUser, id: lastUserId, email, password }))
 
                 window.parent.postMessage(
                     {
