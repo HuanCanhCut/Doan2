@@ -279,11 +279,28 @@
                                 Hình ảnh sản phẩm
                                 <span class="field--required"><span class="field--required">*</span></span>
                             </h4>
-                            <input id="post__images" type="file" multiple hidden accept="image/*" />
-                            <label for="post__images" class="post__images--upload--area uploaded">
-                                <i class="fa-solid fa-camera"></i>
-                                <span>Đăng từ 3 đến 12 hình</span>
-                            </label>
+                            <input id="post__images" type="file" multiple hidden maxlength="12" accept="image/*" />
+                            <div class="post__images--upload--area--wrapper">
+                                <label for="post__images" class="post__images--upload--area">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <span>Đăng từ 3 đến 12 hình</span>
+                                </label>
+
+                                <div class="post__images--upload--area--preview">
+                                    <label for="post__images" class="post__images--upload--area uploaded">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </label>
+                                    <div class="post__images--upload--area--preview__item">
+                                        <img
+                                            src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
+                                            alt=""
+                                        />
+                                        <button class="post__images--upload--area--preview__item__remove">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col col-12 md:col-9">
                             <form id="post__form">
