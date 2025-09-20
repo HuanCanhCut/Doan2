@@ -33,6 +33,23 @@ class locationsDropdownApp {
         return data.district
     }
 
+    handleRenderOptions(data, type) {
+        return data
+            .map((item) => {
+                return `
+                <li class="province__options__list--item" data-value="${item.name ? `${item.pre} ${item.name}` : item}">
+                    <button type="button">${item.name ? `${item.pre} ${item.name}` : item}</button>
+                    <div class="province__options__list--item--checkbox ${
+                        this.locations[type].normalize() === (item.name ? item.name.normalize() : item.normalize())
+                            ? 'checked'
+                            : ''
+                    }"></div>
+                </li>
+            `
+            })
+            .join('')
+    }
+
     async handleSelectLocation(item, root) {
         const type = item.dataset.type
 
@@ -113,22 +130,7 @@ class locationsDropdownApp {
                 break
         }
 
-        provinceOptionsList.innerHTML = data
-            .map((item) => {
-                return `
-                    <li class="province__options__list--item" data-value="${
-                        item.name ? `${item.pre} ${item.name}` : item
-                    }">
-                        <button type="button">${item.name ? `${item.pre} ${item.name}` : item}</button>
-                        <div class="province__options__list--item--checkbox ${
-                            this.locations[type].normalize() === (item.name ? item.name.normalize() : item.normalize())
-                                ? 'checked'
-                                : ''
-                        }"></div>
-                    </li>
-                `
-            })
-            .join('')
+        provinceOptionsList.innerHTML = this.handleRenderOptions(data, type)
 
         const provinceOptionsListItems = provinceOptionsList.querySelectorAll('.province__options__list--item')
 
@@ -169,6 +171,35 @@ class locationsDropdownApp {
         })
 
         root.querySelector('.province__dropdown__select__popper--wrapper').classList.remove('active')
+
+        const searchInput = root.querySelector(`.province__options__search input[data-type="${type}"]`)
+
+        searchInput.focus()
+
+        searchInput.oninput = (e) => {
+            if (e.target.value.length === 0) {
+                provinceOptionsList.innerHTML = this.handleRenderOptions(data, type)
+                return
+            }
+
+            const newData = data.filter((item) => {
+                // province
+                if (typeof item === 'string') {
+                    return item.toLowerCase().normalize().includes(e.target.value.toLowerCase().normalize())
+                } else {
+                    return (
+                        item.pre.toLowerCase().normalize().includes(e.target.value.toLowerCase().normalize()) ||
+                        item.name.toLowerCase().normalize().includes(e.target.value.toLowerCase().normalize()) ||
+                        (item.pre + ' ' + item.name)
+                            .toLowerCase()
+                            .normalize()
+                            .includes(e.target.value.toLowerCase().normalize())
+                    )
+                }
+            })
+
+            provinceOptionsList.innerHTML = this.handleRenderOptions(newData, type)
+        }
     }
 
     handleClickOutsideLocationsDropdown(root) {
