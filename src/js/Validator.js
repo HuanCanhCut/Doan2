@@ -61,7 +61,8 @@ const Validator = (options) => {
                     const enabledInputs = formElement.querySelectorAll('[name]')
 
                     const data = Array.from(enabledInputs).reduce((value, input) => {
-                        return (value[input.name] = input.value) && value
+                        value[input.name] = input.value
+                        return value
                     }, {})
 
                     await options.submit(data)
@@ -134,6 +135,19 @@ Validator.isUrl = (selector, errorMessage) => {
             )
                 ? undefined
                 : errorMessage || 'URL không hợp lệ!'
+        },
+    }
+}
+
+const isNumber = (value, errorMessage) => {
+    return /^-?\d*(\.\d+)?$/.test(value.trim()) && value.trim() !== '' ? undefined : errorMessage || 'Vui lòng nhập số!'
+}
+
+Validator.isNumber = (selector, errorMessage) => {
+    return {
+        selector: selector,
+        test: (value) => {
+            return isNumber(value, errorMessage)
         },
     }
 }

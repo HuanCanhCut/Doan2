@@ -154,7 +154,8 @@
     font-size: 1.2rem;
 }
 
-.form-group__input input:not(:placeholder-shown) + label {
+.form-group__input input:not(:placeholder-shown) + label,
+.form-group__input textarea:not(:placeholder-shown) + label {
     top: 0px;
     background-color: #fff;
     padding: 0 4px;
@@ -348,11 +349,13 @@
     }
 }
 
-@media screen and (max-width: 40rem) {
+@media screen and (max-width: 48rem) {
     .post__images--upload--area {
         aspect-ratio: 16/9;
     }
+}
 
+@media screen and (max-width: 40rem) {
     .post__form {
         padding: 16px;
     }

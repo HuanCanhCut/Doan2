@@ -22,22 +22,25 @@ const postApp = {
             rules: [
                 Validator.isRequired('#type'),
                 Validator.isRequired('#bedrooms'),
+                Validator.isNumber('#bedrooms'),
                 Validator.isRequired('#bathrooms'),
+                Validator.isNumber('#bathrooms'),
                 Validator.isRequired('#legal-documents'),
                 Validator.isRequired('#area'),
+                Validator.isNumber('#area'),
                 Validator.isRequired('#rent-price'),
                 Validator.isRequired('#title'),
                 Validator.isRequired('#description'),
             ],
             submit: async (data) => {
-                //
+                console.log(data)
             },
         })
     },
 
     handleSubmitLocation(locations) {
         this.locations = locations
-        const addressBd = document.querySelector('#address-bd')
+        const addressBd = document.querySelector('#address_bd')
 
         const addressArr = []
 
