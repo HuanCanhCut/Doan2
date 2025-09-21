@@ -166,6 +166,10 @@
     position: relative;
 }
 
+.form-group__input input {
+    height: 40px;
+}
+
 .form-group label {
     position: absolute;
     top: 50%;
@@ -184,15 +188,6 @@
     font-size: 14px;
     color: #6e6e6e;
     transition: all linear 0.2s;
-}
-
-.post__form__select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQgNkw4IDEwTDEyIDYiIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+');
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 16px;
-    padding-right: 48px;
 }
 
 .post__form__textarea {
@@ -349,15 +344,9 @@
     }
 }
 
-@media screen and (max-width: 48rem) {
-    .post__images--upload--area {
-        aspect-ratio: 16/9;
-    }
-}
-
 @media screen and (max-width: 40rem) {
-    .post__form {
-        padding: 16px;
+    #post__form {
+        padding: 16px 0;
     }
 
     .post__form__row {
@@ -368,5 +357,11 @@
     .post__form__radio-buttons {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    .post__images--upload--area {
+        aspect-ratio: 16/9;
     }
 }

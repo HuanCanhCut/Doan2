@@ -2,6 +2,7 @@ import Validator from './Validator'
 import defaultApp from './default'
 import getParentElement from './helpers/getParentElement'
 import locationsDropdownApp from './locationsDropdown'
+import toast from './toast'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
@@ -25,15 +26,49 @@ const postApp = {
                 Validator.isNumber('#bedrooms'),
                 Validator.isRequired('#bathrooms'),
                 Validator.isNumber('#bathrooms'),
-                Validator.isRequired('#legal-documents'),
+                Validator.isRequired('#legal_documents'),
                 Validator.isRequired('#area'),
                 Validator.isNumber('#area'),
-                Validator.isRequired('#rent-price'),
+                Validator.isRequired('#rent_price'),
                 Validator.isRequired('#title'),
                 Validator.isRequired('#description'),
             ],
             submit: async (data) => {
-                console.log(data)
+                const newData = {}
+
+                for (const key in data) {
+                    if (document.querySelector(`[name="${key}"]`).dataset.detail) {
+                        if (!newData['detail']) {
+                            newData['detail'] = {}
+                        }
+
+                        newData['detail'][key] = data[key]
+                    } else {
+                        newData[key] = data[key]
+                    }
+                }
+
+                const updatedData = {
+                    ...newData,
+                    type_category: this.categoryType,
+                    role: this.roleType,
+                    images: this.imagesFiles.map(
+                        () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
+                    ),
+                    post_category: this.categoryType,
+                }
+
+                const postDb = JSON.parse(localStorage.getItem('posts')) || []
+
+                postDb.push(updatedData)
+
+                localStorage.setItem('posts', JSON.stringify(postDb))
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Tin của bạn đã được đăng tải thành công',
+                    type: 'success',
+                })
             },
         })
     },
