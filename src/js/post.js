@@ -152,10 +152,7 @@ const postApp = {
 
     init() {
         defaultApp.init()
-        new locationsDropdownApp().init({
-            root: document.querySelector('#form__location'),
-            onSubmit: this.handleSubmitLocation.bind(this),
-        })
+        new locationsDropdownApp(document.querySelector('#form__location')).init(this.handleSubmitLocation.bind(this))
         this.handleValidator()
         this.handleEvent()
     },

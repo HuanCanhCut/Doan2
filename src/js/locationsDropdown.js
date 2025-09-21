@@ -1,7 +1,8 @@
 import toast from './toast'
 
 class locationsDropdownApp {
-    constructor() {
+    constructor(root) {
+        this.root = root
         this.locations = {
             province: '',
             district: '',
@@ -9,8 +10,8 @@ class locationsDropdownApp {
         }
     }
 
-    loadSelectedLocation(root) {
-        const locationSelectedValues = root.querySelectorAll('.province__dropdown__select__popper__content__value')
+    loadSelectedLocation() {
+        const locationSelectedValues = this.root.querySelectorAll('.province__dropdown__select__popper__content__value')
 
         locationSelectedValues.forEach((item) => {
             item.textContent = this.locations[item.dataset.type]
@@ -37,23 +38,56 @@ class locationsDropdownApp {
         return data
             .map((item) => {
                 return `
-                <li class="province__options__list--item" data-value="${item.name ? `${item.pre} ${item.name}` : item}">
-                    <button type="button">${item.name ? `${item.pre} ${item.name}` : item}</button>
-                    <div class="province__options__list--item--checkbox ${
-                        this.locations[type].normalize() === (item.name ? item.name.normalize() : item.normalize())
-                            ? 'checked'
-                            : ''
-                    }"></div>
-                </li>
+                    <li class="province__options__list--item" data-value="${
+                        item.name ? `${item.pre} ${item.name}` : item
+                    }">
+                        <button type="button">${item.name ? `${item.pre} ${item.name}` : item}</button>
+                        <div class="province__options__list--item--checkbox ${
+                            this.locations[type].normalize() ===
+                            (item.name ? `${item.pre} ${item.name}` : item.normalize())
+                                ? 'checked'
+                                : ''
+                        }"></div>
+                    </li>
             `
             })
             .join('')
     }
 
-    async handleSelectLocation(item, root) {
+    handleClickOption(provinceOptionsListItems, type) {
+        provinceOptionsListItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const permissionRemove = {
+                    province: ['district', 'ward'],
+                    district: ['ward'],
+                    ward: [],
+                }
+
+                permissionRemove[type].forEach((locationType) => {
+                    const selectedLocationName = item.dataset.value
+
+                    if (selectedLocationName !== this.locations[type]) {
+                        this.locations[locationType] = ''
+                    }
+                })
+
+                this.locations[type] = item.dataset.value
+
+                this.root.querySelectorAll('#location__options__wrapper').forEach((location) => {
+                    location.classList.remove('active')
+                })
+
+                this.root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
+
+                this.loadSelectedLocation()
+            })
+        })
+    }
+
+    async handleSelectLocation(item) {
         const type = item.dataset.type
 
-        const provinceOptionsList = root.querySelector(`.province__options__list[data-type="${type}"]`)
+        const provinceOptionsList = this.root.querySelector(`.province__options__list[data-type="${type}"]`)
 
         let data = []
 
@@ -134,35 +168,9 @@ class locationsDropdownApp {
 
         const provinceOptionsListItems = provinceOptionsList.querySelectorAll('.province__options__list--item')
 
-        provinceOptionsListItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                const permissionRemove = {
-                    province: ['district', 'ward'],
-                    district: ['ward'],
-                    ward: [],
-                }
+        this.handleClickOption(provinceOptionsListItems, type)
 
-                permissionRemove[type].forEach((locationType) => {
-                    const selectedLocationName = item.dataset.value
-
-                    if (selectedLocationName !== this.locations[type]) {
-                        this.locations[locationType] = ''
-                    }
-                })
-
-                this.locations[type] = item.dataset.value
-
-                root.querySelectorAll('#location__options__wrapper').forEach((location) => {
-                    location.classList.remove('active')
-                })
-
-                root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
-
-                this.loadSelectedLocation(root)
-            })
-        })
-
-        root.querySelectorAll('#location__options__wrapper').forEach((location) => {
+        this.root.querySelectorAll('#location__options__wrapper').forEach((location) => {
             if (location.dataset.type === type) {
                 location.classList.toggle('active')
             } else {
@@ -170,15 +178,20 @@ class locationsDropdownApp {
             }
         })
 
-        root.querySelector('.province__dropdown__select__popper--wrapper').classList.remove('active')
+        this.root.querySelector('.province__dropdown__select__popper--wrapper').classList.remove('active')
 
-        const searchInput = root.querySelector(`.province__options__search input[data-type="${type}"]`)
+        const searchInput = this.root.querySelector(`.province__options__search input[data-type="${type}"]`)
 
         searchInput.focus()
 
         searchInput.oninput = (e) => {
             if (e.target.value.length === 0) {
                 provinceOptionsList.innerHTML = this.handleRenderOptions(data, type)
+
+                const provinceOptionsListItems = provinceOptionsList.querySelectorAll('.province__options__list--item')
+
+                this.handleClickOption(provinceOptionsListItems, type)
+
                 return
             }
 
@@ -199,55 +212,59 @@ class locationsDropdownApp {
             })
 
             provinceOptionsList.innerHTML = this.handleRenderOptions(newData, type)
+
+            const provinceOptionsListItems = provinceOptionsList.querySelectorAll('.province__options__list--item')
+
+            this.handleClickOption(provinceOptionsListItems, type)
         }
     }
 
-    handleClickOutsideLocationsDropdown(root) {
-        root.querySelector('.province__dropdown__select').classList.remove('active')
+    handleClickOutsideLocationsDropdown() {
+        this.root.querySelector('.province__dropdown__select').classList.remove('active')
 
-        root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
+        this.root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
 
-        root.querySelectorAll('#location__options__wrapper').forEach((location) => {
+        this.root.querySelectorAll('#location__options__wrapper').forEach((location) => {
             location.classList.remove('active')
         })
     }
 
-    handleEvent(root, onSubmit) {
-        root.querySelector('.province__dropdown').onclick = () => {
-            root.querySelector('.province__dropdown__select').classList.toggle('active')
+    handleEvent(onSubmit) {
+        this.root.querySelector('.province__dropdown').onclick = () => {
+            this.root.querySelector('.province__dropdown__select').classList.toggle('active')
         }
 
-        root.querySelectorAll('.province__dropdown__select__popper__content').forEach((item) => {
+        this.root.querySelectorAll('.province__dropdown__select__popper__content').forEach((item) => {
             item.addEventListener('click', async () => {
-                await this.handleSelectLocation(item, root)
+                await this.handleSelectLocation(item)
             })
         })
 
-        root.querySelectorAll('.province__options__header button').forEach((btn) => {
+        this.root.querySelectorAll('.province__options__header button').forEach((btn) => {
             btn.onclick = () => {
-                root.querySelectorAll('#location__options__wrapper').forEach((location) => {
+                this.root.querySelectorAll('#location__options__wrapper').forEach((location) => {
                     location.classList.remove('active')
                 })
 
-                root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
+                this.root.querySelector('.province__dropdown__select__popper--wrapper').classList.add('active')
             }
         })
 
-        root.querySelector('.province__dropdown__actions--button').onclick = () => {
+        this.root.querySelector('.province__dropdown__actions--button').onclick = () => {
             onSubmit(this.getLocations())
-            this.handleClickOutsideLocationsDropdown(root)
+            this.handleClickOutsideLocationsDropdown()
         }
 
         // handle click outside popper
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.province')) {
-                this.handleClickOutsideLocationsDropdown(root)
+                this.handleClickOutsideLocationsDropdown()
             }
         })
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                this.handleClickOutsideLocationsDropdown(root)
+                this.handleClickOutsideLocationsDropdown()
             }
         })
     }
@@ -256,9 +273,9 @@ class locationsDropdownApp {
         return this.locations
     }
 
-    init({ root, onSubmit = () => {} }) {
-        this.handleEvent(root, onSubmit)
-        this.loadSelectedLocation(root)
+    init(onSubmit = () => {}) {
+        this.handleEvent(onSubmit)
+        this.loadSelectedLocation()
     }
 }
 

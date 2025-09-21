@@ -131,9 +131,7 @@ const defaultApp = {
     init() {
         this.handleEvent()
         this.handleLoadUI()
-        new locationsDropdownApp().init({
-            root: document.querySelector('#header__location'),
-        })
+        new locationsDropdownApp(document.querySelector('#header__location')).init()
         sidebarApp.init()
     },
 }
