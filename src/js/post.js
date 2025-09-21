@@ -3,11 +3,14 @@ import defaultApp from './default'
 import getParentElement from './helpers/getParentElement'
 import locationsDropdownApp from './locationsDropdown'
 import toast from './toast'
+import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
+import convertConcurrency from './helpers/convertConcurrency'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
 const imgInput = document.querySelector('#post__images')
 const imgUploadAreaPreview = document.querySelector('.post__images--upload--area--preview')
+const concurrencyInputs = document.querySelectorAll('input[data-concurrency]')
 
 const postApp = {
     locations: null,
@@ -30,6 +33,13 @@ const postApp = {
                 Validator.isRequired('#area'),
                 Validator.isNumber('#area'),
                 Validator.isRequired('#rent_price'),
+                Validator.isNumber('#rent_price'),
+                Validator.isNumber('#deposit'),
+                Validator.smallerThan(
+                    '#deposit',
+                    document.querySelector('#rent_price').value,
+                    'Số tiền cọc phải nhỏ hơn giá thuê'
+                ),
                 Validator.isRequired('#title'),
                 Validator.isRequired('#description'),
             ],
@@ -183,6 +193,31 @@ const postApp = {
                 this.handleLoadImagesPreview()
             }
         }
+
+        concurrencyInputs.forEach((input) => {
+            input.oninput = (e) => {
+                const value = e.target.value
+
+                let formatted = convertConcurrencyToNumber(Number(value.split('.').join(''))) || e.target.value
+
+                const parentElement = getParentElement(input, '.form-group')
+
+                if (formatted === '0') {
+                    formatted = ''
+                    parentElement.querySelector('.form-concurrency-converted').innerText = ''
+                } else {
+                    if (formatted === 'NaN') {
+                        input.value = e.target.value
+                    } else {
+                        input.value = formatted
+
+                        parentElement.querySelector('.form-concurrency-converted').innerText = convertConcurrency(
+                            Number(formatted.split('.').join(''))
+                        )
+                    }
+                }
+            }
+        })
     },
 
     init() {

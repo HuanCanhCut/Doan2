@@ -139,15 +139,26 @@ Validator.isUrl = (selector, errorMessage) => {
     }
 }
 
-const isNumber = (value, errorMessage) => {
-    return /^-?\d*(\.\d+)?$/.test(value.trim()) && value.trim() !== '' ? undefined : errorMessage || 'Vui lòng nhập số!'
-}
-
 Validator.isNumber = (selector, errorMessage) => {
     return {
         selector: selector,
         test: (value) => {
-            return isNumber(value, errorMessage)
+            if (value.trim() === '') {
+                return undefined
+            }
+
+            return /^-?(\d{1,3}(\.\d{3})*|\d+)(\\,\d+)?$/.test(value.trim())
+                ? undefined
+                : errorMessage || 'Vui lòng nhập số!'
+        },
+    }
+}
+
+Validator.smallerThan = (selector, targetValue, errorMessage) => {
+    return {
+        selector: selector,
+        test: (value) => {
+            return value < targetValue ? undefined : errorMessage || 'Số phải nhỏ hơn ' + targetValue
         },
     }
 }
