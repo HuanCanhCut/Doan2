@@ -58,6 +58,8 @@ const postApp = {
                     }
                 }
 
+                const postUser = JSON.parse(localStorage.getItem('currentUser'))
+
                 const updatedData = {
                     ...newData,
                     type_category: this.categoryType,
@@ -66,6 +68,8 @@ const postApp = {
                         () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
                     ),
                     post_category: this.categoryType,
+                    user_id: postUser.id,
+                    user: postUser,
                 }
 
                 const postDb = JSON.parse(localStorage.getItem('posts')) || []
