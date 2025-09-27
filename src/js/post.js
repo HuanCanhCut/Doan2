@@ -202,6 +202,8 @@ const postApp = {
             input.oninput = (e) => {
                 const value = e.target.value
 
+                input.value = value.replace(/[^0-9]/g, '')
+
                 let formatted = convertConcurrencyToNumber(Number(value.split('.').join(''))) || e.target.value
 
                 const parentElement = getParentElement(input, '.form-group')

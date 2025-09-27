@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./src/styles/default.css" />
         <link rel="stylesheet" href="./src/styles/grid.css" />
         <link rel="stylesheet" href="./src/styles/post.css" />
+        <link rel="stylesheet" href="./src/styles/index.css" />
     </head>
     <body>
         <div id="app">
@@ -44,7 +45,7 @@
                                 </button>
 
                                 <div class="province__dropdown__select">
-                                    <div id="popper--wrapper" class="province__dropdown__select__popper">
+                                    <div class="province__dropdown__select__popper popper--wrapper">
                                         <div class="province__dropdown__select__popper--wrapper active">
                                             <span class="province__dropdown__select__popper__title"
                                                 ><i class="fa-solid fa-location-dot"></i> Tìm kiếm theo khu vực</span
@@ -277,7 +278,90 @@
                 </div>
             </aside>
 
-            <main id="main"></main>
+            <main id="main">
+                <div class="grid wide">
+                    <div class="filter__wrapper">
+                        <div class="filter__item active" data-type="categories">
+                            <button class="filter__item--button">
+                                <span>Mua bán</span>
+                                <span><i class="fa-solid fa-caret-down"></i></span>
+                            </button>
+                            <div class="filter__item__dropdown popper--wrapper">
+                                <button class="filter__item__dropdown--button">
+                                    <span>Mua bán</span>
+                                    <div class="checkbox checked"></div>
+                                </button>
+                                <button class="filter__item__dropdown--button">
+                                    <span>Cho thuê</span>
+                                    <div class="checkbox"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="filter__item" data-type="type">
+                            <button class="filter__item--button">
+                                <span>Loại BĐS</span>
+                                <span><i class="fa-solid fa-caret-down"></i></span>
+                            </button>
+                            <div class="filter__item__dropdown popper--wrapper">
+                                <button class="filter__item__dropdown--button">
+                                    <span>Tất cả bất động sản</span>
+                                    <div class="checkbox checked"></div>
+                                </button>
+                                <button class="filter__item__dropdown--button">
+                                    <span>Căn hộ/Chung cư</span>
+                                    <div class="checkbox"></div>
+                                </button>
+                                <button class="filter__item__dropdown--button">
+                                    <span>Nhà ở</span>
+                                    <div class="checkbox"></div>
+                                </button>
+                                <button class="filter__item__dropdown--button">
+                                    <span>Đất nền</span>
+                                    <div class="checkbox"></div>
+                                </button>
+                                <button class="filter__item__dropdown--button">
+                                    <span>Phòng trọ</span>
+                                    <div class="checkbox"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="filter__item" data-type="price">
+                            <button class="filter__item--button">
+                                <span>Giá bán</span>
+                                <span><i class="fa-solid fa-caret-down"></i></span>
+                            </button>
+                            <div class="filter__item__dropdown popper--wrapper">
+                                <div class="filter__item__dropdown__price">
+                                    <div class="input__group">
+                                        <input
+                                            id="price_min"
+                                            name="price_min"
+                                            class="price_min"
+                                            type="text"
+                                            placeholder=" "
+                                        />
+                                        <label for="price_min" name="price_min">Giá tối thiểu</label>
+                                    </div>
+                                    <div class="input__group">
+                                        <input
+                                            id="price_max"
+                                            name="price_max"
+                                            class="price_max"
+                                            type="text"
+                                            placeholder=" "
+                                        />
+                                        <label for="price_max" name="price_max">Giá tối đa</label>
+                                    </div>
+                                </div>
+                                <div class="filter__item__dropdown__actions">
+                                    <button class="button--outline price_min_max_reset">Xóa lọc</button>
+                                    <button class="button--primary price_min_max_apply">Áp dụng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
         <script type="module" src="./src/js/index.js"></script>
     </body>

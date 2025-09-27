@@ -78,3 +78,28 @@ html {
         background-color: transparent !important;
     }
 }
+
+.button--outline,
+.button--primary {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button--outline {
+    border: 1px solid rgba(128, 128, 128, 0.314);
+    color: var(--primary) !important;
+}
+
+.button--outline:hover {
+    background-color: rgba(207, 207, 207, 0.203);
+}
+
+.button--primary {
+    background-color: var(--primary);
+    color: #fff !important;
+}
+
+.button--primary:hover {
+    filter: brightness(0.95);
+}
