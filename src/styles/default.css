@@ -72,7 +72,7 @@
 
 #main .grid.wide {
     background-color: #fff;
-    padding: 20px;
+    padding: 0 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
 }
@@ -591,6 +591,10 @@
     .header__actions--auth,
     .header__actions--post {
         display: none;
+    }
+
+    #main .grid.wide {
+        padding: 0 12px;
     }
 }
 

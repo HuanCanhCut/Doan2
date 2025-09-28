@@ -13,6 +13,10 @@ const filterItemDropdownButtons = document.querySelectorAll('.filter__item__drop
 const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
 
+// tabs
+const postTabs = document.querySelectorAll('.post__tabs button')
+const postTabsLine = document.querySelector('.post__tabs--line')
+
 const app = {
     filters: {
         categories: 'buy-sell' /* buy-sell or rent */,
@@ -25,6 +29,8 @@ const app = {
     },
 
     filterActive: null,
+
+    postType: '', // all, agent, personal
 
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {
@@ -164,6 +170,30 @@ const app = {
             }
         })
 
+        postTabs.forEach((btn) => {
+            btn.onclick = (e) => {
+                postTabsLine.style.left = `${e.target.offsetLeft}px`
+                postTabsLine.style.width = `${e.target.offsetWidth}px`
+
+                postTabs.forEach((btn) => {
+                    btn.classList.remove('active')
+                })
+
+                btn.classList.add('active')
+                this.postType = btn.dataset.type
+            }
+
+            btn.onmouseover = (e) => {
+                postTabsLine.style.width = `${e.target.offsetWidth}px`
+                postTabsLine.style.left = `${e.target.offsetLeft}px`
+            }
+
+            btn.onmouseleave = () => {
+                postTabsLine.style.width = `${document.querySelector('.post__tabs button.active').offsetWidth}px`
+                postTabsLine.style.left = `${document.querySelector('.post__tabs button.active').offsetLeft}px`
+            }
+        })
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()
@@ -171,8 +201,13 @@ const app = {
         })
     },
 
+    handleInitTabs() {
+        postTabsLine.style.width = `${postTabs[0].offsetWidth}px`
+    },
+
     init() {
         this.handleEvent()
+        this.handleInitTabs()
         defaultApp.init()
     },
 }
