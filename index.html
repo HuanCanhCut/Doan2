@@ -281,98 +281,91 @@
             <main id="main">
                 <div class="grid wide">
                     <div class="filter__wrapper">
-                        <div class="filter__item active" data-type="categories">
-                            <button class="filter__item--button">
-                                <span>Mua bán</span>
-                                <span><i class="fa-solid fa-caret-down"></i></span>
-                            </button>
-                            <div class="filter__item__dropdown popper--wrapper">
-                                <button
-                                    class="filter__item__dropdown--button"
-                                    data-parent="categories"
-                                    data-value="buy-sell"
-                                >
+                        <h4>Mua Bán Bất Động Sản</h4>
+                        <div class="filter__items">
+                            <div class="filter__item active" data-type="categories">
+                                <button class="filter__item--button">
                                     <span>Mua bán</span>
-                                    <div class="checkbox checked"></div>
+                                    <span><i class="fa-solid fa-caret-down"></i></span>
                                 </button>
-                                <button
-                                    class="filter__item__dropdown--button"
-                                    data-parent="categories"
-                                    data-value="rent"
-                                >
-                                    <span>Cho thuê</span>
-                                    <div class="checkbox"></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter__item" data-type="type">
-                            <button class="filter__item--button">
-                                <span>Loại BĐS</span>
-                                <span><i class="fa-solid fa-caret-down"></i></span>
-                            </button>
-                            <div class="filter__item__dropdown popper--wrapper">
-                                <button class="filter__item__dropdown--button" data-parent="type" data-value="all">
-                                    <span>Tất cả bất động sản</span>
-                                    <div class="checkbox checked"></div>
-                                </button>
-                                <button
-                                    class="filter__item__dropdown--button"
-                                    data-parent="type"
-                                    data-value="apartment"
-                                >
-                                    <span>Căn hộ/Chung cư</span>
-                                    <div class="checkbox"></div>
-                                </button>
-                                <button class="filter__item__dropdown--button" data-parent="type" data-value="house">
-                                    <span>Nhà ở</span>
-                                    <div class="checkbox"></div>
-                                </button>
-                                <button class="filter__item__dropdown--button" data-parent="type" data-value="land">
-                                    <span>Đất nền</span>
-                                    <div class="checkbox"></div>
-                                </button>
-                                <button class="filter__item__dropdown--button" data-parent="type" data-value="room">
-                                    <span>Phòng trọ</span>
-                                    <div class="checkbox"></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter__item" data-type="price">
-                            <button class="filter__item--button">
-                                <span>Giá bán</span>
-                                <span><i class="fa-solid fa-caret-down"></i></span>
-                            </button>
-                            <div class="filter__item__dropdown popper--wrapper">
-                                <div class="filter__item__dropdown__price">
-                                    <div class="input__group">
-                                        <input
-                                            id="price_min"
-                                            name="price_min"
-                                            class="price_min"
-                                            type="text"
-                                            placeholder=" "
-                                            value="0"
-                                        />
-                                        <label for="price_min" name="price_min">Giá tối thiểu</label>
-                                    </div>
-                                    <div class="input__group">
-                                        <input
-                                            id="price_max"
-                                            name="price_max"
-                                            class="price_max"
-                                            type="text"
-                                            placeholder=" "
-                                            value="10.000.000.000"
-                                        />
-                                        <label for="price_max" name="price_max">Giá tối đa</label>
-                                    </div>
-                                </div>
-                                <small class="filter__item__dropdown__price--error"></small>
-                                <div class="filter__item__dropdown__actions">
-                                    <button class="button--outline price_min_max_reset">Xóa lọc</button>
-                                    <button class="button--primary price_min_max_apply">Áp dụng</button>
+                                <div class="filter__item__dropdown popper--wrapper">
+                                    <button
+                                        class="filter__item__dropdown--button"
+                                        data-parent="categories"
+                                        data-value="buy-sell"
+                                    >
+                                        <span>Mua bán</span>
+                                        <div class="checkbox checked"></div>
+                                    </button>
+                                    <button
+                                        class="filter__item__dropdown--button"
+                                        data-parent="categories"
+                                        data-value="rent"
+                                    >
+                                        <span>Cho thuê</span>
+                                        <div class="checkbox"></div>
+                                    </button>
+
+                                    <button class="remove__category--btn button--outline">Xóa lọc</button>
                                 </div>
                             </div>
+
+                            <div class="filter__item" data-type="price">
+                                <button class="filter__item--button">
+                                    <span>Giá bán</span>
+                                    <span><i class="fa-solid fa-caret-down"></i></span>
+                                </button>
+                                <div class="filter__item__dropdown popper--wrapper">
+                                    <div class="filter__item__dropdown__price">
+                                        <div class="input__group">
+                                            <input
+                                                id="price_min"
+                                                name="price_min"
+                                                class="price_min"
+                                                type="text"
+                                                placeholder=" "
+                                                value="0"
+                                            />
+                                            <label for="price_min" name="price_min">Giá tối thiểu</label>
+                                        </div>
+                                        <div class="input__group">
+                                            <input
+                                                id="price_max"
+                                                name="price_max"
+                                                class="price_max"
+                                                type="text"
+                                                placeholder=" "
+                                                value="10.000.000.000"
+                                            />
+                                            <label for="price_max" name="price_max">Giá tối đa</label>
+                                        </div>
+                                    </div>
+                                    <small class="filter__item__dropdown__price--error"></small>
+                                    <div class="filter__item__dropdown__actions">
+                                        <button class="button--outline price_min_max_reset">Xóa lọc</button>
+                                        <button class="button--primary price_min_max_apply">Áp dụng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter__items">
+                            <!-- Loại Bất Động Sản -->
+                            <button class="filter__item--category" data-type="apartment">
+                                <img src="/static/categories/apartment.svg" alt="" />
+                                <span>Căn hộ/Chung cư</span>
+                            </button>
+                            <button class="filter__item--category" data-type="house">
+                                <img src="/static/categories/house.svg" alt="" />
+                                <span>Nhà ở</span>
+                            </button>
+                            <button class="filter__item--category" data-type="land">
+                                <img src="/static/categories/land.svg" alt="" />
+                                <span>Đất nền</span>
+                            </button>
+                            <button class="filter__item--category" data-type="room">
+                                <img src="/static/categories/room.svg" alt="" />
+                                <span>Phòng trọ</span>
+                            </button>
                         </div>
                     </div>
                 </div>

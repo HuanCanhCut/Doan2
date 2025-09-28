@@ -10,11 +10,13 @@ const resetPriceFilterButton = document.querySelector('.price_min_max_reset')
 const priceMinInput = document.querySelector('.price_min')
 const priceMaxInput = document.querySelector('.price_max')
 const filterItemDropdownButtons = document.querySelectorAll('.filter__item__dropdown--button')
+const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
+const removeCategoryBtn = document.querySelector('.remove__category--btn')
 
 const app = {
     filters: {
         categories: 'buy-sell' /* buy-sell or rent */,
-        type: null,
+        type: '',
         price: {
             start: 0,
             end: Infinity,
@@ -131,6 +133,34 @@ const app = {
                 btn.querySelector('.checkbox').classList.add('checked')
 
                 this.filters[btn.dataset.parent] = btn.dataset.value
+            }
+        })
+
+        removeCategoryBtn.onclick = () => {
+            this.filters.categories = ''
+
+            getParentElement(removeCategoryBtn, '.filter__item')
+                .querySelectorAll('.checkbox')
+                .forEach((checkbox) => {
+                    checkbox.classList.remove('checked')
+                })
+
+            this.handleCloseDropdownFilter()
+        }
+
+        filterItemCategoryButtons.forEach((btn) => {
+            btn.onclick = () => {
+                this.filters.type = btn.dataset.type
+
+                filterItemCategoryButtons.forEach((btn) => {
+                    if (btn.classList.contains('active')) {
+                        return
+                    }
+
+                    btn.classList.remove('active')
+                })
+
+                btn.classList.toggle('active')
             }
         })
 
