@@ -1,9 +1,15 @@
 import defaultApp from './default'
 import getParentElement from './helpers/getParentElement'
+import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
 import './popperWrapper'
 import { handleSetPosition } from './popperWrapper'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
+const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
+const resetPriceFilterButton = document.querySelector('.price_min_max_reset')
+const priceMinInput = document.querySelector('.price_min')
+const priceMaxInput = document.querySelector('.price_max')
+const filterItemDropdownButtons = document.querySelectorAll('.filter__item__dropdown--button')
 
 const app = {
     filters: {
@@ -34,6 +40,32 @@ const app = {
                 parentElement.querySelector('.filter__item__dropdown').classList.add('active')
             }
         })
+
+        filterItemsButton.forEach((btn) => {
+            if (typeof this.filters[btn.parentElement.dataset.type] === 'object') {
+                if (this.filters[btn.parentElement.dataset.type]?.active) {
+                    getParentElement(btn, '.filter__item').classList.add('active')
+                }
+            } else {
+                if (this.filters[btn.parentElement.dataset.type]) {
+                    getParentElement(btn, '.filter__item').classList.add('active')
+                }
+            }
+        })
+    },
+
+    handleCloseDropdownFilter() {
+        filterItemsButton.forEach((btn) => {
+            const parentElement = btn.parentElement
+
+            parentElement.classList.remove('active')
+
+            parentElement.querySelector('.filter__item__dropdown').classList.remove('active')
+
+            this.filterActive = null
+        })
+
+        this.handleLoadFilterActive()
     },
 
     handleEvent() {
@@ -54,17 +86,57 @@ const app = {
             }
         })
 
+        applyPriceFilterButton.onclick = () => {
+            const priceMin = Number(priceMinInput.value.split('.').join(''))
+            const priceMax = Number(priceMaxInput.value.split('.').join(''))
+
+            if (priceMin > priceMax) {
+                document.querySelector('.filter__item__dropdown__price--error').innerText =
+                    'Giá tối thiểu phải nhỏ hơn hoặc bằng giá tối đa'
+            }
+
+            if (priceMin === '' || priceMax === '') {
+                document.querySelector('.filter__item__dropdown__price--error').innerText =
+                    'Giá tối thiểu và giá tối đa không được để trống'
+            }
+
+            this.filters.price.start = priceMin
+            this.filters.price.end = priceMax
+            this.filters.price.active = true
+
+            this.handleCloseDropdownFilter()
+        }
+
+        resetPriceFilterButton.onclick = () => {
+            this.filters.price.active = false
+
+            this.handleCloseDropdownFilter()
+        }
+
+        Array.from([priceMinInput, priceMaxInput]).forEach((input) => {
+            input.oninput = (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '')
+                e.target.value = convertConcurrencyToNumber(Number(e.target.value.split('.').join('')))
+            }
+        })
+
+        filterItemDropdownButtons.forEach((btn) => {
+            btn.onclick = () => {
+                filterItemDropdownButtons.forEach((btn) => {
+                    if (btn.dataset.parent === this.filterActive) {
+                        btn.querySelector('.checkbox').classList.remove('checked')
+                    }
+                })
+
+                btn.querySelector('.checkbox').classList.add('checked')
+
+                this.filters[btn.dataset.parent] = btn.dataset.value
+            }
+        })
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
-                filterItemsButton.forEach((btn) => {
-                    const parentElement = btn.parentElement
-
-                    parentElement.classList.remove('active')
-
-                    parentElement.querySelector('.filter__item__dropdown').classList.remove('active')
-
-                    this.filterActive = null
-                })
+                this.handleCloseDropdownFilter()
             }
         })
     },
