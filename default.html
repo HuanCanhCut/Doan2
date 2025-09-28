@@ -16,208 +16,178 @@
         <div id="app">
             <div id="overlay"></div>
             <iframe src="" frameborder="0" id="modal"></iframe>
-            <header id="header" class="grid">
-                <div class="row">
-                    <div class="col col-3 sm:col-2 md:col-3 lg:col-3 xl:col-3">
-                        <div class="header__left">
-                            <button class="header__toggle--sidebar header__item col-block md:col-hidden">
-                                <i class="fa-solid fa-bars"></i>
-                            </button>
-                            <a href="/">
-                                <img src="/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
-                            /></a>
-                            <a href="/">
-                                <img
-                                    src="/static/logo.png"
-                                    alt=""
-                                    class="col-hidden md:col-block lg:col-hidden header__logo"
-                            /></a>
+            <header id="header">
+                <div class="header__left">
+                    <button class="header__toggle--sidebar header__item col-block md:col-hidden">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <a href="/">
+                        <img src="/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
+                    /></a>
+                    <a href="/">
+                        <img src="/static/logo.png" alt="" class="col-hidden md:col-block lg:col-hidden header__logo"
+                    /></a>
 
-                            <div class="province" id="header__location">
-                                <button class="province__dropdown">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <p
-                                        class="col-hidden md:col-block province__dropdown__select__popper__content__value"
-                                        data-type="province"
-                                    ></p>
-                                    <i class="fa-solid fa-caret-down col-hidden md:col-block"></i>
-                                </button>
+                    <div class="province" id="header__location">
+                        <button class="province__dropdown">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <p
+                                class="col-hidden md:col-block province__dropdown__select__popper__content__value"
+                                data-type="province"
+                            ></p>
+                            <i class="fa-solid fa-caret-down col-hidden md:col-block"></i>
+                        </button>
 
-                                <div class="province__dropdown__select">
-                                    <div class="province__dropdown__select__popper popper--wrapper">
-                                        <div class="province__dropdown__select__popper--wrapper active">
-                                            <span class="province__dropdown__select__popper__title"
-                                                ><i class="fa-solid fa-location-dot"></i> Tìm kiếm theo khu vực</span
-                                            >
+                        <div class="province__dropdown__select">
+                            <div class="province__dropdown__select__popper popper--wrapper">
+                                <div class="province__dropdown__select__popper--wrapper active">
+                                    <span class="province__dropdown__select__popper__title"
+                                        ><i class="fa-solid fa-location-dot"></i> Tìm kiếm theo khu vực</span
+                                    >
 
-                                            <div
-                                                class="province__dropdown__select__popper__content"
+                                    <div class="province__dropdown__select__popper__content" data-type="province">
+                                        <div id="province__dropdown--province">
+                                            <div class="province__dropdown__select__popper__content__title">
+                                                Chọn tỉnh thành
+                                            </div>
+                                            <p
+                                                class="province__dropdown__select__popper__content__value"
                                                 data-type="province"
-                                            >
-                                                <div id="province__dropdown--province">
-                                                    <div class="province__dropdown__select__popper__content__title">
-                                                        Chọn tỉnh thành
-                                                    </div>
-                                                    <p
-                                                        class="province__dropdown__select__popper__content__value"
-                                                        data-type="province"
-                                                    ></p>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right"></i>
+                                            ></p>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </div>
+                                    <div class="province__dropdown__select__popper__content" data-type="district">
+                                        <div id="province__dropdown--district">
+                                            <div class="province__dropdown__select__popper__content__title">
+                                                Chọn quận huyện
                                             </div>
-                                            <div
-                                                class="province__dropdown__select__popper__content"
+                                            <p
+                                                class="province__dropdown__select__popper__content__value"
                                                 data-type="district"
-                                            >
-                                                <div id="province__dropdown--district">
-                                                    <div class="province__dropdown__select__popper__content__title">
-                                                        Chọn quận huyện
-                                                    </div>
-                                                    <p
-                                                        class="province__dropdown__select__popper__content__value"
-                                                        data-type="district"
-                                                    ></p>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right"></i>
+                                            ></p>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </div>
+                                    <div class="province__dropdown__select__popper__content" data-type="ward">
+                                        <div id="province__dropdown--ward">
+                                            <div class="province__dropdown__select__popper__content__title">
+                                                Chọn phường xã
                                             </div>
-                                            <div class="province__dropdown__select__popper__content" data-type="ward">
-                                                <div id="province__dropdown--ward">
-                                                    <div class="province__dropdown__select__popper__content__title">
-                                                        Chọn phường xã
-                                                    </div>
-                                                    <p
-                                                        class="province__dropdown__select__popper__content__value"
-                                                        data-type="ward"
-                                                    ></p>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right"></i>
-                                            </div>
+                                            <p
+                                                class="province__dropdown__select__popper__content__value"
+                                                data-type="ward"
+                                            ></p>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </div>
 
-                                            <div class="province__dropdown--actions">
-                                                <button class="province__dropdown__actions--button">Áp dụng</button>
-                                            </div>
-                                        </div>
-
-                                        <div id="location__options__wrapper" data-type="province">
-                                            <header class="province__options__header">
-                                                <button>
-                                                    <i class="fa-solid fa-arrow-left"></i>
-                                                </button>
-                                                <p>Chọn tỉnh thành</p>
-                                            </header>
-                                            <div class="province__options__search">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Tìm kiếm tỉnh/thành phố"
-                                                    data-type="province"
-                                                />
-                                            </div>
-                                            <ul class="province__options__list" data-type="province"></ul>
-                                        </div>
-                                        <div id="location__options__wrapper" data-type="district">
-                                            <header class="province__options__header">
-                                                <button>
-                                                    <i class="fa-solid fa-arrow-left"></i>
-                                                </button>
-                                                <p>Chọn quận huyện</p>
-                                            </header>
-                                            <div class="province__options__search">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                                <input
-                                                    type="text"
-                                                    placeholder="Tìm kiếm quận huyện"
-                                                    data-type="district"
-                                                />
-                                            </div>
-                                            <ul class="province__options__list" data-type="district"></ul>
-                                        </div>
-                                        <div id="location__options__wrapper" data-type="ward">
-                                            <header class="province__options__header">
-                                                <button>
-                                                    <i class="fa-solid fa-arrow-left"></i>
-                                                </button>
-                                                <p>Chọn phường xã</p>
-                                            </header>
-                                            <div class="province__options__search">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                                <input type="text" placeholder="Tìm kiếm phường xã" data-type="ward" />
-                                            </div>
-                                            <ul class="province__options__list" data-type="ward"></ul>
-                                        </div>
+                                    <div class="province__dropdown--actions">
+                                        <button class="province__dropdown__actions--button">Áp dụng</button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-6 sm:col-8 md:col-5 lg:col-6 xl:col-6">
-                        <div class="header__search header__item">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
-                        </div>
-                    </div>
-                    <div class="col col-3 sm:col-2 md:col-4 lg:col-3 xl:col-3">
-                        <div class="header__actions header__item">
-                            <div class="header__actions--post col-hidden">
-                                <a href="manage-ads.html">
-                                    <button class="header__actions__button header__actions__button--outline">
-                                        Quản lý tin
-                                    </button>
-                                </a>
-                                <a href="post.html">
-                                    <button class="header__actions__button header__actions__button--primary">
-                                        Đăng tin
-                                    </button>
-                                </a>
-                            </div>
 
-                            <div class="header__actions--auth">
-                                <button
-                                    class="header__actions__button header__actions__button--outline header__actions__button--login"
-                                >
-                                    Đăng nhập
-                                </button>
-                                <button
-                                    class="header__actions__button header__actions__button--primary header__actions__button--register"
-                                >
-                                    Đăng ký
-                                </button>
-                            </div>
-
-                            <div class="header__actions--auth col-block md:col-hidden" data-type="mobile">
-                                <button
-                                    class="header__actions__button header__actions__button--outline header__actions__button--auth"
-                                >
-                                    Đăng nhập
-                                </button>
-                            </div>
-
-                            <div class="header__actions__user">
-                                <img
-                                    src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
-                                    alt=""
-                                />
-
-                                <div class="header__actions__user__wrapper">
-                                    <ul>
-                                        <li>
-                                            <a href="">
-                                                <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
-                                            </a>
-                                        </li>
-                                        <li class="header__user__action--logout">
-                                            <button>
-                                                <span><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</span>
-                                            </button>
-                                        </li>
-                                    </ul>
+                                <div id="location__options__wrapper" data-type="province">
+                                    <header class="province__options__header">
+                                        <button>
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </button>
+                                        <p>Chọn tỉnh thành</p>
+                                    </header>
+                                    <div class="province__options__search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="text" placeholder="Tìm kiếm tỉnh/thành phố" data-type="province" />
+                                    </div>
+                                    <ul class="province__options__list" data-type="province"></ul>
+                                </div>
+                                <div id="location__options__wrapper" data-type="district">
+                                    <header class="province__options__header">
+                                        <button>
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </button>
+                                        <p>Chọn quận huyện</p>
+                                    </header>
+                                    <div class="province__options__search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="text" placeholder="Tìm kiếm quận huyện" data-type="district" />
+                                    </div>
+                                    <ul class="province__options__list" data-type="district"></ul>
+                                </div>
+                                <div id="location__options__wrapper" data-type="ward">
+                                    <header class="province__options__header">
+                                        <button>
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </button>
+                                        <p>Chọn phường xã</p>
+                                    </header>
+                                    <div class="province__options__search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input type="text" placeholder="Tìm kiếm phường xã" data-type="ward" />
+                                    </div>
+                                    <ul class="province__options__list" data-type="ward"></ul>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header__search header__item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
+                </div>
+                <div class="header__actions header__item">
+                    <div class="header__actions--post col-hidden">
+                        <a href="manage-ads.html">
+                            <button class="header__actions__button header__actions__button--outline">
+                                Quản lý tin
+                            </button>
+                        </a>
+                        <a href="post.html">
+                            <button class="header__actions__button header__actions__button--primary">Đăng tin</button>
+                        </a>
+                    </div>
+
+                    <div class="header__actions--auth">
+                        <button
+                            class="header__actions__button header__actions__button--outline header__actions__button--login"
+                        >
+                            Đăng nhập
+                        </button>
+                        <button
+                            class="header__actions__button header__actions__button--primary header__actions__button--register"
+                        >
+                            Đăng ký
+                        </button>
+                    </div>
+
+                    <div class="header__actions--auth col-block md:col-hidden" data-type="mobile">
+                        <button
+                            class="header__actions__button header__actions__button--outline header__actions__button--auth"
+                        >
+                            Đăng nhập
+                        </button>
+                    </div>
+
+                    <div class="header__actions__user">
+                        <img src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg" alt="" />
+
+                        <div class="header__actions__user__wrapper">
+                            <ul>
+                                <li>
+                                    <a href="">
+                                        <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
+                                    </a>
+                                </li>
+                                <li class="header__user__action--logout">
+                                    <button>
+                                        <span><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</span>
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
