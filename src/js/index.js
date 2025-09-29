@@ -196,11 +196,35 @@ const app = {
             }
         })
 
+        postInner.onclick = (e) => {
+            if (e.target.closest('.post__item--heart')) {
+                e.target.closest('.post__item--heart').classList.toggle('active')
+
+                this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
+            }
+        }
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()
             }
         })
+    },
+
+    handleToggleLikePost(postId) {
+        if (postId) {
+            let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+
+            const postExist = postDb.find((post) => post === postId)
+
+            if (postExist) {
+                postDb = postDb.filter((post) => post !== postId)
+            } else {
+                postDb = [...postDb, postId]
+            }
+
+            localStorage.setItem('favorites', JSON.stringify(postDb))
+        }
     },
 
     handleInitTabs() {
@@ -278,7 +302,7 @@ const app = {
                                 </span>
                             </div>
                         </div>
-                        <button class="post__item--heart">
+                        <button class="post__item--heart" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
