@@ -23,8 +23,8 @@ const postTabsLine = document.querySelector('.post__tabs--line')
 const app = {
     posts: JSON.parse(localStorage.getItem('posts')) || mockPosts || [],
     filters: {
-        categories: 'buy-sell' /* buy-sell or rent */,
-        type: '',
+        categories: 'sell' /* sell or rent */,
+        type: [], // apartment, house, land, room
         price: {
             start: 0,
             end: Infinity,
@@ -32,7 +32,32 @@ const app = {
         },
     },
     filterActive: null,
-    postType: '', // all, agent, personal
+    postType: 'all', // all, agent, personal
+
+    handleFilterPost() {
+        const filteredPosts = this.posts.filter((post) => {
+            const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
+            if (!matchCategory) return false
+
+            const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
+            if (!matchType) return false
+
+            const matchPostType = this.postType === 'all' || post.role === this.postType
+            if (!matchPostType) return false
+
+            if (this.filters.price.active) {
+                const matchPrice =
+                    post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
+                if (!matchPrice) return false
+            }
+
+            return true
+        })
+
+        console.log(filteredPosts)
+
+        return filteredPosts
+    },
 
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {
@@ -96,6 +121,7 @@ const app = {
             }
         })
 
+        // Filter by price
         applyPriceFilterButton.onclick = () => {
             const priceMin = Number(priceMinInput.value.split('.').join(''))
             const priceMax = Number(priceMaxInput.value.split('.').join(''))
@@ -115,12 +141,17 @@ const app = {
             this.filters.price.active = true
 
             this.handleCloseDropdownFilter()
+
+            this.handleRenderPost(this.handleFilterPost())
         }
 
+        // Reset filter by price
         resetPriceFilterButton.onclick = () => {
             this.filters.price.active = false
 
             this.handleCloseDropdownFilter()
+
+            this.handleRenderPost(this.posts)
         }
 
         Array.from([priceMinInput, priceMaxInput]).forEach((input) => {
@@ -130,6 +161,7 @@ const app = {
             }
         })
 
+        // Filter by type
         filterItemDropdownButtons.forEach((btn) => {
             btn.onclick = () => {
                 filterItemDropdownButtons.forEach((btn) => {
@@ -140,10 +172,16 @@ const app = {
 
                 btn.querySelector('.checkbox').classList.add('checked')
 
+                getParentElement(btn, '.filter__item').querySelector('.filter__item--button span').textContent =
+                    btn.innerText
+
                 this.filters[btn.dataset.parent] = btn.dataset.value
+
+                this.handleRenderPost(this.handleFilterPost())
             }
         })
 
+        // Reset filter by category
         removeCategoryBtn.onclick = () => {
             this.filters.categories = ''
 
@@ -154,11 +192,18 @@ const app = {
                 })
 
             this.handleCloseDropdownFilter()
+
+            this.handleRenderPost(this.posts)
         }
 
+        // Filter by category
         filterItemCategoryButtons.forEach((btn) => {
             btn.onclick = () => {
-                this.filters.type = btn.dataset.type
+                if (this.filters.type.includes(btn.dataset.type)) {
+                    this.filters.type = this.filters.type.filter((type) => type !== btn.dataset.type)
+                } else {
+                    this.filters.type.push(btn.dataset.type)
+                }
 
                 filterItemCategoryButtons.forEach((btn) => {
                     if (btn.classList.contains('active')) {
@@ -169,6 +214,8 @@ const app = {
                 })
 
                 btn.classList.toggle('active')
+
+                this.handleRenderPost(this.handleFilterPost())
             }
         })
 
@@ -183,6 +230,8 @@ const app = {
 
                 btn.classList.add('active')
                 this.postType = btn.dataset.type
+
+                this.handleRenderPost(this.handleFilterPost())
             }
 
             btn.onmouseover = (e) => {
@@ -231,7 +280,7 @@ const app = {
         postTabsLine.style.width = `${postTabs[0].offsetWidth}px`
     },
 
-    handleRenderPost() {
+    handleRenderPost(posts = this.posts) {
         if (!localStorage.getItem('posts')) {
             localStorage.setItem('posts', JSON.stringify(this.posts))
         }
@@ -246,7 +295,7 @@ const app = {
             }
         }
 
-        postInner.innerHTML = this.posts
+        postInner.innerHTML = posts
             .map((post) => {
                 return `
                     <div class="post__item" data-id="${post.id}">
@@ -313,7 +362,7 @@ const app = {
     },
 
     init() {
-        this.handleRenderPost()
+        this.handleRenderPost(this.handleFilterPost())
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()

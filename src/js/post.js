@@ -11,12 +11,14 @@ const roleBtnsOption = document.querySelectorAll('.post__form__role')
 const imgInput = document.querySelector('#post__images')
 const imgUploadAreaPreview = document.querySelector('.post__images--upload--area--preview')
 const concurrencyInputs = document.querySelectorAll('input[data-concurrency]')
+const propertyCategorySelect = document.querySelector('#property-category')
 
 const postApp = {
     locations: null,
     categoryType: 'sell', // sell or rent
-    roleType: 'seller', // seller or agent
+    roleType: 'personal', // personal or agent
     imagesFiles: [],
+    propertyCategory: 'apartment', // apartment, house, land, room
 
     handleValidator() {
         Validator({
@@ -68,12 +70,12 @@ const postApp = {
                 const updatedData = {
                     id: postDb.length > 0 ? postDb[postDb.length - 1].id + 1 : 1,
                     ...newData,
-                    type_category: this.categoryType,
+                    property_category: this.propertyCategory,
                     role: this.roleType,
                     images: this.imagesFiles.map(
                         () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
                     ),
-                    post_category: this.categoryType,
+                    project_type: this.categoryType,
                     user_id: postUser.id,
                     user: postUser,
                     created_at: new Date(),
@@ -90,17 +92,21 @@ const postApp = {
                     type: 'success',
                 })
 
-                // document.querySelectorAll('input[name]').forEach((input) => {
-                //     input.value = ''
-                // })
+                document.querySelectorAll('input[name]').forEach((input) => {
+                    input.value = ''
+                })
 
-                // document.querySelectorAll('textarea[name]').forEach((textarea) => {
-                //     textarea.value = ''
-                // })
+                document.querySelectorAll('textarea[name]').forEach((textarea) => {
+                    textarea.value = ''
+                })
 
-                // this.imagesFiles = []
+                this.imagesFiles = []
 
-                // this.handleLoadImagesPreview()
+                this.handleLoadImagesPreview()
+
+                document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
+                    span.textContent = null
+                })
             },
         })
     },
@@ -180,10 +186,12 @@ const postApp = {
                 document.querySelector('label[for="price"]').innerHTML = `${
                     categoryMapping[btn.dataset.type]
                 } <span class="field--required">*</span>`
-
-                document.querySelector('.form-concurrency-converted').textContent = null
             }
         })
+
+        propertyCategorySelect.onchange = (e) => {
+            this.propertyCategory = e.target.value
+        }
 
         roleBtnsOption.forEach((btn) => {
             btn.onclick = () => {
