@@ -43,7 +43,10 @@ const app = {
                     'users',
                     JSON.stringify([...users, { ...mockUser, id: lastUserId, email, password }])
                 )
-                localStorage.setItem('currentUser', JSON.stringify({ ...mockUser, id: lastUserId, email, password }))
+                localStorage.setItem(
+                    'currentUser',
+                    JSON.stringify({ ...mockUser, id: lastUserId, email, password, full_name: email.split('@')[0] })
+                )
 
                 window.parent.postMessage(
                     {

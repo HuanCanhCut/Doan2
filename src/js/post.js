@@ -32,18 +32,21 @@ const postApp = {
                 Validator.isRequired('#legal_documents'),
                 Validator.isRequired('#area'),
                 Validator.isNumber('#area'),
-                Validator.isRequired('#rent_price'),
-                Validator.isNumber('#rent_price'),
+                Validator.isRequired('#price'),
+                Validator.isNumber('#price'),
                 Validator.isNumber('#deposit'),
-                Validator.smallerThan(
-                    '#deposit',
-                    document.querySelector('#rent_price').value,
-                    'Số tiền cọc phải nhỏ hơn giá thuê'
-                ),
+                Validator.smallerThan('#deposit', '#price', 'Số tiền cọc phải nhỏ hơn giá thuê'),
                 Validator.isRequired('#title'),
                 Validator.isRequired('#description'),
             ],
             submit: async (data) => {
+                for (const key in data) {
+                    console.log(document.querySelector(`[name="${key}"]`).getAttribute('price'))
+                    if (document.querySelector(`[name="${key}"]`).getAttribute('price')) {
+                        data[key] = data[key].split('.').join('')
+                    }
+                }
+
                 const newData = {}
 
                 for (const key in data) {
@@ -60,7 +63,10 @@ const postApp = {
 
                 const postUser = JSON.parse(localStorage.getItem('currentUser'))
 
+                const postDb = JSON.parse(localStorage.getItem('posts')) || []
+
                 const updatedData = {
+                    id: postDb.length > 0 ? postDb[postDb.length - 1].id + 1 : 1,
                     ...newData,
                     type_category: this.categoryType,
                     role: this.roleType,
@@ -70,9 +76,9 @@ const postApp = {
                     post_category: this.categoryType,
                     user_id: postUser.id,
                     user: postUser,
+                    created_at: new Date(),
+                    updated_at: new Date(),
                 }
-
-                const postDb = JSON.parse(localStorage.getItem('posts')) || []
 
                 postDb.push(updatedData)
 
@@ -83,6 +89,18 @@ const postApp = {
                     message: 'Tin của bạn đã được đăng tải thành công',
                     type: 'success',
                 })
+
+                // document.querySelectorAll('input[name]').forEach((input) => {
+                //     input.value = ''
+                // })
+
+                // document.querySelectorAll('textarea[name]').forEach((textarea) => {
+                //     textarea.value = ''
+                // })
+
+                // this.imagesFiles = []
+
+                // this.handleLoadImagesPreview()
             },
         })
     },
@@ -146,6 +164,11 @@ const postApp = {
 
     handleEvent() {
         categoryBtnsOption.forEach((btn) => {
+            const categoryMapping = {
+                sell: 'Giá bán',
+                rent: 'Giá thuê',
+            }
+
             btn.onclick = () => {
                 categoryBtnsOption.forEach((btn) => {
                     btn.classList.remove('active')
@@ -153,6 +176,12 @@ const postApp = {
 
                 btn.classList.add('active')
                 this.categoryType = btn.dataset.type
+
+                document.querySelector('label[for="price"]').innerHTML = `${
+                    categoryMapping[btn.dataset.type]
+                } <span class="field--required">*</span>`
+
+                document.querySelector('.form-concurrency-converted').textContent = null
             }
         })
 

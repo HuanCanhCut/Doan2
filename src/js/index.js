@@ -3,6 +3,8 @@ import getParentElement from './helpers/getParentElement'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
 import './popperWrapper'
 import { handleSetPosition } from './popperWrapper'
+import mockPosts from '../mocks/posts'
+import { momentTimezone } from './helpers/momentTimezone'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -12,12 +14,14 @@ const priceMaxInput = document.querySelector('.price_max')
 const filterItemDropdownButtons = document.querySelectorAll('.filter__item__dropdown--button')
 const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
+const postInner = document.querySelector('.post__inner')
 
 // tabs
 const postTabs = document.querySelectorAll('.post__tabs button')
 const postTabsLine = document.querySelector('.post__tabs--line')
 
 const app = {
+    posts: JSON.parse(localStorage.getItem('posts')) || mockPosts || [],
     filters: {
         categories: 'buy-sell' /* buy-sell or rent */,
         type: '',
@@ -27,9 +31,7 @@ const app = {
             active: false,
         },
     },
-
     filterActive: null,
-
     postType: '', // all, agent, personal
 
     handleLoadFilterActive() {
@@ -205,7 +207,89 @@ const app = {
         postTabsLine.style.width = `${postTabs[0].offsetWidth}px`
     },
 
+    handleRenderPost() {
+        if (!localStorage.getItem('posts')) {
+            localStorage.setItem('posts', JSON.stringify(this.posts))
+        }
+
+        const handleConvertPrice = (amount) => {
+            if (amount.length < 7) {
+                return `${Number(amount) / 1000} nghìn`
+            } else if (amount.length >= 7 && amount.length <= 9) {
+                return `${Number(amount) / 1000000} triệu`
+            } else {
+                return `${Number(amount) / 1000000000} tỷ`
+            }
+        }
+
+        postInner.innerHTML = this.posts
+            .map((post) => {
+                return `
+                    <div class="post__item" data-id="${post.id}">
+                        <div class="post__item__image__wrapper">
+                            <img
+                                onerror="this.src='/static/fallback.png'"
+                                src="${post.images[0]}"
+                                alt=""
+                            />
+                            <div class="post__item__image">
+                                <span>${momentTimezone(post.created_at)}</span>
+                                <span> ${post.images.length} <i class="fa-solid fa-images"></i> </span>
+                            </div>
+                            <div class="post__item__image--overlay"></div>
+                        </div>
+                        <div class="post__item__info__wrapper">
+                            <h3>
+                                ${post.title}
+                            </h3>
+                            <span class="post__item__info__description">
+                                <span class="post__item__info__description--bedrooms">${post.detail.bedrooms}PN</span>
+                                <span class="post__item__info__description--type">${post.detail.type}</span>
+                            </span>
+                            <div class="post__item__info__wrapper__price__wrapper">
+                                <span class="post__item__info__wrapper__price">${handleConvertPrice(
+                                    post.detail.price
+                                )}</span>
+                                <span>${Number(post.detail.price / post.detail.area / 1000000).toFixed(2)} tr/m²</span>
+                                <span>${post.detail.area}m²</span>
+                            </div>
+                            <span class="post__item__info__wrapper__location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>${post.address_bd}</span>
+                            </span>
+
+                            <div class="post__item__info--user">
+                                <div class="post__item__info--user__item">
+                                    <img
+                                        onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
+                                        src="${post.user?.avatar}"
+                                        alt=""
+                                    />
+                                    <span>${post.user?.full_name}</span>
+                                </div>
+
+                                <span class="post__item__info--user--post--length">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    <span>${
+                                        JSON.parse(localStorage.getItem('posts')).filter((postUser) => {
+                                            return post.user.id === postUser.user.id
+                                        }).length
+                                    } bài đăng</span>
+                                </span>
+                            </div>
+                        </div>
+                        <button class="post__item--heart">
+                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </div>
+            `
+            })
+            .join('')
+    },
+
     init() {
+        this.handleRenderPost()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()
