@@ -4,6 +4,10 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
 }
 
 .filter__wrapper h4 {
@@ -208,6 +212,10 @@
 
 .post__wrapper {
     position: relative;
+    padding: 0 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 
 .post__tabs {
@@ -411,6 +419,89 @@
 
 .post__item--heart.active .fa-regular {
     display: none;
+}
+
+.sidebar__filter__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar__filter--by--price,
+.sidebar__filter--by--location {
+    padding: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.sidebar__filter--header {
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0 16px;
+}
+
+.sidebar__filter__wrapper ul li:nth-child(n + 5),
+.sidebar__filter__wrapper ul li:nth-child(n + 5) {
+    display: none;
+}
+
+.sidebar__filter--by--price.active ul li,
+.sidebar__filter--by--location.active ul li {
+    display: block;
+}
+
+.sidebar__filter--by--location.active ul li {
+    display: block;
+}
+
+.sidebar__filter--by--price ul,
+.sidebar__filter--by--location ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    list-style: none;
+    margin-top: 12px;
+}
+
+.sidebar__filter--collapse {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.sidebar__filter--collapse:after {
+    content: 'Mở rộng';
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text-color-tertiary);
+    cursor: pointer;
+}
+
+.sidebar__filter--by--price.active .sidebar__filter--collapse:after {
+    content: 'Thu gọn';
+}
+
+.sidebar__filter--by--location.active .sidebar__filter--collapse:after {
+    content: 'Thu gọn';
+}
+
+.sidebar__filter--collapse:hover:after {
+    color: #000;
+}
+
+.sidebar__filter--by--price ul li,
+.sidebar__filter--by--location ul li {
+    font-size: 1.4rem;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 12px 24px;
+}
+
+.sidebar__filter--by--price ul li:hover,
+.sidebar__filter--by--location ul li:hover {
+    background-color: var(--background);
 }
 
 @media screen and (max-width: 40rem) {

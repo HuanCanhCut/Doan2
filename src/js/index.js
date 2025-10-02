@@ -15,6 +15,7 @@ const filterItemDropdownButtons = document.querySelectorAll('.filter__item__drop
 const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
 const postInner = document.querySelector('.post__inner')
+const collapseSidebarFilterButtons = document.querySelectorAll('.sidebar__filter--collapse')
 
 // tabs
 const postTabs = document.querySelectorAll('.post__tabs button')
@@ -53,8 +54,6 @@ const app = {
 
             return true
         })
-
-        console.log(filteredPosts)
 
         return filteredPosts
     },
@@ -252,6 +251,14 @@ const app = {
                 this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
             }
         }
+
+        collapseSidebarFilterButtons.forEach((btn) => {
+            btn.onclick = (e) => {
+                if (e.target.closest(`.${btn.dataset.for}`)) {
+                    e.target.closest(`.${btn.dataset.for}`).classList.toggle('active')
+                }
+            }
+        })
 
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {

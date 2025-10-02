@@ -43,7 +43,6 @@ const postApp = {
             ],
             submit: async (data) => {
                 for (const key in data) {
-                    console.log(document.querySelector(`[name="${key}"]`).getAttribute('price'))
                     if (document.querySelector(`[name="${key}"]`).getAttribute('price')) {
                         data[key] = data[key].split('.').join('')
                     }
