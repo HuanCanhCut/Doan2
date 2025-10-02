@@ -1,3 +1,4 @@
+import { getDistrict, getProvince } from './helpers/getLocations'
 import toast from './toast'
 
 class locationsDropdownApp {
@@ -16,22 +17,6 @@ class locationsDropdownApp {
         locationSelectedValues.forEach((item) => {
             item.textContent = this.locations[item.dataset.type]
         })
-    }
-
-    async handleFetchProvince() {
-        const response = await fetch('/locations/index.json')
-        return await response.json()
-    }
-
-    async handleFetchDistrict(provinceName) {
-        const provinces = await this.handleFetchProvince()
-
-        const filePath = provinces[provinceName]?.file_path
-
-        const response = await fetch(filePath)
-        const data = await response.json()
-
-        return data.district
     }
 
     handleRenderOptions(data, type) {
@@ -94,9 +79,10 @@ class locationsDropdownApp {
         switch (type) {
             case 'province':
                 {
-                    const provinces = await this.handleFetchProvince()
+                    const provinces = await getProvince()
 
                     data = Object.keys(provinces)
+                    data.unshift('Tất cả')
                 }
 
                 break
@@ -112,7 +98,7 @@ class locationsDropdownApp {
                         return
                     }
 
-                    const districts = await this.handleFetchDistrict(this.locations.province)
+                    const districts = await getDistrict(this.locations.province)
 
                     data = districts
                 }
@@ -141,7 +127,7 @@ class locationsDropdownApp {
                         return
                     }
 
-                    const districts = await this.handleFetchDistrict(this.locations.province)
+                    const districts = await getDistrict(this.locations.province)
 
                     const wards = districts.find(
                         (district) => `${district.pre} ${district.name}` === this.locations.district
@@ -278,5 +264,7 @@ class locationsDropdownApp {
         this.loadSelectedLocation()
     }
 }
+
+export {}
 
 export default locationsDropdownApp

@@ -154,7 +154,7 @@ export default [
     {
         id: 5,
         address: '123 Lý Thường Kiệt',
-        address_bd: 'Phường 7 - Quận Tân Bình - TP.HCM',
+        address_bd: 'Phường 7 - Quận Tân Bình - Hồ Chí Minh',
         detail: {
             type: 'Nhà phố',
             bedrooms: '6',
@@ -191,7 +191,7 @@ export default [
     {
         id: 6,
         address: 'Đường Lê Văn Sỹ',
-        address_bd: 'Phường 13 - Quận 3 - TP.HCM',
+        address_bd: 'Phường 13 - Quận 3 - Hồ Chí Minh',
         detail: {
             type: 'Chung cư mini',
             bedrooms: '1',
@@ -265,7 +265,7 @@ export default [
     {
         id: 8,
         address: 'Thảo Điền',
-        address_bd: 'Phường Thảo Điền - Quận 2 - TP.HCM',
+        address_bd: 'Phường Thảo Điền - Quận 2 - Hồ Chí Minh',
         detail: {
             type: 'Villa',
             bedrooms: '4',
@@ -302,7 +302,7 @@ export default [
     {
         id: 9,
         address: 'KĐT Sala Đại Quang Minh',
-        address_bd: 'Quận 2 - TP.HCM',
+        address_bd: 'Quận 2 - Hồ Chí Minh',
         detail: {
             type: 'Chung cư',
             bedrooms: '3',
@@ -339,7 +339,7 @@ export default [
     {
         id: 10,
         address: 'KĐT Phú Mỹ Hưng',
-        address_bd: 'Quận 7 - TP.HCM',
+        address_bd: 'Quận 7 - Hồ Chí Minh',
         detail: {
             type: 'Chung cư',
             bedrooms: '2',
@@ -450,7 +450,7 @@ export default [
     {
         id: 13,
         address: 'Nguyễn Huệ',
-        address_bd: 'Quận 1 - TP.HCM',
+        address_bd: 'Quận 1 - Hồ Chí Minh',
         detail: {
             type: 'Officetel',
             bedrooms: '1',
@@ -598,7 +598,7 @@ export default [
     {
         id: 17,
         address: 'Đường Hoàng Sa',
-        address_bd: 'Quận 1 - TP.HCM',
+        address_bd: 'Quận 1 - Hồ Chí Minh',
         detail: {
             type: 'Penthouse',
             bedrooms: '4',
@@ -671,8 +671,8 @@ export default [
     },
     {
         id: 19,
-        address: 'Đại học Quốc Gia TP.HCM',
-        address_bd: 'Thủ Đức - TP.HCM',
+        address: 'Đại học Quốc Gia Hồ Chí Minh',
+        address_bd: 'Thủ Đức - Hồ Chí Minh',
         detail: {
             type: 'Ký túc xá mini',
             bedrooms: '2',

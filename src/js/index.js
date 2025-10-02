@@ -5,6 +5,8 @@ import './popperWrapper'
 import { handleSetPosition } from './popperWrapper'
 import mockPosts from '../mocks/posts'
 import { momentTimezone } from './helpers/momentTimezone'
+import { listenEvent } from './helpers/event'
+import { getDistrict, getProvince } from './helpers/getLocations'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -16,6 +18,8 @@ const filterItemCategoryButtons = document.querySelectorAll('.filter__item--cate
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
 const postInner = document.querySelector('.post__inner')
 const collapseSidebarFilterButtons = document.querySelectorAll('.sidebar__filter--collapse')
+const sidebarFilterByPriceList = document.querySelectorAll('.sidebar__filter--by--price__list li')
+const sidebarFilterByLocationListWrapper = document.querySelector('.sidebar__filter--by--location__list')
 
 // tabs
 const postTabs = document.querySelectorAll('.post__tabs button')
@@ -23,6 +27,11 @@ const postTabsLine = document.querySelector('.post__tabs--line')
 
 const app = {
     posts: JSON.parse(localStorage.getItem('posts')) || mockPosts || [],
+    locations: {
+        province: '',
+        district: '',
+        ward: '',
+    },
     filters: {
         categories: 'sell' /* sell or rent */,
         type: [], // apartment, house, land, room
@@ -31,6 +40,7 @@ const app = {
             end: Infinity,
             active: false,
         },
+        location: '',
     },
     filterActive: null,
     postType: 'all', // all, agent, personal
@@ -51,6 +61,9 @@ const app = {
                     post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
                 if (!matchPrice) return false
             }
+
+            const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
+            if (!matchLocation) return false
 
             return true
         })
@@ -260,11 +273,91 @@ const app = {
             }
         })
 
+        sidebarFilterByPriceList.forEach((li) => {
+            li.onclick = () => {
+                document.querySelectorAll('.sidebar__filter--by--price__list li').forEach((li) => {
+                    li.classList.remove('active')
+                })
+
+                li.classList.add('active')
+
+                this.filters.price.start = Number(li.dataset.min) || 0
+                this.filters.price.end = Number(li.dataset.max) || Infinity
+                this.filters.price.active = true
+
+                this.handleRenderPost(this.handleFilterPost())
+            }
+        })
+
+        sidebarFilterByLocationListWrapper.onclick = (e) => {
+            if (e.target.closest('.sidebar__filter--by--location__list li')) {
+                const value = e.target.closest('.sidebar__filter--by--location__list li').dataset.value
+
+                this.filters.location = value
+
+                this.handleRenderPost(this.handleFilterPost())
+            }
+        }
+
+        listenEvent({
+            eventName: 'header:location-submit',
+            handler: async ({ detail }) => {
+                this.locations = detail
+
+                await this.handleRenderSidebarFilterByLocation()
+
+                this.filters.location = detail.province
+
+                const addressArr = []
+
+                for (const key in this.locations) {
+                    if (this.locations[key]) {
+                        addressArr.push(this.locations[key])
+                    }
+                }
+
+                this.filters.location = addressArr.reverse().join(' - ')
+
+                this.handleRenderPost(this.handleFilterPost())
+            },
+        })
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()
             }
         })
+    },
+
+    async handleRenderSidebarFilterByLocation() {
+        let data = []
+
+        // nếu có tỉnh thành và không có quận huyện thì lấy quận huyện
+        if (this.locations.province && !this.locations.district) {
+            data = await getDistrict(this.locations.province)
+        } else if (this.locations.district && !this.locations.ward) {
+            // nếu có quận huyện mà không có phường xã thì lấy phường xã
+            const districts = await getDistrict(this.locations.province)
+            data = districts.find((district) => `${district.pre} ${district.name}` === this.locations.district)?.ward
+        } else {
+            data = await getProvince()
+        }
+
+        if (typeof data === 'object' && !Array.isArray(data)) {
+            data = Object.keys(data)
+        }
+
+        const htmls = data
+            .slice(0, 15)
+            .map((item) => {
+                const name = item?.name ? `${item.pre} ${item.name}` : item
+                return `
+                    <li data-value="${name}">${name}</li>
+                `
+            })
+            .join('')
+
+        document.querySelector('.sidebar__filter--by--location__list').innerHTML = htmls
     },
 
     handleToggleLikePost(postId) {
@@ -368,7 +461,8 @@ const app = {
             .join('')
     },
 
-    init() {
+    async init() {
+        await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
         this.handleEvent()
         this.handleInitTabs()
