@@ -322,6 +322,19 @@ const app = {
             },
         })
 
+        listenEvent({
+            eventName: 'header:location-reset',
+            handler: async ({ detail }) => {
+                this.locations = detail
+
+                await this.handleRenderSidebarFilterByLocation()
+
+                this.filters.location = detail.province
+
+                this.handleRenderPost(this.handleFilterPost())
+            },
+        })
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()

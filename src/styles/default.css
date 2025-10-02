@@ -145,6 +145,11 @@
     padding-top: 8px;
 }
 
+.province__dropdown--actions {
+    display: flex;
+    gap: 12px;
+}
+
 .province__dropdown__actions--button {
     background-color: var(--primary);
     color: #fff;
@@ -153,8 +158,18 @@
     font-size: 1.4rem;
     font-weight: 500;
     cursor: pointer;
-    width: 100%;
+    flex: 1;
     margin-top: 24px;
+}
+
+.province__dropdown--actions .remove--all {
+    border: 1px solid var(--text-color-tertiary);
+    background-color: #fff;
+    color: var(--text-color-secondary);
+}
+
+.province__dropdown--actions .remove--all:hover {
+    background-color: var(--background);
 }
 
 .province__options__header button {

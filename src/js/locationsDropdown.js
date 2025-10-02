@@ -1,5 +1,6 @@
 import { getDistrict, getProvince } from './helpers/getLocations'
 import toast from './toast'
+import { sendEvent } from './helpers/event'
 
 class locationsDropdownApp {
     constructor(root) {
@@ -82,7 +83,6 @@ class locationsDropdownApp {
                     const provinces = await getProvince()
 
                     data = Object.keys(provinces)
-                    data.unshift('Tất cả')
                 }
 
                 break
@@ -236,9 +236,19 @@ class locationsDropdownApp {
             }
         })
 
-        this.root.querySelector('.province__dropdown__actions--button').onclick = () => {
+        this.root.querySelector('.province__dropdown__actions--button:not(.remove--all)').onclick = () => {
             onSubmit(this.getLocations())
             this.handleClickOutsideLocationsDropdown()
+        }
+
+        this.root.querySelector('.province__dropdown__actions--button.remove--all').onclick = () => {
+            this.locations = {
+                province: '',
+                district: '',
+                ward: '',
+            }
+
+            this.loadSelectedLocation()
         }
 
         // handle click outside popper
