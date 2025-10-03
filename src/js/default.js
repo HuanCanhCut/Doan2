@@ -1,7 +1,7 @@
 import locationsDropdownApp from './locationsDropdown'
 import toast from './toast'
 import sidebarApp from './sidebar'
-import { listenEvent } from './helpers/event'
+import { listenEvent, sendEvent } from './helpers/event'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -128,10 +128,17 @@ const defaultApp = {
         overlay.classList.remove('active')
     },
 
+    handleSubmitLocation(locations) {
+        sendEvent({
+            eventName: 'header:location-submit',
+            detail: locations,
+        })
+    },
+
     init() {
         this.handleEvent()
         this.handleLoadUI()
-        new locationsDropdownApp(document.querySelector('#header__location')).init()
+        new locationsDropdownApp(document.querySelector('#header__location')).init(this.handleSubmitLocation.bind(this))
         sidebarApp.init()
     },
 }
