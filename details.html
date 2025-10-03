@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="./src/styles/default.css" />
         <link rel="stylesheet" href="./src/styles/grid.css" />
         <link rel="stylesheet" href="./src/styles/post.css" />
-        <link rel="stylesheet" href="./src/styles/index.css" />
+        <link rel="stylesheet" href="./src/styles/details.css" />
     </head>
     <body>
         <div id="app">
@@ -257,154 +257,94 @@
 
             <main id="main">
                 <div class="grid wide">
-                    <div class="filter__wrapper">
-                        <h4>Mua Bán Bất Động Sản</h4>
-                        <div class="filter__items">
-                            <div class="filter__item active" data-type="categories">
-                                <button class="filter__item--button">
-                                    <span>Mua bán</span>
-                                    <span><i class="fa-solid fa-caret-down"></i></span>
-                                </button>
-                                <div class="filter__item__dropdown popper--wrapper">
-                                    <button
-                                        class="filter__item__dropdown--button"
-                                        data-parent="categories"
-                                        data-value="sell"
-                                    >
-                                        <span>Mua bán</span>
-                                        <div class="checkbox checked"></div>
-                                    </button>
-                                    <button
-                                        class="filter__item__dropdown--button"
-                                        data-parent="categories"
-                                        data-value="rent"
-                                    >
-                                        <span>Cho thuê</span>
-                                        <div class="checkbox"></div>
-                                    </button>
-
-                                    <button class="remove__category--btn button--outline">Xóa lọc</button>
-                                </div>
-                            </div>
-
-                            <div class="filter__item" data-type="price">
-                                <button class="filter__item--button">
-                                    <span>Giá bán</span>
-                                    <span><i class="fa-solid fa-caret-down"></i></span>
-                                </button>
-                                <div class="filter__item__dropdown popper--wrapper">
-                                    <div class="filter__item__dropdown__price">
-                                        <div class="input__group">
-                                            <input
-                                                id="price_min"
-                                                name="price_min"
-                                                class="price_min"
-                                                type="text"
-                                                placeholder=" "
-                                                value="0"
-                                            />
-                                            <label for="price_min" name="price_min">Giá tối thiểu</label>
-                                        </div>
-                                        <div class="input__group">
-                                            <input
-                                                id="price_max"
-                                                name="price_max"
-                                                class="price_max"
-                                                type="text"
-                                                placeholder=" "
-                                                value="10.000.000.000"
-                                            />
-                                            <label for="price_max" name="price_max">Giá tối đa</label>
-                                        </div>
-                                    </div>
-                                    <small class="filter__item__dropdown__price--error"></small>
-                                    <div class="filter__item__dropdown__actions">
-                                        <button class="button--outline price_min_max_reset">Xóa lọc</button>
-                                        <button class="button--primary price_min_max_apply">Áp dụng</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="filter__items">
-                            <!-- Loại Bất Động Sản -->
-                            <button class="filter__item--category" data-type="apartment">
-                                <img src="/static/categories/apartment.svg" alt="" />
-                                <span>Căn hộ/Chung cư</span>
-                            </button>
-                            <button class="filter__item--category" data-type="house">
-                                <img src="/static/categories/house.svg" alt="" />
-                                <span>Nhà ở</span>
-                            </button>
-                            <button class="filter__item--category" data-type="land">
-                                <img src="/static/categories/land.svg" alt="" />
-                                <span>Đất nền</span>
-                            </button>
-                            <button class="filter__item--category" data-type="room">
-                                <img src="/static/categories/room.svg" alt="" />
-                                <span>Phòng trọ</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid wide">
                     <div class="row">
-                        <div class="col sm:col-12 md:col-8 lg:col-9">
-                            <div class="post__wrapper">
-                                <div class="post__tabs">
-                                    <button data-type="all" class="active">Tất cả</button>
-                                    <button data-type="agent">Môi giới</button>
-                                    <button data-type="personal">Cá nhân</button>
-                                    <div class="post__tabs--line"></div>
+                        <div class="col col-12 md:col-7">
+                            <div class="details__info__wrapper">
+                                <div class="details__info__images__wrapper">
+                                    <div class="details__info__images__preview">
+                                        <button class="details__info__images__preview__btn--prev">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </button>
+                                        <div class="details__info__images__preview__img"></div>
+                                        <button class="details__info__images__preview__btn--next">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </button>
+                                        <p class="details__info__images__preview__count">2/8</p>
+                                    </div>
+                                    <div class="details__info__images__list"></div>
                                 </div>
-                                <div class="post__inner">
-                                    <button class="post__item--heart">
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-solid fa-heart"></i>
-                                    </button>
+                                <div class="details__info">
+                                    <div class="details__info--title__wrapper">
+                                        <div>
+                                            <h3 class="details__info--title">
+                                                CHỊ VÂN HẠ LONG CẦN BÁN 2 CĂN LIỀN KỀ-CCMN-NHỔN-TU HOÀNG-BẮC TỪ LIÊM
+                                            </h3>
+                                        </div>
+                                        <button class="details__info--save">
+                                            Lưu
+                                            <i class="fa-regular fa-heart"></i>
+                                            <i class="fa-solid fa-heart"></i>
+                                        </button>
+                                    </div>
+                                    <p class="details__info--type">
+                                        <span class="details__info--type--bedrooms">2</span> PN •
+                                        <span class="details__info--type--type">Nhà ngõ, hẻm</span>
+                                    </p>
+                                    <div class="details__info--price__wrapper">
+                                        <p class="details__info--price">31.5 tỷ</p>
+                                        <p class="details__info--unit">
+                                            <span class="details__info--unit__price">25,43</span> triệu/m²
+                                        </p>
+                                        <p class="details__info--acreage">
+                                            <span class="details__info--acreage__value">300</span> m²
+                                        </p>
+                                    </div>
+                                    <div class="details__info--location">
+                                        <p>
+                                            <svg
+                                                data-type="monochrome"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                width="24"
+                                                height="24"
+                                                fill="none"
+                                            >
+                                                <path
+                                                    d="M18.0005 10.0439C18.0005 6.70038 15.3084 4 12.0005 4C8.69261 4 6.00049 6.70038 6.00049 10.0439C6.00061 10.9862 6.35786 12.0899 6.979 13.2705C7.59357 14.4386 8.42503 15.6049 9.27588 16.6514C10.1241 17.6945 10.9756 18.599 11.6157 19.2432C11.7546 19.3829 11.8843 19.5096 12.0005 19.623C12.1167 19.5096 12.2464 19.3829 12.3853 19.2432C13.0254 18.599 13.8769 17.6945 14.7251 16.6514C15.5759 15.6049 16.4074 14.4386 17.022 13.2705C17.6431 12.0899 18.0004 10.9862 18.0005 10.0439ZM13.2368 9.75C13.2367 9.05386 12.6773 8.5 12.0005 8.5C11.3238 8.50016 10.7652 9.05396 10.7651 9.75C10.7651 10.4461 11.3238 10.9998 12.0005 11C12.6773 11 13.2368 10.4462 13.2368 9.75ZM20.0005 10.0439C20.0004 11.4492 19.4826 12.8887 18.7915 14.2021C18.0937 15.5284 17.1749 16.8075 16.2759 17.9131C15.3742 19.0219 14.4755 19.9768 13.8032 20.6533C13.4666 20.992 13.1851 21.2623 12.9868 21.4492C12.8876 21.5427 12.8088 21.6161 12.7544 21.666C12.7274 21.6908 12.7066 21.7103 12.6919 21.7236C12.6845 21.7303 12.6784 21.7356 12.6743 21.7393C12.6724 21.741 12.6706 21.7421 12.6694 21.7432L12.6675 21.7451L12.0005 22.3418L11.3335 21.7451L11.3315 21.7432C11.3304 21.7421 11.3286 21.741 11.3267 21.7393C11.3226 21.7356 11.3164 21.7303 11.3091 21.7236C11.2944 21.7103 11.2736 21.6908 11.2466 21.666C11.1921 21.6161 11.1134 21.5427 11.0142 21.4492C10.8158 21.2623 10.5344 20.992 10.1978 20.6533C9.52545 19.9768 8.62674 19.0219 7.7251 17.9131C6.82612 16.8075 5.90731 15.5284 5.20947 14.2021C4.51839 12.8887 4.0006 11.4492 4.00049 10.0439C4.00049 5.6075 7.57638 2 12.0005 2C16.4246 2 20.0005 5.6075 20.0005 10.0439ZM15.2368 9.75C15.2368 11.5391 13.7936 13 12.0005 13C10.2075 12.9998 8.76514 11.539 8.76514 9.75C8.76521 7.96108 10.2076 6.50015 12.0005 6.5C13.7935 6.5 15.2367 7.96099 15.2368 9.75Z"
+                                                    fill="currentColor"
+                                                ></path>
+                                            </svg>
+                                            <span class="details__info--location__value"
+                                                >QUỐC LỘ 32, Phường Minh Khai, Quận Bắc Từ Liêm, Hà Nội</span
+                                            >
+                                        </p>
+                                        <p>
+                                            <svg
+                                                data-type="monochrome"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                width="24"
+                                                height="24"
+                                                fill="none"
+                                            >
+                                                <path
+                                                    d="M20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12ZM11 8.4209C11 7.86861 11.4477 7.4209 12 7.4209C12.5523 7.4209 13 7.86861 13 8.4209V12.4043L15.6914 13.3018L15.7861 13.3389C16.2485 13.5468 16.487 14.0751 16.3232 14.5664C16.1594 15.0574 15.6517 15.3375 15.1572 15.2266L15.0586 15.1982L11.6836 14.0732C11.2754 13.937 11 13.5553 11 13.125V8.4209ZM22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                                    fill="currentColor"
+                                                ></path>
+                                            </svg>
+                                            <span class="details__info--location__updated">Cập nhật 2 ngày trước</span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-hidden md:col-block md:col-4 lg:col-3">
-                            <div class="sidebar__filter__wrapper">
-                                <div class="sidebar__filter--by--price">
-                                    <div class="sidebar__filter--header">
-                                        <p>Lọc theo khoảng giá</p>
-                                    </div>
-                                    <ul class="sidebar__filter--by--price__list">
-                                        <li class="active" data-min="0" data-max="Infinity">Tất cả</li>
-                                        <li data-min="0" data-max="1000000000">Giá dưới 1 tỷ</li>
-                                        <li data-min="1000000000" data-max="2000000000">Giá từ 1 - 2 tỷ</li>
-                                        <li data-min="2000000000" data-max="3000000000">Giá từ 2 - 3 tỷ</li>
-                                        <li data-min="3000000000" data-max="5000000000">Giá từ 3 - 5 tỷ</li>
-                                        <li data-min="5000000000" data-max="7000000000">Giá từ 5 - 7 tỷ</li>
-                                        <li data-min="7000000000" data-max="10000000000">Giá từ 7 - 10 tỷ</li>
-                                        <li data-min="10000000000" data-max="15000000000">Giá từ 10 - 15 tỷ</li>
-                                        <li data-min="15000000000" data-max="20000000000">Giá từ 15 - 20 tỷ</li>
-                                        <li data-min="20000000000" data-max="30000000000">Giá từ 20 - 30 tỷ</li>
-                                        <li data-min="30000000000">Giá trên 30 tỷ</li>
-                                    </ul>
-                                    <button
-                                        class="sidebar__filter--collapse"
-                                        data-for="sidebar__filter--by--price"
-                                    ></button>
-                                </div>
-                                <div class="sidebar__filter--by--location">
-                                    <div class="sidebar__filter--header">
-                                        <p>Mua bán bất động sản</p>
-                                    </div>
-                                    <ul class="sidebar__filter--by--location__list"></ul>
-                                    <button
-                                        class="sidebar__filter--collapse"
-                                        data-for="sidebar__filter--by--location"
-                                    ></button>
-                                </div>
-                            </div>
+                        <div class="col col-12 md:col-5">
+                            <div class="details__interaction__wrapper"></div>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
-        <script type="module" src="./src/js/index.js"></script>
+        <script type="module" src="./src/js/details.js"></script>
     </body>
 </html>
