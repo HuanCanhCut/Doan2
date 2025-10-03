@@ -26,8 +26,7 @@ const Validator = (options) => {
                 getParentElement(inputElement, options.formGroup).classList.remove('invalid')
             }
 
-            //? input handled
-            inputElement.oninput = () => {
+            const handleClearError = () => {
                 const errorMessage = document.querySelector('.error-message')
 
                 if (errorMessage) {
@@ -36,6 +35,15 @@ const Validator = (options) => {
 
                 errorElement.innerText = ''
                 getParentElement(inputElement, options.formGroup).classList.remove('invalid')
+            }
+
+            //? input handled
+            inputElement.onchange = () => {
+                handleClearError()
+            }
+
+            inputElement.onkeydown = () => {
+                handleClearError()
             }
             return !errorMessage
         }
@@ -154,11 +162,19 @@ Validator.isNumber = (selector, errorMessage) => {
     }
 }
 
-Validator.smallerThan = (selector, targetValue, errorMessage) => {
+Validator.smallerThan = (selector, targetSelector, errorMessage) => {
     return {
         selector: selector,
         test: (value) => {
-            return value < targetValue ? undefined : errorMessage || 'Số phải nhỏ hơn ' + targetValue
+            if (value.trim() === '') {
+                return undefined
+            }
+
+            const targetValue = document.querySelector(targetSelector).value
+
+            return Number(value.split('.').join('')) < Number(targetValue.split('.').join(''))
+                ? undefined
+                : errorMessage || 'Số phải nhỏ hơn ' + targetValue
         },
     }
 }
