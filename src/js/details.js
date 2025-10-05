@@ -44,7 +44,7 @@ function handleLoadCurrentImage(index) {
 
     const imageListItem = document.querySelector(`.details__info__images__list img[data-index="${index}"]`)
 
-    imageListItem.scrollIntoView({ behavior: 'smooth', inline: 'center' })
+    imageListItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
 
     // load active image
 
@@ -123,8 +123,101 @@ detailsInfoSave.addEventListener('click', () => {
     localStorage.setItem('favorites', JSON.stringify(postDb))
 })
 
+function renderDetails() {
+    const dataMapping = [
+        {
+            label: 'Tình trạng',
+            value: currentPost.status,
+            image: '/static/property_status.png',
+        },
+        {
+            label: 'Loại hình nhà ở',
+            value: currentPost.detail.type,
+            image: '/static/house_type.png',
+        },
+        {
+            label: 'Diện tích',
+            value: currentPost.detail.area,
+            image: '/static/size.png',
+        },
+        {
+            label: 'Giá/m²',
+            value: `${Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)} triệu/m²`,
+            image: '/static/price_m2.png',
+        },
+        {
+            label: 'Hướng cửa chính',
+            value: currentPost.detail.main_door,
+            image: '/static/direction.png',
+        },
+        {
+            label: 'Hướng ban công',
+            value: currentPost.detail.balcony,
+            image: '/static/balcony_direction.png',
+        },
+        {
+            label: 'Giấy tờ pháp lý',
+            value: currentPost.detail.legal_documents,
+            image: '/static/property_legal_document.png',
+        },
+        {
+            label: 'Tình trạng nội thất',
+            value: currentPost.detail.interior_status,
+            image: '/static/interior_status.png',
+        },
+        {
+            label: 'Số phòng ngủ',
+            value: currentPost.detail.bedrooms,
+            image: '/static/rooms.png',
+        },
+        {
+            label: 'Số phòng vệ sinh',
+            value: currentPost.detail.bathrooms,
+            image: '/static/toilets.png',
+        },
+    ]
+
+    document.querySelector('.details__info--details__list').innerHTML = dataMapping
+        .map((data) => {
+            if (!data.value) {
+                return null
+            }
+
+            return `
+                <li>
+                    <span>
+                        <img
+                            class="details__info--details--icon"
+                            src="${data.image}"
+                            alt=""
+                        />
+                        ${data.label}</span
+                    >
+                    <span>${data.value}</span>
+                </li>
+        `
+        })
+        .join('')
+}
+
+function renderDescription() {
+    document.querySelector('.details__info__description--content').textContent = currentPost.description
+    document.querySelector('.details__info__description--contact--value').textContent = currentPost.user.phone
+    const copyBtn = document.querySelector('.details__info__description--contact--copy')
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(currentPost.user.phone)
+        copyBtn.textContent = 'Đã sao chép'
+        setTimeout(() => {
+            copyBtn.textContent = 'Sao chép'
+        }, 3000)
+    })
+}
+
 renderImages()
 handleLoadCurrentImage(activeImageIndex)
 loadPostDetails()
+renderDetails()
+renderDescription()
 
 defaultApp.init()

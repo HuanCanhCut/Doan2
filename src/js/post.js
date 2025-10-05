@@ -77,6 +77,7 @@ const postApp = {
                     project_type: this.categoryType,
                     user_id: postUser.id,
                     user: postUser,
+                    status: 'Chưa bàn giao',
                     created_at: new Date(),
                     updated_at: new Date(),
                 }
