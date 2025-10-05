@@ -87,6 +87,7 @@ const postApp = {
                     project_type: this.categoryType,
                     user_id: postUser.id,
                     user: postUser,
+                    post_status: 'pending', // pending, approved, rejected
                     created_at: new Date(),
                     updated_at: new Date(),
                 }
