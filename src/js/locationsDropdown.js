@@ -1,6 +1,5 @@
 import { getDistrict, getProvince } from './helpers/getLocations'
 import toast from './toast'
-import { sendEvent } from './helpers/event'
 
 class locationsDropdownApp {
     constructor(root) {

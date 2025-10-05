@@ -42,6 +42,16 @@ const postApp = {
                 Validator.isRequired('#description'),
             ],
             submit: async (data) => {
+                if (this.imagesFiles.length === 0) {
+                    toast({
+                        title: 'Cảnh báo',
+                        message: 'Vui lòng tải lên ít nhất 1 ảnh',
+                        type: 'error',
+                    })
+
+                    return
+                }
+
                 for (const key in data) {
                     if (document.querySelector(`[name="${key}"]`).getAttribute('price')) {
                         data[key] = data[key].split('.').join('')
