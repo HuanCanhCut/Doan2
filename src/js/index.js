@@ -410,6 +410,7 @@ const app = {
 
         postInner.innerHTML = posts
             .map((post) => {
+                const user = JSON.parse(localStorage.getItem('users')).find((user) => user.id === post.user_id)
                 return `
                     <div class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
@@ -448,23 +449,25 @@ const app = {
                                 <div class="post__item__info--user__item">
                                     <img
                                         onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
-                                        src="${post.user?.avatar}"
+                                        src="${user?.avatar}"
                                         alt=""
                                     />
-                                    <span>${post.user?.full_name}</span>
+                                    <span>${user?.full_name}</span>
                                 </div>
 
                                 <span class="post__item__info--user--post--length">
                                     <i class="fa-solid fa-briefcase"></i>
                                     <span>${
                                         JSON.parse(localStorage.getItem('posts')).filter((postUser) => {
-                                            return post.user.id === postUser.user.id
+                                            return post.user_id === postUser.user_id
                                         }).length
                                     } bài đăng</span>
                                 </span>
                             </div>
                         </div>
-                        <button class="post__item--heart" data-id="${post.id}">
+                        <button class="post__item--heart ${
+                            localStorage.getItem('favorites')?.includes(post.id) ? 'active' : ''
+                        }" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
