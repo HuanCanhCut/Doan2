@@ -7,6 +7,7 @@ import mockPosts from '../mocks/posts'
 import { momentTimezone } from './helpers/momentTimezone'
 import { listenEvent } from './helpers/event'
 import { getDistrict, getProvince } from './helpers/getLocations'
+import handleConvertPrice from './helpers/handleConvertPrice'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -377,7 +378,7 @@ const app = {
             })
             .join('')
 
-        const allHtmls = `<li data-value="all">Tất cả</li>`
+        const allHtmls = `<li data-value="all" class="active">Tất cả</li>`
 
         document.querySelector('.sidebar__filter--by--location__list').innerHTML = allHtmls + htmls
     },
@@ -405,16 +406,6 @@ const app = {
     handleRenderPost(posts = this.posts) {
         if (!localStorage.getItem('posts')) {
             localStorage.setItem('posts', JSON.stringify(this.posts))
-        }
-
-        const handleConvertPrice = (amount) => {
-            if (amount.length < 7) {
-                return `${Number(amount) / 1000} nghìn`
-            } else if (amount.length >= 7 && amount.length <= 9) {
-                return `${Number(amount) / 1000000} triệu`
-            } else {
-                return `${Number(amount) / 1000000000} tỷ`
-            }
         }
 
         postInner.innerHTML = posts
@@ -451,7 +442,7 @@ const app = {
                             </div>
                             <span class="post__item__info__wrapper__location">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>${post.address_bd}</span>
+                                <span>${post.address + ' - ' + post.address_bd}</span>
                             </span>
 
                             <div class="post__item__info--user">
