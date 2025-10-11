@@ -24,7 +24,7 @@ const postComments = document.querySelector('.post__comment__wrapper__container'
 const postId = Number(getUrlSearchParams('post_id'))
 const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
 const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
-const comments = JSON.parse(localStorage.getItem('comments')) || []
+let comments = JSON.parse(localStorage.getItem('comments')) || []
 
 let activeImageIndex = 0
 
@@ -273,56 +273,87 @@ function renderUserPost() {
 const handleLoadComments = () => {
     if (comments.length > 0) {
         postComments.classList.add('has-comments')
-        handleRenderComment()
+        handleRenderComment(comments)
     } else {
         postComments.classList.remove('has-comments')
     }
 }
 
-const handleRenderComment = () => {
-    document.querySelector('.comment--list').innerHTML = comments
-        .map((comment) => {
-            // if comment is a reply, skip
-            if (comment.parent_id) {
-                return null
-            }
+const handleReplyComment = (commentId) => {
+    const comment = comments.find((comment) => comment.id === commentId)
+    const commentUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === comment.user_id)
 
-            const commentUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === comment.user_id)
-            const replyCount = JSON.parse(localStorage.getItem('comments')).filter(
-                (comment) => comment.parent_id === comment.id
-            ).length
+    commentInput.focus()
 
-            return `
-                <div class="comment--item">
-                    <div class="comment--item__avatar">
-                        <img
-                            src="${commentUser.avatar}"
-                            alt="${commentUser.full_name}"
-                            onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
-                        />
-                    </div>
-                    <div class="comment--item__content__wrapper">
-                        <div class="comment--item__content">
-                            <h5>${commentUser.full_name}</h5>
-                            <p>${comment.content}</p>
-                        </div>
-                        <div class="comment--item__meta">
-                            <span class="comment--item__time">${momentTimezone(comment.created_at).replace(
-                                'trước',
-                                ''
-                            )}</span>
-                            <div class="comment--item__actions">
-                                <button class="comment--item__action">
-                                    <i class="fa-regular fa-comment"></i> Trả lời
-                                </button>
-                            </div>
-                        </div>
+    document.querySelector('.reply--input__wrapper').classList.add('active')
+    document.querySelector('.reply--input__wrapper').dataset.commentId = commentId
+    document.querySelector('.reply--input__wrapper__user').textContent = commentUser.full_name
+    document.querySelector('.reply--input__wrapper__content').textContent = comment.content
+}
+
+const renderCommentItem = (comment, allComments, level = 0) => {
+    const commentUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === comment.user_id)
+    const replies = allComments.filter((cmt) => cmt.parent_id === comment.id)
+    const replyCount = replies.length
+
+    const parentComment = allComments.find((cmt) => cmt.id === comment.parent_id)
+    const userParentComment = JSON.parse(localStorage.getItem('users')).find(
+        (user) => user?.id === parentComment?.user_id
+    )
+
+    const commentHTML = `
+        <div class="comment--item" style="margin-left: ${level < 3 ? level * 40 : 80}px">
+            <div class="comment--item__avatar">
+                <img
+                    src="${commentUser.avatar}"
+                    alt="${commentUser.full_name}"
+                    onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
+                />
+            </div>
+            <div class="comment--item__content__wrapper">
+                <div class="comment--item__content">
+                    <h5>${commentUser.full_name}</h5>
+                    <p><span class="comment--item__content--reply--user">${
+                        comment.parent_id ? `${userParentComment.full_name} ` : ''
+                    }</span>${comment.content}</p>
+                </div>
+                <div class="comment--item__meta">
+                    <span class="comment--item__time">${momentTimezone(comment.created_at).replace('trước', '')}</span>
+                    <div class="comment--item__actions">
+                        <button class="comment--item__action" data-comment-id="${comment.id}">
+                            <i class="fa-regular fa-comment"></i> Trả lời
+                        </button>
                     </div>
                 </div>
-                <button class="reply--count ${replyCount > 0 ? 'active' : ''}">Xem ${replyCount} phản hồi</button>
+            </div>
+        </div>
+    `
+
+    let repliesHTML = ''
+
+    if (replyCount > 0) {
+        repliesHTML = `
+            <div class="replies--wrapper">
+                <button class="reply--count active" data-parent-comment-id="${comment.id}" style="margin-left: ${
+            level < 3 ? (level + 1) * 40 + 14 : 140
+        }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
+                    Xem ${replyCount} phản hồi
+                </button>
+                <div class="replies--container" style="display: ${comment.is_show_replies ? 'block' : 'none'}">
+                    ${replies.map((reply) => renderCommentItem(reply, allComments, level + 1)).join('')}
+                </div>
+            </div>
         `
-        })
-        .join('')
+    }
+
+    return commentHTML + repliesHTML
+}
+
+const handleRenderComment = (comments) => {
+    const rootComments = comments.filter((comment) => !comment.parent_id)
+
+    const htmls = rootComments.map((comment) => renderCommentItem(comment, comments)).join('')
+    document.querySelector('.comment--list').innerHTML = htmls
 }
 
 const handleComment = () => {
@@ -332,19 +363,51 @@ const handleComment = () => {
         return
     }
 
+    const replyCommentId = document.querySelector('.reply--input__wrapper.active')?.dataset.commentId
+
     const comment = {
         id: comments.length > 0 ? comments[comments.length - 1].id + 1 : 1,
         post_id: postId,
         content: value,
-        parent_id: null,
+        parent_id: Number(replyCommentId) || null,
         user_id: postUser.id,
         created_at: new Date(),
         updated_at: new Date(),
     }
 
     comments.push(comment)
-    localStorage.setItem('comments', JSON.stringify(comments))
-    handleRenderComment()
+
+    if (replyCommentId) {
+        comments = comments.map((cmt) => {
+            if (cmt.id === Number(replyCommentId)) {
+                return {
+                    ...cmt,
+                    children: [...(cmt.children || []), comment],
+                    is_show_replies: true,
+                }
+            }
+
+            return cmt
+        })
+    }
+
+    const handleRemoveIsShowReplies = (comments) => {
+        return comments.map((cmt) => {
+            // eslint-disable-next-line no-unused-vars
+            const { is_show_replies, children, ...cleanComment } = cmt
+            return cleanComment
+        })
+    }
+
+    localStorage.setItem('comments', JSON.stringify(handleRemoveIsShowReplies(comments)))
+
+    commentInput.value = ''
+
+    document.querySelector('.reply--input__wrapper').classList.remove('active')
+
+    handleRenderComment(comments)
+
+    postComments.classList.add('has-comments')
 }
 
 commentInput.oninput = (e) => {
@@ -368,6 +431,53 @@ commentInput.onkeydown = (e) => {
 
 commentSubmit.addEventListener('click', () => {
     handleComment()
+})
+
+document.querySelector('.comment--list').addEventListener('click', (e) => {
+    // handle when click reply comment
+    if (e.target.closest('.comment--item__action')) {
+        const commentId = e.target.dataset.commentId
+        handleReplyComment(Number(commentId))
+    }
+
+    // handle when click show more replies
+    if (e.target.closest('.reply--count')) {
+        const button = e.target.closest('.reply--count')
+
+        const repliesContainer = button.nextElementSibling
+
+        if (repliesContainer && repliesContainer.classList.contains('replies--container')) {
+            const parentCommentId = button.dataset.parentCommentId
+
+            const isVisible = repliesContainer.style.display !== 'none'
+
+            const handleShowReplies = (cmt, value) => {
+                if (cmt.id === parentCommentId) {
+                    return {
+                        ...cmt,
+                        is_show_replies: value,
+                    }
+                }
+            }
+
+            if (isVisible) {
+                repliesContainer.style.display = 'none'
+                const replyCount = button.textContent.match(/\d+/)[0]
+                button.textContent = `Xem ${replyCount} phản hồi`
+
+                handleShowReplies(comments, false)
+            } else {
+                repliesContainer.style.display = 'block'
+                button.style.display = 'none'
+
+                handleShowReplies(comments, true)
+            }
+        }
+    }
+})
+
+document.querySelector('.reply--input__wrapper__close').addEventListener('click', () => {
+    document.querySelector('.reply--input__wrapper').classList.remove('active')
 })
 
 renderImages()
