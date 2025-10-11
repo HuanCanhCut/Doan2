@@ -291,9 +291,16 @@ const app = {
 
         sidebarFilterByLocationListWrapper.onclick = (e) => {
             if (e.target.closest('.sidebar__filter--by--location__list li')) {
-                const value = e.target.closest('.sidebar__filter--by--location__list li').dataset.value
+                const liElement = e.target.closest('.sidebar__filter--by--location__list li')
+                const value = liElement.dataset.value
 
-                this.filters.location = value
+                this.filters.location = value === 'all' ? '' : value
+
+                document.querySelectorAll('.sidebar__filter--by--location__list li').forEach((li) => {
+                    li.classList.remove('active')
+                })
+
+                liElement.classList.add('active')
 
                 this.handleRenderPost(this.handleFilterPost())
             }
@@ -370,7 +377,9 @@ const app = {
             })
             .join('')
 
-        document.querySelector('.sidebar__filter--by--location__list').innerHTML = htmls
+        const allHtmls = `<li data-value="all">Tất cả</li>`
+
+        document.querySelector('.sidebar__filter--by--location__list').innerHTML = allHtmls + htmls
     },
 
     handleToggleLikePost(postId) {
