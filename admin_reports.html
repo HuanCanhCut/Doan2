@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Báo cáo - Real Estate</title>
   <link rel="stylesheet" href="./src/styles/admin_reports.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="app">
-    
     <aside class="sidebar">
       <div class="logo">
         <div class="mark">RE</div>
@@ -24,18 +22,17 @@
         <a href="#">Dự án</a>
         <a href="#">Căn hộ</a>
         <a href="#">Tin đăng</a>
-        <a href="#" class="">Hợp đồng</a>
+        <a href="#">Hợp đồng</a>
         <a href="#" class="active">Báo cáo</a>
         <a href="#">Tài khoản</a>
       </nav>
     </aside>
 
-    
     <main class="main">
       <header class="header">
         <div>
           <h1>Báo cáo tổng hợp</h1>
-          <div class="small muted">Số tin, số hợp đồng, tổng hoa hồng theo thời gian</div>
+          <div class="small muted">Thống kê tin đăng, hợp đồng, hoa hồng</div>
         </div>
         <div class="user">
           <div class="small muted">Xin chào, Admin</div>
@@ -44,26 +41,24 @@
       </header>
 
       <section class="content">
-        
         <div class="stats-panel">
           <div class="stat card">
             <div class="label">Tổng tin đăng</div>
             <div class="value" id="statListings">0</div>
-            <div class="note">Số tin đăng trong khoảng chọn</div>
+            <div class="note">Trong khoảng thời gian chọn</div>
           </div>
           <div class="stat card">
-            <div class="label">Tổng hợp đồng (Đã ký)</div>
+            <div class="label">Tổng hợp đồng</div>
             <div class="value" id="statContracts">0</div>
-            <div class="note">Số hợp đồng đã ký trong khoảng chọn</div>
+            <div class="note">Đã ký</div>
           </div>
           <div class="stat card">
             <div class="label">Tổng hoa hồng</div>
             <div class="value" id="statCommission">0 ₫</div>
-            <div class="note">Tổng hoa hồng (chỉ hợp đồng đã ký)</div>
+            <div class="note">Theo hợp đồng đã ký</div>
           </div>
         </div>
 
-        
         <div class="filter-panel">
           <div class="date-range">
             <label>Từ</label>
@@ -81,12 +76,15 @@
           </div>
         </div>
 
-       
         <div id="optionSelector" class="option-selector hidden"></div>
 
-       
         <div class="panel chart-panel">
-          <canvas id="reportChart" height="120"></canvas>
+          <canvas id="reportChart" height="360"></canvas>
+          <div class="legend">
+            <span><span class="color-box orange"></span>Tin đăng</span>
+            <span><span class="color-box red"></span>Hợp đồng</span>
+            <span><span class="color-box yellow"></span>Hoa hồng</span>
+          </div>
         </div>
       </section>
     </main>
