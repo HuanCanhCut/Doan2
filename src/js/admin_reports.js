@@ -1,5 +1,5 @@
 // ====================== //
-// 🔹 DỮ LIỆU MẪU (2023 - 2025)
+// DỮ LIỆU MẪU (2023 - 2025)
 // ====================== //
 const sampleData = [
   // 2023
@@ -30,7 +30,7 @@ const sampleData = [
 ];
 
 // ====================== //
-// 🔹 DỊCH VỤ DỮ LIỆU
+// DỊCH VỤ DỮ LIỆU
 // ====================== //
 const DataService = {
   filterByRange(data, start, end) {
@@ -85,7 +85,7 @@ const DataService = {
 };
 
 // ====================== //
-// 🔹 VẼ BIỂU ĐỒ CANVAS
+// VẼ BIỂU ĐỒ CANVAS
 // ====================== //
 const canvas = document.getElementById("reportChart");
 const ctx = canvas.getContext("2d");
@@ -136,7 +136,6 @@ function renderChart(data) {
   ctx.lineTo(W - margin, H - margin);
   ctx.stroke();
 
-  // draw bars and line
   data.labels.forEach((lbl, i) => {
     const centerX = margin + (i + 0.5) * barGroupWidth;
     const leftBarX = centerX - barWidth - 4;
@@ -190,7 +189,7 @@ function renderChart(data) {
 }
 
 // ====================== //
-// 🔹 CẬP NHẬT THỐNG KÊ
+//CẬP NHẬT THỐNG KÊ
 // ====================== //
 function updateStats(grouped) {
   const totalListings = grouped.reduce((s,r)=> s + (r.listings||0), 0);
@@ -203,7 +202,7 @@ function updateStats(grouped) {
 }
 
 // ====================== //
-// 🔹 LỌC VÀ HIỂN THỊ
+// LỌC VÀ HIỂN THỊ
 // ====================== //
 const startDateEl = document.getElementById("startDate");
 const endDateEl = document.getElementById("endDate");

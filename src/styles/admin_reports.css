@@ -23,7 +23,7 @@ body {
     min-height: 100vh;
 }
 
-/* ============ SIDEBAR ============ */
+/* SIDEBAR */
 
 .sidebar {
     background: #fff;
@@ -82,7 +82,7 @@ body {
     font-weight: 600;
 }
 
-/* ============ MAIN CONTENT ============ */
+/*  MAIN CONTENT  */
 
 .main {
     display: flex;
@@ -125,7 +125,7 @@ body {
     font-weight: 700;
 }
 
-/* ============ CONTENT SECTION ============ */
+/*  CONTENT SECTION  */
 
 .content {
     padding: 22px;
@@ -134,7 +134,7 @@ body {
     gap: 16px;
 }
 
-/* ============ STAT CARDS ============ */
+/*  STAT CARDS */
 
 .stats-panel {
     display: flex;
@@ -174,7 +174,7 @@ body {
     margin-top: 8px;
 }
 
-/* ============ FILTERS ============ */
+/*  FILTERS  */
 
 .filter-panel {
     display: flex;
@@ -253,7 +253,7 @@ body {
     border-color: var(--accent);
 }
 
-/* ============ OPTION SELECTOR ============ */
+/*  OPTION SELECTOR  */
 
 .option-selector {
     display: flex;
@@ -285,7 +285,7 @@ body {
     border-color: var(--accent);
 }
 
-/* ============ CHART PANEL ============ */
+/*  CHART PANEL  */
 
 .panel.chart-panel {
     background: var(--panel);
@@ -300,7 +300,7 @@ body {
     display: block;
 }
 
-/* ============ RESPONSIVE ============ */
+/*  RESPONSIVE  */
 
 @media (max-width: 900px) {
     .app {
@@ -325,7 +325,7 @@ body {
     }
 }
 
-/* ============ LEGEND ============ */
+/*  LEGEND  */
 
 .legend {
     display: flex;
