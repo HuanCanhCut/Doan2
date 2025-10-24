@@ -44,106 +44,129 @@
 .col-1 {
     flex: 0 0 8.33333%;
     max-width: 8.33333%;
+    display: block;
 }
 
 .col-2 {
     flex: 0 0 16.66667%;
     max-width: 16.66667%;
+    display: block;
 }
 
 .col-3 {
     flex: 0 0 25%;
     max-width: 25%;
+    display: block;
 }
 
 .col-4 {
     flex: 0 0 33.33333%;
     max-width: 33.33333%;
+    display: block;
 }
 
 .col-5 {
     flex: 0 0 41.66667%;
     max-width: 41.66667%;
+    display: block;
 }
 
 .col-6 {
     flex: 0 0 50%;
     max-width: 50%;
+    display: block;
 }
 
 .col-7 {
     flex: 0 0 58.33333%;
     max-width: 58.33333%;
+    display: block;
 }
 
 .col-8 {
     flex: 0 0 66.66667%;
     max-width: 66.66667%;
+    display: block;
 }
 
 .col-9 {
     flex: 0 0 75%;
     max-width: 75%;
+    display: block;
 }
 
 .col-10 {
     flex: 0 0 83.33333%;
     max-width: 83.33333%;
+    display: block;
 }
 
 .col-11 {
     flex: 0 0 91.66667%;
     max-width: 91.66667%;
+    display: block;
 }
 
 .col-12 {
     flex: 0 0 100%;
     max-width: 100%;
+    display: block;
 }
 
 /* Offset classes for mobile */
 .col-offset-1 {
     margin-left: 8.33333%;
+    display: block;
 }
 
 .col-offset-2 {
     margin-left: 16.66667%;
+    display: block;
 }
 
 .col-offset-3 {
     margin-left: 25%;
+    display: block;
 }
 
 .col-offset-4 {
     margin-left: 33.33333%;
+    display: block;
 }
 
 .col-offset-5 {
     margin-left: 41.66667%;
+    display: block;
 }
 
 .col-offset-6 {
     margin-left: 50%;
+    display: block;
 }
 
 .col-offset-7 {
     margin-left: 58.33333%;
+    display: block;
 }
 
 .col-offset-8 {
     margin-left: 66.66667%;
+    display: block;
 }
 
 .col-offset-9 {
     margin-left: 75%;
+    display: block;
 }
 
 .col-offset-10 {
     margin-left: 83.33333%;
+    display: block;
 }
 
 .col-offset-11 {
     margin-left: 91.66667%;
+    display: block;
 }
 
 /* sm: 640px */
@@ -169,106 +192,129 @@
     .sm\:col-1 {
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
+        display: block;
     }
 
     .sm\:col-2 {
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
+        display: block;
     }
 
     .sm\:col-3 {
         flex: 0 0 25%;
         max-width: 25%;
+        display: block;
     }
 
     .sm\:col-4 {
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
+        display: block;
     }
 
     .sm\:col-5 {
         flex: 0 0 41.66667%;
         max-width: 41.66667%;
+        display: block;
     }
 
     .sm\:col-6 {
         flex: 0 0 50%;
         max-width: 50%;
+        display: block;
     }
 
     .sm\:col-7 {
         flex: 0 0 58.33333%;
         max-width: 58.33333%;
+        display: block;
     }
 
     .sm\:col-8 {
         flex: 0 0 66.66667%;
         max-width: 66.66667%;
+        display: block;
     }
 
     .sm\:col-9 {
         flex: 0 0 75%;
         max-width: 75%;
+        display: block;
     }
 
     .sm\:col-10 {
         flex: 0 0 83.33333%;
         max-width: 83.33333%;
+        display: block;
     }
 
     .sm\:col-11 {
         flex: 0 0 91.66667%;
         max-width: 91.66667%;
+        display: block;
     }
 
     .sm\:col-12 {
         flex: 0 0 100%;
         max-width: 100%;
+        display: block;
     }
 
     /* Offset classes for sm */
     .sm\:col-offset-1 {
         margin-left: 8.33333%;
+        display: block;
     }
 
     .sm\:col-offset-2 {
         margin-left: 16.66667%;
+        display: block;
     }
 
     .sm\:col-offset-3 {
         margin-left: 25%;
+        display: block;
     }
 
     .sm\:col-offset-4 {
         margin-left: 33.33333%;
+        display: block;
     }
 
     .sm\:col-offset-5 {
         margin-left: 41.66667%;
+        display: block;
     }
 
     .sm\:col-offset-6 {
         margin-left: 50%;
+        display: block;
     }
 
     .sm\:col-offset-7 {
         margin-left: 58.33333%;
+        display: block;
     }
 
     .sm\:col-offset-8 {
         margin-left: 66.66667%;
+        display: block;
     }
 
     .sm\:col-offset-9 {
         margin-left: 75%;
+        display: block;
     }
 
     .sm\:col-offset-10 {
         margin-left: 83.33333%;
+        display: block;
     }
 
     .sm\:col-offset-11 {
         margin-left: 91.66667%;
+        display: block;
     }
 }
 
@@ -305,106 +351,130 @@
     .md\:col-1 {
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
+        display: block;
     }
 
     .md\:col-2 {
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
+        display: block;
+        display: block;
     }
 
     .md\:col-3 {
         flex: 0 0 25%;
         max-width: 25%;
+        display: block;
     }
 
     .md\:col-4 {
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
+        display: block;
     }
 
     .md\:col-5 {
         flex: 0 0 41.66667%;
         max-width: 41.66667%;
+        display: block;
     }
 
     .md\:col-6 {
         flex: 0 0 50%;
         max-width: 50%;
+        display: block;
     }
 
     .md\:col-7 {
         flex: 0 0 58.33333%;
         max-width: 58.33333%;
+        display: block;
     }
 
     .md\:col-8 {
         flex: 0 0 66.66667%;
         max-width: 66.66667%;
+        display: block;
     }
 
     .md\:col-9 {
         flex: 0 0 75%;
         max-width: 75%;
+        display: block;
     }
 
     .md\:col-10 {
         flex: 0 0 83.33333%;
         max-width: 83.33333%;
+        display: block;
     }
 
     .md\:col-11 {
         flex: 0 0 91.66667%;
         max-width: 91.66667%;
+        display: block;
     }
 
     .md\:col-12 {
         flex: 0 0 100%;
         max-width: 100%;
+        display: block;
     }
 
     /* Offset classes for md */
     .md\:col-offset-1 {
         margin-left: 8.33333%;
+        display: block;
     }
 
     .md\:col-offset-2 {
         margin-left: 16.66667%;
+        display: block;
     }
 
     .md\:col-offset-3 {
         margin-left: 25%;
+        display: block;
     }
 
     .md\:col-offset-4 {
         margin-left: 33.33333%;
+        display: block;
     }
 
     .md\:col-offset-5 {
         margin-left: 41.66667%;
+        display: block;
     }
 
     .md\:col-offset-6 {
         margin-left: 50%;
+        display: block;
     }
 
     .md\:col-offset-7 {
         margin-left: 58.33333%;
+        display: block;
     }
 
     .md\:col-offset-8 {
         margin-left: 66.66667%;
+        display: block;
     }
 
     .md\:col-offset-9 {
         margin-left: 75%;
+        display: block;
     }
 
     .md\:col-offset-10 {
         margin-left: 83.33333%;
+        display: block;
     }
 
     .md\:col-offset-11 {
         margin-left: 91.66667%;
+        display: block;
     }
 }
 
@@ -419,112 +489,136 @@
     }
 
     .lg\:col-1 {
+        display: block;
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
     }
 
     .lg\:col-2 {
+        display: block;
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
     }
 
     .lg\:col-2-4 {
+        display: block;
         flex: 0 0 20%;
         max-width: 20%;
     }
 
     .lg\:col-3 {
+        display: block;
         flex: 0 0 25%;
         max-width: 25%;
     }
 
     .lg\:col-4 {
+        display: block;
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
     }
 
     .lg\:col-5 {
+        display: block;
         flex: 0 0 41.66667%;
         max-width: 41.66667%;
     }
 
     .lg\:col-6 {
+        display: block;
         flex: 0 0 50%;
         max-width: 50%;
     }
 
     .lg\:col-7 {
+        display: block;
         flex: 0 0 58.33333%;
         max-width: 58.33333%;
     }
 
     .lg\:col-8 {
+        display: block;
         flex: 0 0 66.66667%;
         max-width: 66.66667%;
     }
 
     .lg\:col-9 {
+        display: block;
         flex: 0 0 75%;
         max-width: 75%;
     }
 
     .lg\:col-10 {
+        display: block;
         flex: 0 0 83.33333%;
         max-width: 83.33333%;
     }
 
     .lg\:col-11 {
+        display: block;
         flex: 0 0 91.66667%;
         max-width: 91.66667%;
     }
 
     .lg\:col-12 {
+        display: block;
         flex: 0 0 100%;
         max-width: 100%;
     }
 
     /* Offset classes for lg */
     .lg\:col-offset-1 {
+        display: block;
         margin-left: 8.33333%;
     }
 
     .lg\:col-offset-2 {
+        display: block;
         margin-left: 16.66667%;
     }
 
     .lg\:col-offset-3 {
+        display: block;
         margin-left: 25%;
     }
 
     .lg\:col-offset-4 {
+        display: block;
         margin-left: 33.33333%;
     }
 
     .lg\:col-offset-5 {
+        display: block;
         margin-left: 41.66667%;
     }
 
     .lg\:col-offset-6 {
+        display: block;
         margin-left: 50%;
     }
 
     .lg\:col-offset-7 {
+        display: block;
         margin-left: 58.33333%;
     }
 
     .lg\:col-offset-8 {
+        display: block;
         margin-left: 66.66667%;
     }
 
     .lg\:col-offset-9 {
+        display: block;
         margin-left: 75%;
     }
 
     .lg\:col-offset-10 {
+        display: block;
         margin-left: 83.33333%;
     }
 
     .lg\:col-offset-11 {
+        display: block;
         margin-left: 91.66667%;
     }
 }
@@ -540,107 +634,130 @@
     }
 
     .xl\:col-1 {
+        display: block;
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
     }
 
     .xl\:col-2 {
+        display: block;
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
     }
 
     .xl\:col-3 {
+        display: block;
         flex: 0 0 25%;
         max-width: 25%;
     }
 
     .xl\:col-4 {
+        display: block;
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
     }
 
     .xl\:col-5 {
+        display: block;
         flex: 0 0 41.66667%;
         max-width: 41.66667%;
     }
 
     .xl\:col-6 {
+        display: block;
         flex: 0 0 50%;
         max-width: 50%;
     }
 
     .xl\:col-7 {
+        display: block;
         flex: 0 0 58.33333%;
         max-width: 58.33333%;
     }
 
     .xl\:col-8 {
+        display: block;
         flex: 0 0 66.66667%;
         max-width: 66.66667%;
     }
 
     .xl\:col-9 {
+        display: block;
         flex: 0 0 75%;
         max-width: 75%;
     }
 
     .xl\:col-10 {
+        display: block;
         flex: 0 0 83.33333%;
         max-width: 83.33333%;
     }
 
     .xl\:col-11 {
+        display: block;
         flex: 0 0 91.66667%;
         max-width: 91.66667%;
     }
 
     .xl\:col-12 {
+        display: block;
         flex: 0 0 100%;
         max-width: 100%;
     }
 
     /* Offset classes for xl */
     .xl\:col-offset-1 {
+        display: block;
         margin-left: 8.33333%;
     }
 
     .xl\:col-offset-2 {
+        display: block;
         margin-left: 16.66667%;
     }
 
     .xl\:col-offset-3 {
+        display: block;
         margin-left: 25%;
     }
 
     .xl\:col-offset-4 {
+        display: block;
         margin-left: 33.33333%;
     }
 
     .xl\:col-offset-5 {
+        display: block;
         margin-left: 41.66667%;
     }
 
     .xl\:col-offset-6 {
+        display: block;
         margin-left: 50%;
     }
 
     .xl\:col-offset-7 {
+        display: block;
         margin-left: 58.33333%;
     }
 
     .xl\:col-offset-8 {
+        display: block;
         margin-left: 66.66667%;
     }
 
     .xl\:col-offset-9 {
+        display: block;
         margin-left: 75%;
     }
 
     .xl\:col-offset-10 {
+        display: block;
         margin-left: 83.33333%;
     }
 
     .xl\:col-offset-11 {
+        display: block;
         margin-left: 91.66667%;
     }
 }
@@ -653,110 +770,134 @@
 
     .xxl\:col-block {
         display: block;
+        display: block;
     }
 
     .xxl\:col-1 {
+        display: block;
         flex: 0 0 8.33333%;
         max-width: 8.33333%;
     }
 
     .xxl\:col-2 {
+        display: block;
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
     }
 
     .xxl\:col-3 {
+        display: block;
         flex: 0 0 25%;
         max-width: 25%;
     }
 
     .xxl\:col-4 {
+        display: block;
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
     }
 
     .xxl\:col-5 {
+        display: block;
         flex: 0 0 41.66667%;
         max-width: 41.66667%;
     }
 
     .xxl\:col-6 {
+        display: block;
         flex: 0 0 50%;
         max-width: 50%;
     }
 
     .xxl\:col-7 {
+        display: block;
         flex: 0 0 58.33333%;
         max-width: 58.33333%;
     }
 
     .xxl\:col-8 {
+        display: block;
         flex: 0 0 66.66667%;
         max-width: 66.66667%;
     }
 
     .xxl\:col-9 {
+        display: block;
         flex: 0 0 75%;
         max-width: 75%;
     }
 
     .xxl\:col-10 {
+        display: block;
         flex: 0 0 83.33333%;
         max-width: 83.33333%;
     }
 
     .xxl\:col-11 {
+        display: block;
         flex: 0 0 91.66667%;
         max-width: 91.66667%;
     }
 
     .xxl\:col-12 {
+        display: block;
         flex: 0 0 100%;
         max-width: 100%;
     }
 
     /* Offset classes for 2xl */
     .xxl\:col-offset-1 {
+        display: block;
         margin-left: 8.33333%;
     }
 
     .xxl\:col-offset-2 {
+        display: block;
         margin-left: 16.66667%;
     }
 
     .xxl\:col-offset-3 {
+        display: block;
         margin-left: 25%;
     }
 
     .xxl\:col-offset-4 {
+        display: block;
         margin-left: 33.33333%;
     }
 
     .xxl\:col-offset-5 {
+        display: block;
         margin-left: 41.66667%;
     }
 
     .xxl\:col-offset-6 {
+        display: block;
         margin-left: 50%;
     }
 
     .xxl\:col-offset-7 {
+        display: block;
         margin-left: 58.33333%;
     }
 
     .xxl\:col-offset-8 {
+        display: block;
         margin-left: 66.66667%;
     }
 
     .xxl\:col-offset-9 {
+        display: block;
         margin-left: 75%;
     }
 
     .xxl\:col-offset-10 {
+        display: block;
         margin-left: 83.33333%;
     }
 
     .xxl\:col-offset-11 {
+        display: block;
         margin-left: 91.66667%;
     }
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/static/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nhà đất</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="./src/styles/normalize.css" />
+        <link rel="stylesheet" href="./src/styles/base.css" />
+        <link rel="stylesheet" href="./src/styles/grid.css" />
+        <link rel="stylesheet" href="./src/styles/dashboard.scss" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar" aria-label="sidebar">
+                <div class="logo">
+                    <img src="/static/logo.png" alt="logo" />
+                    <div>
+                        <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
+                        <div class="small">Bảng quản trị</div>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#" class="active">Trang chủ</a>
+                    <a href="#" class="">Dự án</a>
+                    <a href="#" class="">Căn hộ</a>
+                    <a href="#" class="">Tin đăng</a>
+                    <a href="#" class="">Hợp đồng</a>
+                    <a href="#" class="">Báo cáo</a>
+                    <a href="#" class="">Tài khoản</a>
+                </nav>
+            </aside>
+
+            <main style="min-height: 100vh; display: flex; flex-direction: column">
+                <header class="header">
+                    <h1 style="font-weight: 600" class="col-hidden md:col-block">Dashboard</h1>
+                    <div class="filter--container">
+                        <div class="calendar__picker">
+                            <div class="calendar--start">
+                                <h5 class="col-hidden xl:col-block">Từ ngày</h5>
+                                <input
+                                    type="date"
+                                    name="from_date"
+                                    placeholder="Chọn ngày"
+                                    class="calendar-picker__input"
+                                />
+                            </div>
+                            <div class="calendar--end">
+                                <h5 class="col-hidden xl:col-block">Đến ngày</h5>
+                                <input type="date" name="to_date" format="yyyy-MM-dd" class="calendar-picker__input" />
+                            </div>
+                        </div>
+                        <button class="filter--btn">
+                            <span
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="lucide lucide-funnel-icon lucide-funnel"
+                                >
+                                    <path
+                                        d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+                                    /></svg
+                            ></span>
+                            Lọc
+                        </button>
+                    </div>
+                </header>
+
+                <div class="analytics--container">
+                    <div class="grid">
+                        <div class="row overview--container"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script type="module" src="./src/js/dashboard.js"></script>
+    </body>
+</html>

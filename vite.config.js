@@ -24,6 +24,7 @@ export default defineConfig({
                 default: 'default.html',
                 loginModal: '/src/modal/loginModal.html',
                 registerModal: '/src/modal/registerModal.html',
+                dashboard: 'dashboard.html',
             },
         },
     },
