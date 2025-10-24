@@ -9,7 +9,13 @@
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="logo"><div class="mark">RE</div><div><h2>Real Estate</h2><div class="small">Bảng quản trị</div></div></div>
+      <div class="logo">
+        <div class="mark">RE</div>
+        <div>
+          <h2>Real Estate</h2>
+          <div class="small">Bảng quản trị</div>
+        </div>
+      </div>
       <nav class="menu">
         <a href="#">Trang chủ</a>
         <a href="#">Dự án</a>
@@ -24,7 +30,9 @@
       <header class="header">
         <div>
           <h1>Ký hợp đồng online</h1>
-          <div class="small muted">Khách hàng điền thông tin — hệ thống sinh hợp đồng và hỗ trợ lưu PDF</div>
+          <div class="small muted">
+            Khách hàng điền thông tin — hệ thống sinh hợp đồng và hỗ trợ lưu PDF
+          </div>
         </div>
         <div class="user">
           <div class="small muted">Xin chào, Khách</div>
@@ -50,6 +58,10 @@
               <input id="phone" name="phone" type="tel" placeholder="0987654321" required />
             </label>
 
+            <label>Địa chỉ liên hệ
+              <input id="address" name="address" type="text" placeholder="Số 123, Đường ABC, Quận XYZ, TP. Hà " required />
+            </label>
+
             <label>Ngày ký
               <input id="signDate" name="signDate" type="date" required />
             </label>
@@ -60,16 +72,19 @@
 
             <label>Thời hạn hợp đồng
               <select id="duration" name="duration">
-                <option value="30">30 ngày</option>
-                <option value="90">90 ngày</option>
-                <option value="180">180 ngày</option>
-                <option value="365" selected>12 tháng (365 ngày)</option>
+                <option value="2">2 năm</option>
+                <option value="5">5 năm</option>
+                <option value="10">10 năm</option>
               </select>
             </label>
 
+            <label>Hình thức thanh toán
+              <input id="payment" name="payment" type="text" value="Gặp mặt trao đổi và thanh toán tiền mặt" readonly />
+            </label>
+
             <label>Điều khoản (mẫu)
-              <textarea id="terms" rows="5">1. Bên Bán cam kết thông tin BĐS chính xác. 
-2. Bên Mua thanh toán theo thỏa thuận; bên Môi giới được hưởng hoa hồng như ghi trong hợp đồng. 
+              <textarea id="terms" rows="5">1. Bên A cam kết thông tin BĐS là chính xác và chịu trách nhiệm pháp lý liên quan. 
+2. Bên B thanh toán bằng tiền mặt khi hai bên gặp mặt, có biên nhận rõ ràng. 
 3. Hai bên thống nhất giải quyết tranh chấp bằng thương lượng; nếu không thành, tòa án có thẩm quyền giải quyết.</textarea>
             </label>
 
@@ -82,14 +97,15 @@
               <button type="button" id="downloadHtml" class="btn secondary">Tải HTML</button>
             </div>
 
-            <p class="hint">Sau khi ký, trang in sẽ mở — chọn "Save as PDF" và đặt tên file <code>contract_TenKhongDau.pdf</code></p>
+            <p class="hint">
+              Sau khi ký, trang in sẽ mở — chọn "Save as PDF" và đặt tên file 
+              <code>contract_TenKhongDau.pdf</code>
+            </p>
           </form>
 
           <!-- PREVIEW -->
           <div class="panel preview-panel" id="preview">
-            <div class="contract" id="contractPreview">
-              <!-- preview will be injected -->
-            </div>
+            <div class="contract" id="contractPreview"></div>
           </div>
         </div>
       </section>
