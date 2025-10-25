@@ -126,10 +126,10 @@ body {
     }
 }
 
-.analytics--container {
+.analytics__container {
     padding: 24px;
 
-    .analytics--item {
+    .analytics__item {
         background-color: #fff;
         border-radius: 12px;
         box-shadow: var(--shadow);
@@ -139,7 +139,7 @@ body {
         gap: 16px;
         margin-top: 8px;
 
-        .analytics--item--icon {
+        .analytics__item--icon {
             width: 50px;
             height: 50px;
             border-radius: 10px;
@@ -150,11 +150,120 @@ body {
             flex-shrink: 0;
         }
 
-        .analytics--item--title {
+        .analytics__item--title {
             font-size: 1.4rem;
             font-weight: 500;
             color: #3741519e;
         }
+    }
+}
+
+.chart__container {
+    .chart__item {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        padding: 20px;
+        margin-top: 28px;
+    }
+
+    .chart__item--donut {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .chart__item--donut--info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 16px;
+
+        .chart__item--donut--info--item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart__item--donut--info--item--name {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #3741519e;
+        }
+    }
+
+    .chart__item--donut--info--item--color {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+    }
+}
+
+// Animation cho donut chart
+@keyframes donutChartRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.donut-chart-svg {
+    animation: donutChartRotate 1.2s ease-out forwards;
+    transform-origin: center;
+
+    .donut-segments {
+        transform-origin: center;
+    }
+
+    .donut-segment {
+        opacity: 0;
+        animation: fadeIn 0.6s ease-out forwards;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(1.1);
+        }
+    }
+
+    .donut-segment:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .donut-segment:nth-child(2) {
+        animation-delay: 0.35s;
+    }
+
+    .donut-segment:nth-child(3) {
+        animation-delay: 0.5s;
+    }
+
+    .donut-segment:nth-child(4) {
+        animation-delay: 0.65s;
+    }
+
+    .donut-segment:nth-child(5) {
+        animation-delay: 0.8s;
+    }
+
+    .donut-tooltip {
+        transition: opacity 0.3s ease;
+
+        rect {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 

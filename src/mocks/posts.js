@@ -4,7 +4,7 @@ export default [
         address: 'Thôn Đồng Chung',
         address_bd: 'Xã Hồng Quang - Huyện Ân Thi - Hưng Yên',
         detail: {
-            type: 'Chung cư',
+            type: 'Căn hộ/Chung cư',
             bedrooms: '4',
             bathrooms: '10',
             balcony: 'Bắc',
@@ -84,7 +84,7 @@ export default [
         address: 'KĐT Vinhomes Smart City ',
         address_bd: 'Phường Tây Mỗ - Quận Nam Từ Liêm - Hà Nội',
         detail: {
-            type: 'Chung cư',
+            type: 'Căn hộ/Chung cư',
             bedrooms: '2',
             bathrooms: '2',
             balcony: 'Tây',
@@ -210,7 +210,7 @@ export default [
         address: 'KĐT Sala Đại Quang Minh',
         address_bd: 'Quận 2 - Hồ Chí Minh',
         detail: {
-            type: 'Chung cư',
+            type: 'Căn hộ/Chung cư',
             bedrooms: '3',
             bathrooms: '2',
             balcony: 'Đông Bắc',
@@ -235,7 +235,7 @@ export default [
         address: 'KĐT Phú Mỹ Hưng',
         address_bd: 'Quận 7 - Hồ Chí Minh',
         detail: {
-            type: 'Chung cư',
+            type: 'Căn hộ/Chung cư',
             bedrooms: '2',
             bathrooms: '2',
             balcony: 'Nam',
@@ -385,7 +385,7 @@ export default [
         address: 'Phường Mỹ Đình 1',
         address_bd: 'Quận Nam Từ Liêm - Hà Nội',
         detail: {
-            type: 'Chung cư',
+            type: 'Căn hộ/Chung cư',
             bedrooms: '1',
             bathrooms: '1',
             balcony: 'Đông Nam',
