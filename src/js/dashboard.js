@@ -454,6 +454,13 @@ const dashboardApp = {
         // Vẽ polyline (đường cong)
         svg += `<polyline points="${polylinePoints.join(' ')}" fill="none" stroke="#1e40af" stroke-width="3" />`
 
+        // Vẽ các chấm tròn tại các đỉnh
+        for (let i = 0; i < mockData.length; i++) {
+            const x = getX(i)
+            const y = getY(mockData[i].value)
+            svg += `<circle cx="${x}" cy="${y}" r="5" fill="#1e40af" />`
+        }
+
         svg += `</svg>`
 
         document.querySelector('.chart__item--line').innerHTML = svg
