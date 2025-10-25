@@ -23,8 +23,8 @@ const postComments = document.querySelector('.post__comment__wrapper__container'
 
 const postId = Number(getUrlSearchParams('post_id'))
 const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
-const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
-let comments = JSON.parse(localStorage.getItem('comments')) || []
+const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user.id)
+let comments = JSON.parse(localStorage.getItem('comments')).filter((comment) => comment.post_id === postId) || []
 
 let activeImageIndex = 0
 

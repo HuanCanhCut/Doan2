@@ -20,7 +20,11 @@ export default [
             'Chính chủ cần sang lại căn hộ hiếm 1 phòng ngủ tầng cao chung cư cara river park giá chỉ 1 tỷ 700 triệu có thương lượng. Diện tích 37 m2 view về Kdc Nam Long, nhìn dọc QL1A rất đẹp.\n\nsdt: 0123456789',
         property_category: 'apartment',
         role: 'agent',
-        images: ['https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'],
+        images: [
+            'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
+            'https://banobagi.vn/wp-content/uploads/2025/04/Meo-Cute-4-1.jpg',
+            'https://cdn2.fptshop.com.vn/unsafe/800x0/avatar_meo_3_08ba546876.jpg',
+        ],
         project_type: 'sell',
         user: {
             id: 2,
