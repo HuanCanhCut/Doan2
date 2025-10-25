@@ -241,7 +241,20 @@ const dashboardApp = {
     },
 
     handleDonutChart() {
-        const groupedPosts = this.groupPostsByCategory(JSON.parse(localStorage.getItem('posts')) || [])
+        const filteredPosts = () => {
+            const posts = JSON.parse(localStorage.getItem('posts')) || []
+
+            return posts.filter((post) => {
+                const postDate = new Date(post.created_at)
+
+                return (
+                    postDate.toISOString().split('T')[0] >= new Date(fromDateInput.value).toISOString().split('T')[0] &&
+                    postDate.toISOString().split('T')[0] <= new Date(toDateInput.value).toISOString().split('T')[0]
+                )
+            })
+        }
+
+        const groupedPosts = this.groupPostsByCategory(filteredPosts())
 
         // Dữ liệu (có thể có n giá trị)
         const data = Object.values(groupedPosts).map((item) => item.value)
@@ -346,10 +359,111 @@ const dashboardApp = {
         })
     },
 
+    handleLineChart() {
+        const mockData = [
+            { month: 'T1', value: 20 },
+            { month: 'T2', value: 40 },
+            { month: 'T3', value: 10 },
+            { month: 'T4', value: 10 },
+            { month: 'T5', value: 0 },
+            { month: 'T6', value: 60 },
+            { month: 'T7', value: 50 },
+            { month: 'T8', value: 80 },
+            { month: 'T9', value: 90 },
+            { month: 'T10', value: 40 },
+            { month: 'T11', value: 50 },
+            { month: 'T12', value: 100 },
+        ]
+
+        const padding = 80
+
+        const linesCount = 5
+        const maxValue = Math.max(...mockData.map((item) => item.value))
+
+        const xLineWidth = 1000 - 30 * 2
+
+        const lineGap = 75
+
+        let svg = `<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">`
+
+        // vẽ lưới 5 line
+        for (let i = 1; i <= linesCount; i++) {
+            svg += `<line x1="${padding}" y1="${lineGap * i}" x2="${xLineWidth}" y2="${
+                lineGap * i
+            }" stroke="#e0e0e0" stroke-width="1" />`
+        }
+
+        // vẽ trục x
+        svg += `<line x1="${padding}" y1="${(linesCount + 1) * lineGap}" x2="${xLineWidth}" y2="${
+            (linesCount + 1) * lineGap
+        }" stroke="#333" stroke-width="2" />`
+
+        // Vẽ trục y
+        svg += `<line x1="${padding}" y1="0" x2="${padding}" y2="${
+            (linesCount + 1) * lineGap
+        }" stroke="#333" stroke-width="2" />`
+
+        // Vẽ các giá trị trên trục y
+        for (let i = 0; i <= linesCount; i++) {
+            svg += `
+                <text x="${padding - 20}" y="${
+                (linesCount + 1) * lineGap - lineGap * i
+            }" font-size="14" text-anchor="end" fill="#666">${Math.round((maxValue / linesCount) * i, 0)}</text>
+            `
+        }
+
+        // vẽ các giá trị trên trục x
+        for (let i = 0; i < mockData.length; i++) {
+            svg += `
+                <text x="${(xLineWidth / mockData.length) * i + padding}" y="${
+                (linesCount + 1) * lineGap + 20
+            }" font-size="14" text-anchor="middle" fill="#666">
+                    ${mockData[i].month}
+                </text>
+            `
+        }
+
+        // Hàm tính tọa độ X từ index
+        const getX = (index) => {
+            return (xLineWidth / mockData.length) * index + padding
+        }
+
+        // Hàm tính tọa độ Y từ giá trị
+        const getY = (value) => {
+            return (linesCount + 1) * lineGap - (value / maxValue) * (lineGap * linesCount)
+        }
+
+        // Tính toán điểm cho polyline
+        let polylinePoints = []
+        for (let i = 0; i < mockData.length; i++) {
+            polylinePoints.push(`${getX(i)}, ${getY(mockData[i].value)}`)
+        }
+
+        // Vẽ path (miền)
+        let pathD = `M ${polylinePoints[0]}`
+        for (let i = 1; i < polylinePoints.length; i++) {
+            pathD += ` L ${polylinePoints[i]}`
+        }
+        // Đóng path bằng cách đi xuống trục x rồi quay lại điểm đầu
+        pathD += ` L ${getX(mockData.length - 1)},${(linesCount + 1) * lineGap} L ${padding},${
+            (linesCount + 1) * lineGap
+        } Z`
+
+        svg += `<path d="${pathD}" fill="#3b82f6" opacity="0.6" />`
+
+        // Vẽ polyline (đường cong)
+        svg += `<polyline points="${polylinePoints.join(' ')}" fill="none" stroke="#1e40af" stroke-width="3" />`
+
+        svg += `</svg>`
+
+        document.querySelector('.chart__item--line').innerHTML = svg
+    },
+
     init() {
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()
+        this.handleLineChart()
     },
 }
 
