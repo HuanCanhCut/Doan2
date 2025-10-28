@@ -327,13 +327,13 @@ export default [
         role: 'agent',
         user_id: 1,
         is_approved: true,
-        created_at: new Date('2025-10-21T11:30:00'),
-        updated_at: new Date('2025-10-21T11:30:00'),
+        created_at: new Date('2025-10-18T11:30:00'),
+        updated_at: new Date('2025-10-18T11:30:00'),
     },
     {
         id: 14,
         address: 'Khu du lịch Tam Đảo',
-        address_bd: 'Huyện Tam Đảo - Vĩnh Phúc',
+        address_bd: 'Quận 1 - Hồ Chí Minh',
         detail: {
             type: 'Homestay',
             bedrooms: '7',
@@ -352,8 +352,8 @@ export default [
         role: 'personal',
         user_id: 1,
         is_approved: true,
-        created_at: new Date('2025-10-22T07:45:00'),
-        updated_at: new Date('2025-10-22T07:45:00'),
+        created_at: new Date('2025-10-18T07:45:00'),
+        updated_at: new Date('2025-10-18T07:45:00'),
     },
     {
         id: 15,

@@ -28,6 +28,10 @@ body {
     max-width: 100dvw;
     overflow-x: hidden;
     font-size: 1.6rem;
+
+    main {
+        max-width: 100dvw;
+    }
 }
 
 .sidebar {
@@ -92,6 +96,7 @@ body {
     .calendar__picker {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 24px;
 
         .calendar--start,
@@ -258,6 +263,42 @@ body {
     }
 }
 
+.location__stats--item {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 20px 0;
+    margin-top: 28px;
+    overflow: hidden;
+
+    .location__stats--item--title {
+        padding: 12px 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .location__stats--item--header {
+        padding: 12px 8px;
+        font-size: 1.2rem;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .location__stats--item--content {
+        padding: 12px 8px;
+        font-size: 1.3rem;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -287,6 +328,14 @@ body {
 
         .filter--btn {
             width: 100%;
+        }
+    }
+
+    .analytics__container {
+        padding: 4px;
+
+        .analytics__item--icon {
+            display: none !important;
         }
     }
 }

@@ -2,6 +2,8 @@ const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
 
 const dashboardApp = {
+    posts: JSON.parse(localStorage.getItem('posts')) || [],
+
     dateFormatter: new Intl.DateTimeFormat('vi-VN', {
         year: 'numeric',
         month: '2-digit',
@@ -37,18 +39,16 @@ const dashboardApp = {
         // Get date in format (YYYY-MM-DD)
         const lookBackDateStr = lookBackDate.toISOString().split('T')[0]
 
-        const posts = JSON.parse(localStorage.getItem('posts')) || []
-
         // load overview
         const overview = [
             {
                 label: 'Tổng tin đăng',
-                value: posts.length,
+                value: this.posts.length,
                 color: 'var(--accent)',
                 backgroundColor: '#ffaa7d2e',
                 icon: 'fa-solid fa-mobile-screen',
                 percent: () => {
-                    const currentPostsAmount = posts.filter((post) => {
+                    const currentPostsAmount = this.posts.filter((post) => {
                         const postDate = new Date(post.created_at)
 
                         return (
@@ -57,7 +57,7 @@ const dashboardApp = {
                         )
                     })
 
-                    const lookBackPostsAmount = posts.filter((post) => {
+                    const lookBackPostsAmount = this.posts.filter((post) => {
                         const postDate = new Date(post.created_at)
 
                         return (
@@ -79,14 +79,14 @@ const dashboardApp = {
             },
             {
                 label: 'Tin đã duyệt',
-                value: posts.filter((post) => {
+                value: this.posts.filter((post) => {
                     return post.is_approved === true
                 }).length,
                 color: 'var(--success)',
                 backgroundColor: '#0bb07924',
                 icon: 'fa-solid fa-circle-check',
                 percent: () => {
-                    const currentPostsAmount = posts.filter((post) => {
+                    const currentPostsAmount = this.posts.filter((post) => {
                         const postDate = new Date(post.updated_at)
 
                         return (
@@ -96,7 +96,7 @@ const dashboardApp = {
                         )
                     })
 
-                    const lookBackPostsAmount = posts.filter((post) => {
+                    const lookBackPostsAmount = this.posts.filter((post) => {
                         const postDate = new Date(post.created_at)
 
                         return (
@@ -119,7 +119,7 @@ const dashboardApp = {
             },
             {
                 label: 'Chờ duyệt',
-                value: posts.filter((post) => {
+                value: this.posts.filter((post) => {
                     return post.is_approved === false
                 }).length,
                 color: '#f59e0b',
@@ -169,7 +169,7 @@ const dashboardApp = {
         document.querySelector('.overview__container').innerHTML = overview
             .map((item) => {
                 return `
-                <div class="col col-6 lg:col-4 md:col-6 xl:col-3">
+                <div class="col col-12 sm:col-6 lg:col-4 md:col-6 xl:col-3">
                     <div class="analytics__item">
                         <div
                             class="analytics__item--icon"
@@ -240,21 +240,19 @@ const dashboardApp = {
         }, {})
     },
 
+    filterPostsByDate(fromDate, toDate) {
+        return this.posts.filter((post) => {
+            const postDate = new Date(post.created_at)
+
+            return (
+                postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
+                postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
+            )
+        })
+    },
+
     handleDonutChart() {
-        const filteredPosts = () => {
-            const posts = JSON.parse(localStorage.getItem('posts')) || []
-
-            return posts.filter((post) => {
-                const postDate = new Date(post.created_at)
-
-                return (
-                    postDate.toISOString().split('T')[0] >= new Date(fromDateInput.value).toISOString().split('T')[0] &&
-                    postDate.toISOString().split('T')[0] <= new Date(toDateInput.value).toISOString().split('T')[0]
-                )
-            })
-        }
-
-        const groupedPosts = this.groupPostsByCategory(filteredPosts())
+        const groupedPosts = this.groupPostsByCategory(this.filterPostsByDate(fromDateInput.value, toDateInput.value))
 
         // Dữ liệu (có thể có n giá trị)
         const data = Object.values(groupedPosts).map((item) => item.value)
@@ -445,7 +443,7 @@ const dashboardApp = {
             pathD += ` L ${polylinePoints[i]}`
         }
         // Đóng path bằng cách đi xuống trục x rồi quay lại điểm đầu
-        pathD += ` L ${getX(mockData.length - 1)},${(linesCount + 1) * lineGap} L ${padding},${
+        pathD += ` L ${getX(mockData.length - 1)}, ${(linesCount + 1) * lineGap} L ${padding}, ${
             (linesCount + 1) * lineGap
         } Z`
 
@@ -466,11 +464,112 @@ const dashboardApp = {
         document.querySelector('.chart__item--line').innerHTML = svg
     },
 
+    handleLoadLocationStats() {
+        const fromDate = fromDateInput.value
+        const toDate = toDateInput.value
+
+        const groupedPosts = this.filterPostsByDate(fromDate, toDate).reduce((acc, curr) => {
+            if (!acc[curr.address_bd]) {
+                acc[curr.address_bd] = {
+                    name: curr.address_bd,
+                    value: 0,
+                }
+            }
+
+            acc[curr.address_bd].value++
+            return acc
+        }, {})
+
+        // only show 8 location stats
+        let locationStatsSorted = Object.values(groupedPosts)
+            .sort((a, b) => b.value - a.value)
+            .slice(0, 8)
+
+        const dateDiff = (new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24)
+
+        // Get date from fromDate - dateDiff
+        const lookBackDate = new Date(new Date(fromDate).getTime() - (dateDiff + 1) * 24 * 60 * 60 * 1000)
+
+        // Get date in format (YYYY-MM-DD)
+        const lookBackDateStr = lookBackDate.toISOString().split('T')[0]
+
+        const groupedPostsLookBack = this.filterPostsByDate(lookBackDateStr, fromDate).reduce((acc, curr) => {
+            if (!acc[curr.address_bd]) {
+                acc[curr.address_bd] = {
+                    name: curr.address_bd,
+                    value: 0,
+                }
+            }
+
+            acc[curr.address_bd].value++
+            return acc
+        }, {})
+
+        locationStatsSorted = locationStatsSorted.map((item) => {
+            const name = item.name
+
+            const percent = Number(((item.value / this.posts.length) * 100).toFixed(2))
+
+            if (groupedPostsLookBack[name]) {
+                const growth =
+                    ((item.value - groupedPostsLookBack[name].value) / groupedPostsLookBack[name].value) * 100
+
+                return {
+                    ...item,
+                    growth,
+                    percent,
+                }
+            } else {
+                return {
+                    ...item,
+                    growth: item.value * 100,
+                    percent,
+                }
+            }
+        })
+
+        document.querySelector('.location__stats--item--content--wrapper').innerHTML = locationStatsSorted
+            .map((item) => {
+                return `
+                    <div class="row">
+                        <div class="col col-3">
+                            <div class="location__stats--item--content">
+                                ${item.name}
+                            </div>
+                        </div>
+                        <div class="col col-3">
+                            <div class="location__stats--item--content">${item.value}</div>
+                        </div>
+                        <div class="col col-3">
+                            <div class="location__stats--item--content" style="color: ${
+                                item.growth > 0 ? 'var(--success)' : item.growth === 0 ? 'gray' : 'var(--danger)'
+                            }">
+                                ${
+                                    item.growth > 0
+                                        ? '<i class="fa-solid fa-arrow-up"></i>'
+                                        : item.growth === 0
+                                        ? '<i class="fa-solid fa-minus"></i>'
+                                        : '<i class="fa-solid fa-arrow-down"></i>'
+                                } <span>${item.growth}%</span>
+                            </div>
+                        </div>
+                        <div class="col col-3">
+                            <div class="location__stats--item--content">
+                                <span>${item.percent}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            })
+            .join('')
+    },
+
     init() {
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()
         this.handleLineChart()
+        this.handleLoadLocationStats()
     },
 }
 
