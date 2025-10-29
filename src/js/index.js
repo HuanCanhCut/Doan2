@@ -410,7 +410,7 @@ const app = {
 
         postInner.innerHTML = posts
             .map((post) => {
-                const user = JSON.parse(localStorage.getItem('users')).find((user) => user.id === post.user_id)
+                const user = JSON.parse(localStorage.getItem('users'))?.find((user) => user.id === post.user_id) || null
                 return `
                     <div class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">

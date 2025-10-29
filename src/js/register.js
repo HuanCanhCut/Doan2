@@ -10,6 +10,14 @@ const app = {
         }
     },
 
+    generateUuidV4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+            const r = (Math.random() * 16) | 0
+            const v = c === 'x' ? r : (r & 0x3) | 0x8
+            return v.toString(16)
+        })
+    },
+
     handleRegister() {
         Validator({
             form: '#register-form',
@@ -39,14 +47,18 @@ const app = {
 
                 const lastUserId = users.length > 0 ? users[users.length - 1].id + 1 : 1
 
-                localStorage.setItem(
-                    'users',
-                    JSON.stringify([...users, { ...mockUser, id: lastUserId, email, password }])
-                )
-                localStorage.setItem(
-                    'currentUser',
-                    JSON.stringify({ ...mockUser, id: lastUserId, email, password, full_name: email.split('@')[0] })
-                )
+                const newUser = {
+                    ...mockUser,
+                    id: lastUserId,
+                    email,
+                    password,
+                    uuid: this.generateUuidV4(),
+                    full_name: email.split('@')[0],
+                    avatar: 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
+                }
+
+                localStorage.setItem('users', JSON.stringify([...users, newUser]))
+                localStorage.setItem('currentUser', JSON.stringify(newUser))
 
                 window.parent.postMessage(
                     {

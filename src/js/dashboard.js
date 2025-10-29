@@ -564,12 +564,65 @@ const dashboardApp = {
             .join('')
     },
 
+    handleLoadUserStats() {
+        let users = JSON.parse(localStorage.getItem('users')) || []
+
+        users = users.map((user) => {
+            return {
+                ...user,
+                post_amount: this.posts.filter((post) => post.user_id === user.id).length,
+            }
+        })
+
+        users = users
+            .sort((a, b) => b.post_amount - a.post_amount)
+            .slice(0, 8)
+            .filter((user) => user.post_amount > 0)
+
+        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users.map((user) => {
+            return `
+                <div class="row">
+                    <div class="col col-6">
+                        <div
+                            class="user__stats--item--content user__stats--item--content--user"
+                        >
+                            <img
+                                src="${user.avatar}"
+                                alt=""
+                                class="md:col-block col-hidden"
+                            />
+                            <div class="user__stats--item--content--info">
+                                <p>
+                                    ${user.full_name}
+                                </p>
+                                <p class="user__stats--item--content--info--email">
+                                    ${user.email}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="user__stats--item--content">${user.post_amount}</div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="user__stats--item--content">
+                            <a href="/user?uuid=${user.uuid} ">
+                                <i class="fa-regular fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `
+        })
+    },
+
     init() {
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()
         this.handleLineChart()
         this.handleLoadLocationStats()
+        this.handleLoadUserStats()
     },
 }
 
