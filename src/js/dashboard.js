@@ -80,7 +80,7 @@ const dashboardApp = {
             {
                 label: 'Tin đã duyệt',
                 value: this.posts.filter((post) => {
-                    return post.is_approved === true
+                    return post.post_status === 'approved'
                 }).length,
                 color: 'var(--success)',
                 backgroundColor: '#0bb07924',
@@ -92,7 +92,7 @@ const dashboardApp = {
                         return (
                             postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
                             postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0] &&
-                            post.is_approved === true
+                            post.post_status === 'approved'
                         )
                     })
 
@@ -103,7 +103,7 @@ const dashboardApp = {
                             postDate.toISOString().split('T')[0] >=
                                 new Date(lookBackDateStr).toISOString().split('T')[0] &&
                             postDate.toISOString().split('T')[0] <= new Date(fromDate).toISOString().split('T')[0] &&
-                            post.is_approved === true
+                            post.post_status === 'approved'
                         )
                     })
 
@@ -120,7 +120,7 @@ const dashboardApp = {
             {
                 label: 'Chờ duyệt',
                 value: this.posts.filter((post) => {
-                    return post.is_approved === false
+                    return post.post_status === 'pending'
                 }).length,
                 color: '#f59e0b',
                 backgroundColor: '#f59f0b28',

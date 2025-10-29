@@ -23,7 +23,7 @@ export default [
         images: ['https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'],
         project_type: 'sell',
         user_id: 1,
-        is_approved: false,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-12T08:30:00'),
         updated_at: new Date('2025-10-12T08:30:00'),
     },
@@ -49,7 +49,7 @@ export default [
         property_category: 'house',
         role: 'agent',
         user_id: 1,
-        is_approved: false,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-15T14:20:00'),
         updated_at: new Date('2025-10-15T14:20:00'),
     },
@@ -75,7 +75,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: false,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-11T09:15:00'),
         updated_at: new Date('2025-10-11T09:15:00'),
     },
@@ -101,7 +101,7 @@ export default [
         property_category: 'apartment',
         role: 'agent',
         user_id: 1,
-        is_approved: false,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-11T16:45:00'),
         updated_at: new Date('2025-10-11T16:45:00'),
     },
@@ -126,7 +126,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: false,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-13T11:00:00'),
         updated_at: new Date('2025-10-13T11:00:00'),
     },
@@ -151,7 +151,7 @@ export default [
         property_category: 'room',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-16T07:30:00'),
         updated_at: new Date('2025-10-16T07:30:00'),
     },
@@ -176,7 +176,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-16T13:20:00'),
         updated_at: new Date('2025-10-16T13:20:00'),
     },
@@ -201,7 +201,7 @@ export default [
         property_category: 'house',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-16T10:45:00'),
         updated_at: new Date('2025-10-16T10:45:00'),
     },
@@ -226,7 +226,7 @@ export default [
         property_category: 'apartment',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-16T15:00:00'),
         updated_at: new Date('2025-10-16T15:00:00'),
     },
@@ -251,7 +251,7 @@ export default [
         property_category: 'apartment',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-18T09:30:00'),
         updated_at: new Date('2025-10-18T09:30:00'),
     },
@@ -276,7 +276,7 @@ export default [
         property_category: 'land',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'pending', // approved, pending, rejected
         created_at: new Date('2025-10-19T14:15:00'),
         updated_at: new Date('2025-10-19T14:15:00'),
     },
@@ -301,7 +301,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-20T08:00:00'),
         updated_at: new Date('2025-10-20T08:00:00'),
     },
@@ -326,7 +326,7 @@ export default [
         property_category: 'house',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-18T11:30:00'),
         updated_at: new Date('2025-10-18T11:30:00'),
     },
@@ -351,7 +351,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-18T07:45:00'),
         updated_at: new Date('2025-10-18T07:45:00'),
     },
@@ -376,7 +376,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-23T10:20:00'),
         updated_at: new Date('2025-10-23T10:20:00'),
     },
@@ -401,7 +401,7 @@ export default [
         property_category: 'apartment',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-23T15:40:00'),
         updated_at: new Date('2025-10-23T15:40:00'),
     },
@@ -426,7 +426,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-24T08:15:00'),
         updated_at: new Date('2025-10-24T08:15:00'),
     },
@@ -451,7 +451,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-10T09:00:00'),
         updated_at: new Date('2025-10-10T09:00:00'),
     },
@@ -476,7 +476,7 @@ export default [
         property_category: 'room',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-17T13:25:00'),
         updated_at: new Date('2025-10-17T13:25:00'),
     },
@@ -501,7 +501,7 @@ export default [
         property_category: 'house',
         role: 'personal',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-14T16:50:00'),
         updated_at: new Date('2025-10-14T16:50:00'),
     },
@@ -526,7 +526,7 @@ export default [
         property_category: 'house',
         role: 'agent',
         user_id: 1,
-        is_approved: true,
+        post_status: 'approved', // approved, pending, rejected
         created_at: new Date('2025-10-10T14:30:00'),
         updated_at: new Date('2025-10-10T14:30:00'),
     },
