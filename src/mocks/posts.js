@@ -27,7 +27,7 @@ export default [
         ],
         project_type: 'sell',
         user: {
-            id: 2,
+            id: 1,
             full_name: 'huancanhcut',
             email: 'huancanhcut@gmail.com',
             password: 'huancanhcut',
