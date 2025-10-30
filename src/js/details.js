@@ -23,7 +23,7 @@ const postComments = document.querySelector('.post__comment__wrapper__container'
 
 const postId = Number(getUrlSearchParams('post_id'))
 const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
-const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user.id)
+const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
 let comments = JSON.parse(localStorage.getItem('comments'))?.filter((comment) => comment.post_id === postId) || []
 
 console.log(postUser)
@@ -300,7 +300,7 @@ const renderCommentItem = (comment, allComments, level = 0) => {
 
     const parentComment = allComments.find((cmt) => cmt.id === comment.parent_id)
     const userParentComment = JSON.parse(localStorage.getItem('users')).find(
-        (user) => user?.id === parentComment?.user_id,
+        (user) => user?.id === parentComment?.user_id
     )
 
     const commentHTML = `
@@ -337,8 +337,8 @@ const renderCommentItem = (comment, allComments, level = 0) => {
         repliesHTML = `
             <div class="replies--wrapper">
                 <button class="reply--count active" data-parent-comment-id="${comment.id}" style="margin-left: ${
-                    level < 3 ? (level + 1) * 40 + 14 : 140
-                }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
+            level < 3 ? (level + 1) * 40 + 14 : 140
+        }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
                     Xem ${replyCount} phản hồi
                 </button>
                 <div class="replies--container" style="display: ${comment.is_show_replies ? 'block' : 'none'}">

@@ -458,7 +458,7 @@ const app = {
                                     <i class="fa-solid fa-briefcase"></i>
                                     <span>${
                                         JSON.parse(localStorage.getItem('posts')).filter((postUser) => {
-                                            return post.user.id === postUser.user.id
+                                            return post.user_id === postUser.user_id
                                         }).length
                                     } bài đăng</span>
                                 </span>
