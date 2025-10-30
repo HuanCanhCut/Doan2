@@ -540,10 +540,6 @@
         margin: auto 0;
     }
 
-    .post__item--heart {
-        right: 0;
-    }
-
     .post__item__info__wrapper__price__wrapper * {
         font-size: 1.4rem;
     }
