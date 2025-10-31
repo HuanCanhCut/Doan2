@@ -47,6 +47,22 @@ const app = {
 
                 const lastUserId = users.length > 0 ? users[users.length - 1].id + 1 : 1
 
+                let nickname = email.split('@')[0]
+                let nicknameCount = 0
+
+                while (
+                    users.some((user) => {
+                        return (
+                            user.nickname.startsWith(nickname) &&
+                            (isNaN(Number(user.nickname.substring(nickname.length))) ||
+                                Number(user.nickname.substring(nickname.length)) === 0)
+                        )
+                    })
+                ) {
+                    nicknameCount++
+                    nickname = `${nickname}${nicknameCount}`
+                }
+
                 const newUser = {
                     ...mockUser,
                     id: lastUserId,
@@ -55,6 +71,7 @@ const app = {
                     uuid: this.generateUuidV4(),
                     full_name: email.split('@')[0],
                     avatar: 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
+                    nickname,
                 }
 
                 localStorage.setItem('users', JSON.stringify([...users, newUser]))

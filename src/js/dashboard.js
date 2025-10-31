@@ -606,7 +606,7 @@ const dashboardApp = {
                     </div>
                     <div class="col col-3">
                         <div class="user__stats--item--content">
-                            <a href="/user?uuid=${user.uuid} ">
+                            <a href="/user?nickname=${user.nickname} ">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
                         </div>
