@@ -1,6 +1,7 @@
 import defaultApp from './default'
 import getUrlSearchParams from './helpers/getURLSearchParams'
 import { momentTimezone } from './helpers/momentTimezone'
+import toast from './toast'
 
 const nextImageBtn = document.querySelector('.details__info__images__preview__btn--next')
 const prevImageBtn = document.querySelector('.details__info__images__preview__btn--prev')
@@ -21,12 +22,15 @@ const commentInput = document.querySelector('textarea[name="comment-input"]')
 const commentSubmit = document.querySelector('.comment--input__submit')
 const postComments = document.querySelector('.post__comment__wrapper__container')
 
+const postActionsDeleteBtn = document.querySelector('.post__actions__button--delete')
+const postActionsEditBtn = document.querySelector('.post__actions__button--edit')
+const confirmModalButtonCancel = document.querySelector('.confirm__modal__button--cancel')
+const confirmModalButtonConfirm = document.querySelector('.confirm__modal__button--confirm')
+
 const postId = Number(getUrlSearchParams('post_id'))
 const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
 const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
 let comments = JSON.parse(localStorage.getItem('comments'))?.filter((comment) => comment.post_id === postId) || []
-
-console.log(postUser)
 
 let activeImageIndex = 0
 
@@ -481,6 +485,41 @@ document.querySelector('.comment--list').addEventListener('click', (e) => {
 document.querySelector('.reply--input__wrapper__close').addEventListener('click', () => {
     document.querySelector('.reply--input__wrapper').classList.remove('active')
 })
+
+postActionsDeleteBtn.addEventListener('click', () => {
+    document.querySelector('.confirm__modal').classList.add('active')
+    document.querySelector('#overlay').classList.add('active')
+})
+
+confirmModalButtonCancel.addEventListener('click', () => {
+    document.querySelector('.confirm__modal').classList.remove('active')
+    document.querySelector('#overlay').classList.remove('active')
+})
+
+confirmModalButtonConfirm.addEventListener('click', () => {
+    localStorage.setItem(
+        'posts',
+        JSON.stringify(JSON.parse(localStorage.getItem('posts')).filter((post) => post.id !== postId))
+    )
+
+    toast({
+        title: 'Thành công',
+        message: 'Bài viết của bạn đã được xóa.',
+        type: 'success',
+        duration: 2000,
+    })
+
+    setTimeout(() => {
+        window.location.href = '/'
+    }, 2000)
+
+    document.querySelector('.confirm__modal').classList.remove('active')
+    document.querySelector('#overlay').classList.remove('active')
+})
+
+postActionsEditBtn.onclick = () => {
+    window.location.href = `/post?post_id=${postId}&type=edit`
+}
 
 renderImages()
 handleLoadCurrentImage(activeImageIndex)

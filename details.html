@@ -14,8 +14,20 @@
     </head>
     <body>
         <div id="app">
-            <div id="overlay"></div>
+            <div id="overlay" class=""></div>
             <iframe src="" frameborder="0" id="modal"></iframe>
+            <div class="confirm__modal">
+                <header class="confirm__modal__header">
+                    <h2>Xóa bài viết</h2>
+                </header>
+                <div class="confirm__modal__content">
+                    <p>Bạn có chắc chắn muốn xóa bài viết này không?</p>
+                    <div class="confirm__modal__actions">
+                        <button class="button--outline confirm__modal__button--cancel">Hủy</button>
+                        <button class="button--primary confirm__modal__button--confirm">Xóa</button>
+                    </div>
+                </div>
+            </div>
             <header id="header">
                 <div class="header__left">
                     <button class="header__toggle--sidebar header__item col-block md:col-hidden">
@@ -346,6 +358,13 @@
                         </div>
                         <div class="col col-12 md:col-5">
                             <div class="details__interaction__wrapper">
+                                <div class="post__actions__wrapper">
+                                    <h3>Quản lí bài viết</h3>
+                                    <div class="post__actions__buttons">
+                                        <button class="button--outline post__actions__button--delete">Xóa</button>
+                                        <button class="button--primary post__actions__button--edit">Chỉnh sửa</button>
+                                    </div>
+                                </div>
                                 <div class="details__user__info__wrapper"></div>
                                 <div class="post__comment__wrapper">
                                     <h4>Bình luận</h4>

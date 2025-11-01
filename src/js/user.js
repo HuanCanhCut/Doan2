@@ -98,7 +98,7 @@ const renderUserPost = (activeTab = 'approved') => {
             const isFavorite = JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
 
             return `
-            <div class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
+            <a href="/details?post_id=${post.id}" class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
                 <div class="post__item">
                     <button class="post__item--heart ${isFavorite ? 'active' : ''}" data-post-id="${post.id}">
                         <i class="fa-regular fa-heart"></i>
@@ -130,7 +130,7 @@ const renderUserPost = (activeTab = 'approved') => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </a>
         `
         })
         .join('')
