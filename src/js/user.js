@@ -95,10 +95,12 @@ const renderUserPost = (activeTab = 'approved') => {
 
     document.querySelector('.post__inner__wrapper').innerHTML = posts
         .map((post) => {
+            const isFavorite = JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+
             return `
             <div class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
                 <div class="post__item">
-                    <button class="post__item--heart">
+                    <button class="post__item--heart ${isFavorite ? 'active' : ''}" data-post-id="${post.id}">
                         <i class="fa-regular fa-heart"></i>
                         <i class="fa-solid fa-heart"></i>
                     </button>
@@ -189,5 +191,27 @@ document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) =
 
 loadUserProfile(user)
 renderUserPost()
+
+document.querySelector('.post__inner__wrapper').onclick = (e) => {
+    if (e.target.closest('.post__item--heart')) {
+        const heart = e.target.closest('.post__item--heart')
+
+        heart.classList.toggle('active')
+
+        let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+
+        const postId = Number(heart.dataset.postId)
+
+        const postExist = postDb.find((post) => post === postId)
+
+        if (postExist) {
+            postDb = postDb.filter((post) => post !== postId)
+        } else {
+            postDb.push(postId)
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(postDb))
+    }
+}
 
 defaultApp.init()
