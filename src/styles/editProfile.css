@@ -1,0 +1,150 @@
+.main {
+    font-size: 16px;
+}
+
+#edit-profile-form {
+    margin-top: 30px;
+}
+
+.profile__section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.profile__section--title h4 {
+    font-weight: 600;
+}
+
+.profile__section--title {
+    width: 120px;
+}
+
+.profile__section__content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-basis: 350px;
+}
+
+.profile__section + .profile__section {
+    border-top: 0.5px solid #8282822c;
+}
+
+.profile__section__content--image {
+    display: flex;
+    justify-content: center;
+    margin-left: -35px;
+}
+
+.profile__image--wrapper {
+    position: relative;
+}
+
+.profile__image--label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile__section__content img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group--hidden {
+    display: none;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+}
+
+.form-group__input input:focus + label {
+    top: 0px;
+    background-color: #e6e5f1;
+    padding: 0 4px;
+    font-size: 1.2rem;
+}
+
+.form-group__input input:not(:placeholder-shown) + label {
+    top: 0px;
+    background-color: #e6e5f1;
+    padding: 0 4px;
+    font-size: 1.2rem;
+}
+
+.form-group__input {
+    position: relative;
+}
+
+.form-group label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    font-size: 14px;
+    color: #6e6e6e;
+    transition: all linear 0.2s;
+}
+
+.form-control-group {
+    display: flex;
+    gap: 10px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid rgba(90, 90, 90, 0.199);
+    border-radius: 8px;
+    font-size: 1.4rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-detail {
+    font-size: 1.1rem;
+    color: #6e6e6e;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.form-message {
+    margin-top: 4px;
+}
+
+.profile__section--button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile__section--button button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
