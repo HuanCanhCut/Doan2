@@ -3,7 +3,7 @@
 }
 
 #edit-profile-form {
-    margin-top: 30px;
+    margin-top: 28px;
 }
 
 .profile__section {
@@ -130,8 +130,14 @@
     margin-top: 4px;
 }
 
-.form-message {
+.form-group.invalid .form-message {
     margin-top: 4px;
+    color: red;
+    font-size: 12px;
+    line-height: 1px;
+    text-align: left;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
 .profile__section--button {

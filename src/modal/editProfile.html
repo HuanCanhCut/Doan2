@@ -30,6 +30,7 @@
                         <div class="profile__section__content profile__section__content--image">
                             <div class="profile__image--wrapper">
                                 <img
+                                    class="profile__image--preview"
                                     src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
                                     alt=""
                                 />
@@ -56,12 +57,15 @@
                                     />
                                     <label for="nickname">Nhập nickname của bạn</label>
                                 </div>
-                                <small class="form-detail">https://tiktok-ui-4e01f.web.app/user/@huancanhcut</small>
+                                <span class="form-message"></span>
+
+                                <small class="form-detail nickname-link"
+                                    >https://tiktok-ui-4e01f.web.app/user/@huancanhcut</small
+                                >
                                 <span class="form-detail"
                                     >Nickname chỉ có thể bao gồm chữ cái, chữ số, dấu gạch dưới và dấu chấm. Khi thay
                                     đổi nickname, liên kết hồ sơ của bạn cũng sẽ thay đổi.</span
                                 >
-                                <span class="form-message"></span>
                             </div>
                         </div>
                     </div>
@@ -101,7 +105,7 @@
                     </div>
                     <div class="profile__section profile__section--button">
                         <button type="button" class="button--outline">Hủy</button>
-                        <button type="button" class="button--primary">Cập nhật</button>
+                        <button type="submit" class="button--primary">Cập nhật</button>
                     </div>
                 </form>
             </main>
@@ -109,4 +113,5 @@
     </body>
 
     <script src="../js/baseModal.js"></script>
+    <script type="module" src="../js/editProfile.js"></script>
 </html>
