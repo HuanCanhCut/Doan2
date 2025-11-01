@@ -246,7 +246,7 @@ function renderUserPost() {
             <img
                 src="${postUser.avatar}"
                 alt=""
-                onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
+                onerror="this.src='/static/fallback.png'"
             />
             <div class="details__user__info__wrapper__content">
                 <h3>${postUser.full_name}</h3>
@@ -309,7 +309,7 @@ const renderCommentItem = (comment, allComments, level = 0) => {
                 <img
                     src="${commentUser.avatar}"
                     alt="${commentUser.full_name}"
-                    onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
+                    onerror="this.src='/static/fallback.png'"
                 />
             </div>
             <div class="comment--item__content__wrapper">

@@ -89,6 +89,7 @@ Validator({
 
         window.parent.postMessage({ type: 'modal:toast-success', data: { message: 'Cập nhật hồ sơ thành công' } }, '*')
         window.parent.postMessage({ type: 'modal:close' }, '*')
+        window.parent.postMessage({ type: 'user:reload-profile', data: updatedUser }, '*')
     },
 })
 
@@ -113,3 +114,11 @@ document.querySelector(
 nicknameInput.oninput = (e) => {
     document.querySelector('.nickname-link').textContent = `${window.location.origin}/user?nickname=${e.target.value}`
 }
+
+const fillFormValue = () => {
+    nicknameInput.value = currentUser?.nickname
+    document.querySelector('#full_name').value = currentUser?.full_name
+    document.querySelector('#phone').value = currentUser?.phone
+}
+
+fillFormValue()

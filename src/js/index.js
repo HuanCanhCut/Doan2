@@ -447,7 +447,7 @@ const app = {
                             <div class="post__item__info--user">
                                 <div class="post__item__info--user__item">
                                     <img
-                                        onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
+                                        onerror="this.src='/static/fallback.png'"
                                         src="${post.user?.avatar}"
                                         alt=""
                                     />

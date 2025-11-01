@@ -66,7 +66,7 @@ export default [
         ],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -95,7 +95,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=2'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -124,7 +124,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=3'],
         project_type: 'rent',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -152,7 +152,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=4'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -180,7 +180,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=5'],
         project_type: 'rent',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -208,7 +208,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=6'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'pending', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -236,7 +236,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=7'],
         project_type: 'rent',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -264,7 +264,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=8'],
         project_type: 'rent',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -292,7 +292,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=9'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -320,7 +320,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=10'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -348,7 +348,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=11'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -376,7 +376,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=12'],
         project_type: 'rent',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),
@@ -404,7 +404,7 @@ export default [
         images: ['https://picsum.photos/400/300?random=13'],
         project_type: 'sell',
         user_id: 1,
-        post_status: 'approved', // approved, pending, rejected
+        post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
         updated_at: new Date(),

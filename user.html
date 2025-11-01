@@ -14,8 +14,8 @@
     </head>
     <body>
         <div id="app">
-            <div id="overlay" class="active"></div>
-            <iframe src="./src/modal/editProfile.html" class="active" frameborder="0" id="modal"></iframe>
+            <div id="overlay" class=""></div>
+            <iframe src="" class="" frameborder="0" id="modal"></iframe>
             <header id="header">
                 <div class="header__left">
                     <button class="header__toggle--sidebar header__item col-block md:col-hidden">
@@ -256,6 +256,7 @@
                             <div class="col col-12 md:col-8">
                                 <div class="profile">
                                     <img
+                                        onerror="this.src='/static/fallback.png'"
                                         src="https://hinhnenpowerpoint.app/wp-content/uploads/2025/07/avatar-anh-meo-cute.jpg"
                                         alt=""
                                     />
@@ -279,14 +280,18 @@
                                                     <i class="fa-solid fa-envelope"></i>
                                                     <span>Email</span>
                                                 </div>
-                                                <p class="profile__detail--value">john.doe@example.com</p>
+                                                <p class="profile__detail--value profile__detail--value--email">
+                                                    john.doe@example.com
+                                                </p>
                                             </div>
                                             <div class="profile__detail--item">
                                                 <div class="profile__detail--label">
                                                     <i class="fa-solid fa-phone"></i>
                                                     <span>Số điện thoại</span>
                                                 </div>
-                                                <p class="profile__detail--value">0123 456 789</p>
+                                                <p class="profile__detail--value profile__detail--value--phone">
+                                                    0123 456 789
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="profile__detail--column">
@@ -295,7 +300,9 @@
                                                     <i class="fa-solid fa-calendar-days"></i>
                                                     <span>Đã tham gia</span>
                                                 </div>
-                                                <p class="profile__detail--value">15 tháng 3, 2024</p>
+                                                <p class="profile__detail--value profile__detail--value--joined">
+                                                    15 tháng 3, 2024
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -311,126 +318,54 @@
                                 <div class="post__manager__tabs">
                                     <button class="post__manager__tabs--button active" data-type="approved">
                                         <i class="fa-solid fa-check"></i>
-                                        <span>Đã duyệt (2)</span>
+                                        <span
+                                            >Đã duyệt
+                                            <span class="post__manager__tabs--button--count" data-type="approved"
+                                                >(0)</span
+                                            ></span
+                                        >
                                     </button>
                                     <button class="post__manager__tabs--button" data-type="pending">
                                         <i class="fa-regular fa-clock"></i>
-                                        <span>Chờ duyệt (1)</span>
+                                        <span
+                                            >Chờ duyệt
+                                            <span class="post__manager__tabs--button--count" data-type="pending"
+                                                >(0)</span
+                                            ></span
+                                        >
                                     </button>
                                     <button class="post__manager__tabs--button" data-type="rejected">
                                         <i class="fa-solid fa-ban"></i>
-                                        <span>Bị từ chối (1)</span>
+                                        <span
+                                            >Bị từ chối
+                                            <span class="post__manager__tabs--button--count" data-type="rejected"
+                                                >(0)</span
+                                            ></span
+                                        >
                                     </button>
                                     <button class="post__manager__tabs--button" data-type="not_delivered">
                                         <i class="fa-regular fa-hourglass-half"></i>
-                                        <span>Chưa bàn giao (1)</span>
+                                        <span
+                                            >Chưa bàn giao
+                                            <span class="post__manager__tabs--button--count" data-type="not_delivered"
+                                                >(0)</span
+                                            ></span
+                                        >
                                     </button>
                                     <button class="post__manager__tabs--button" data-type="delivered">
                                         <i class="fa-regular fa-truck"></i>
-                                        <span>Đã bàn giao (1)</span>
+                                        <span
+                                            >Đã bàn giao
+                                            <span class="post__manager__tabs--button--count" data-type="delivered"
+                                                >(0)</span
+                                            ></span
+                                        >
                                     </button>
                                 </div>
                             </div>
                             <div class="col col-12">
                                 <div class="grid">
-                                    <div class="row">
-                                        <div class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
-                                            <div class="post__item">
-                                                <button class="post__item--heart">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                    <i class="fa-solid fa-heart"></i>
-                                                </button>
-
-                                                <img
-                                                    src="https://hinhnenpowerpoint.app/wp-content/uploads/2025/07/avatar-anh-meo-cute.jpg"
-                                                    alt=""
-                                                />
-                                                <div class="post__item--info">
-                                                    <h4 class="post__item--title">
-                                                        Chính chủ cần sang lại căn hộ hiếm 1 phòng ngủ tầng cao chung cư
-                                                        cara river park giá chỉ 1 tỷ 700 triệu có thương lượng. Diện
-                                                        tích 37 m2 view về Kdc Nam Long, nhìn dọc QL1A rất đẹp
-                                                    </h4>
-                                                    <p class="post__item--type">Đất nông nghiệp</p>
-
-                                                    <div class="post__item--price">
-                                                        <span class="post__item--price--value">10 tỷ</span>
-                                                        <span class="post__item--price--unit">8 tr/m²</span>
-                                                        <span class="post__item--price--area">37 m²</span>
-                                                    </div>
-
-                                                    <span class="post__item--location">
-                                                        <i class="fa-solid fa-location-dot"></i>
-                                                        Hưng Yên
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
-                                            <div class="post__item">
-                                                <button class="post__item--heart">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                    <i class="fa-solid fa-heart"></i>
-                                                </button>
-
-                                                <img
-                                                    src="https://hinhnenpowerpoint.app/wp-content/uploads/2025/07/avatar-anh-meo-cute.jpg"
-                                                    alt=""
-                                                />
-                                                <div class="post__item--info">
-                                                    <h4 class="post__item--title">
-                                                        Chính chủ cần sang lại căn hộ hiếm 1 phòng ngủ tầng cao chung cư
-                                                        cara river park giá chỉ 1 tỷ 700 triệu có thương lượng. Diện
-                                                        tích 37 m2 view về Kdc Nam Long, nhìn dọc QL1A rất đẹp
-                                                    </h4>
-                                                    <p class="post__item--type">Đất nông nghiệp</p>
-
-                                                    <div class="post__item--price">
-                                                        <span class="post__item--price--value">10 tỷ</span>
-                                                        <span class="post__item--price--unit">8 tr/m²</span>
-                                                        <span class="post__item--price--area">37 m²</span>
-                                                    </div>
-
-                                                    <span class="post__item--location">
-                                                        <i class="fa-solid fa-location-dot"></i>
-                                                        Hưng Yên
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
-                                            <div class="post__item">
-                                                <button class="post__item--heart">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                    <i class="fa-solid fa-heart"></i>
-                                                </button>
-
-                                                <img
-                                                    src="https://hinhnenpowerpoint.app/wp-content/uploads/2025/07/avatar-anh-meo-cute.jpg"
-                                                    alt=""
-                                                />
-                                                <div class="post__item--info">
-                                                    <h4 class="post__item--title">
-                                                        Chính chủ cần sang lại căn hộ hiếm 1 phòng ngủ tầng cao chung cư
-                                                        cara river park giá chỉ 1 tỷ 700 triệu có thương lượng. Diện
-                                                        tích 37 m2 view về Kdc Nam Long, nhìn dọc QL1A rất đẹp
-                                                    </h4>
-                                                    <p class="post__item--type">Đất nông nghiệp</p>
-
-                                                    <div class="post__item--price">
-                                                        <span class="post__item--price--value">10 tỷ</span>
-                                                        <span class="post__item--price--unit">8 tr/m²</span>
-                                                        <span class="post__item--price--area">37 m²</span>
-                                                    </div>
-
-                                                    <span class="post__item--location">
-                                                        <i class="fa-solid fa-location-dot"></i>
-                                                        Hưng Yên
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="row post__inner__wrapper"></div>
                                 </div>
                             </div>
                         </div>
