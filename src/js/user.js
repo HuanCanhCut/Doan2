@@ -10,7 +10,15 @@ const overlay = document.querySelector('#overlay')
 const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 const user = JSON.parse(localStorage.getItem('users')).find((user) => user.nickname === getUrlSearchParams('nickname'))
 
+const allowedTabs = ['approved', 'pending', 'rejected', 'not_delivered', 'delivered', 'favorites']
+
+let currentTab = allowedTabs.includes(getUrlSearchParams('active_tab')) ? getUrlSearchParams('active_tab') : 'approved'
+
 postManagerTabs.forEach((tab) => {
+    if (tab.dataset.type === currentTab) {
+        tab.classList.add('active')
+    }
+
     tab.onclick = () => {
         postManagerTabs.forEach((tab) => {
             tab.classList.remove('active')
@@ -18,7 +26,17 @@ postManagerTabs.forEach((tab) => {
 
         tab.classList.add('active')
 
-        renderUserPost(tab.dataset.type)
+        tab.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest',
+        })
+
+        currentTab = tab.dataset.type
+
+        window.history.replaceState({}, '', `/user?nickname=${user.nickname}&active_tab=${currentTab}`)
+
+        renderUserPost(currentTab)
     }
 })
 
@@ -64,7 +82,7 @@ const handleConvertPrice = (amount) => {
     }
 }
 
-const renderUserPost = (activeTab = 'approved') => {
+const renderUserPost = (activeTab = currentTab) => {
     const dataMapping = {
         not_delivered: 'Chưa bàn giao',
         delivered: 'Đã bàn giao',
@@ -87,7 +105,11 @@ const renderUserPost = (activeTab = 'approved') => {
                 return post.user_id === user.id && post.status === dataMapping[activeTab]
             })
             break
-
+        case 'favorites':
+            posts = posts.filter((post) => {
+                return JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+            })
+            break
         default:
             posts = []
             break
@@ -184,6 +206,13 @@ document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) =
                 tab.textContent = `(${posts.length})`
             }
             break
+        case 'favorites':
+            {
+                const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+
+                tab.textContent = `(${favorites.length})`
+            }
+            break
         default:
             break
     }
@@ -194,6 +223,9 @@ renderUserPost()
 
 document.querySelector('.post__inner__wrapper').onclick = (e) => {
     if (e.target.closest('.post__item--heart')) {
+        // ngăn chuyển hướng khi click vào heart
+        e.preventDefault()
+
         const heart = e.target.closest('.post__item--heart')
 
         heart.classList.toggle('active')
