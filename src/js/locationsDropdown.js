@@ -2,9 +2,9 @@ import { getDistrict, getProvince } from './helpers/getLocations'
 import toast from './toast'
 
 class locationsDropdownApp {
-    constructor(root) {
+    constructor(root, locations) {
         this.root = root
-        this.locations = {
+        this.locations = locations || {
             province: '',
             district: '',
             ward: '',
@@ -248,6 +248,7 @@ class locationsDropdownApp {
             }
 
             this.loadSelectedLocation()
+            onSubmit(this.getLocations())
         }
 
         // handle click outside popper
@@ -273,7 +274,5 @@ class locationsDropdownApp {
         this.loadSelectedLocation()
     }
 }
-
-export {}
 
 export default locationsDropdownApp

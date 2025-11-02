@@ -5,6 +5,7 @@ import locationsDropdownApp from './locationsDropdown'
 import toast from './toast'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
 import convertConcurrency from './helpers/convertConcurrency'
+import getUrlSearchParams from './helpers/getURLSearchParams'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
@@ -14,6 +15,9 @@ const concurrencyInputs = document.querySelectorAll('input[data-concurrency]')
 const propertyCategorySelect = document.querySelector('#property-category')
 
 const postApp = {
+    postId: getUrlSearchParams('post_id'),
+    postType: getUrlSearchParams('type'),
+
     locations: null,
     categoryType: 'sell', // sell or rent
     roleType: 'personal', // personal or agent
@@ -76,30 +80,61 @@ const postApp = {
 
                 const postDb = JSON.parse(localStorage.getItem('posts')) || []
 
-                const updatedData = {
-                    id: postDb.length > 0 ? postDb[postDb.length - 1].id + 1 : 1,
-                    ...newData,
-                    property_category: this.propertyCategory,
-                    role: this.roleType,
-                    images: this.imagesFiles.map(
-                        () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
-                    ),
-                    project_type: this.categoryType,
-                    user_id: postUser.id,
-                    post_status: 'pending', // pending, approved, rejected
-                    created_at: new Date(),
-                    updated_at: new Date(),
+                if (this.postType === 'edit') {
+                    const newPosts = postDb.map((post) => {
+                        if (post.id === Number(this.postId)) {
+                            return {
+                                id: Number(this.postId),
+                                ...newData,
+                                property_category: this.propertyCategory,
+                                role: this.roleType,
+                                images: this.imagesFiles.map(
+                                    () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
+                                ),
+                                project_type: this.categoryType,
+                                user_id: post.user_id,
+                                post_status: 'pending', // pending, approved, rejected
+                                created_at: post.created_at,
+                                updated_at: new Date(),
+                            }
+                        }
+
+                        return post
+                    })
+
+                    localStorage.setItem('posts', JSON.stringify(newPosts))
+
+                    toast({
+                        title: 'Thành công',
+                        message: 'Tin của bạn đã được cập nhật thành công',
+                        type: 'success',
+                    })
+                } else {
+                    const updatedData = {
+                        id: postDb.length > 0 ? postDb[postDb.length - 1].id + 1 : 1,
+                        ...newData,
+                        property_category: this.propertyCategory,
+                        role: this.roleType,
+                        images: this.imagesFiles.map(
+                            () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
+                        ),
+                        project_type: this.categoryType,
+                        user_id: postUser.id,
+                        post_status: 'pending', // pending, approved, rejected
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                    }
+
+                    postDb.push(updatedData)
+
+                    localStorage.setItem('posts', JSON.stringify(postDb))
+
+                    toast({
+                        title: 'Thành công',
+                        message: 'Tin của bạn đã được đăng tải thành công',
+                        type: 'success',
+                    })
                 }
-
-                postDb.push(updatedData)
-
-                localStorage.setItem('posts', JSON.stringify(postDb))
-
-                toast({
-                    title: 'Thành công',
-                    message: 'Tin của bạn đã được đăng tải thành công',
-                    type: 'success',
-                })
 
                 document.querySelectorAll('input[name]').forEach((input) => {
                     input.value = ''
@@ -272,9 +307,84 @@ const postApp = {
         })
     },
 
+    fillFormData() {
+        if (this.postType === 'edit') {
+            const post = JSON.parse(localStorage.getItem('posts'))?.find((post) => post.id === Number(this.postId))
+
+            if (post) {
+                document.querySelector('.post__form__select').value = post.property_category
+
+                this.categoryType = post.project_type
+                this.propertyCategory = post.property_category
+                this.imagesFiles = post.images.map((image) => {
+                    return {
+                        preview: image,
+                    }
+                })
+
+                this.handleLoadImagesPreview()
+
+                // set category type
+                document.querySelector('.post__form__radio.active').classList.remove('active')
+
+                document.querySelector(`.post__form__radio[data-type="${post.project_type}"]`).classList.add('active')
+
+                // set role
+                document.querySelector('.post__form__role.active').classList.remove('active')
+
+                document.querySelector(`.post__form__role[data-type="${post.role}"]`).classList.add('active')
+
+                this.roleType = post.role
+
+                for (const key in post) {
+                    const input = document.querySelector(`input[name="${key}"]`)
+                    const textarea = document.querySelector(`textarea[name="${key}"]`)
+
+                    if (input) {
+                        input.value = post[key]
+                    }
+
+                    if (textarea) {
+                        textarea.value = post[key]
+                    }
+                }
+
+                for (const key in post.detail) {
+                    const input = document.querySelector(`input[name="${key}"]`)
+
+                    if (input) {
+                        input.value = post.detail[key]
+                    }
+                }
+
+                document.querySelector('.post__form__submit').textContent = 'Cập nhật'
+            }
+        }
+    },
+
     init() {
         defaultApp.init()
-        new locationsDropdownApp(document.querySelector('#form__location')).init(this.handleSubmitLocation.bind(this))
+        new locationsDropdownApp(
+            document.querySelector('#form__location'),
+            this.postType === 'edit'
+                ? (() => {
+                      const post = JSON.parse(localStorage.getItem('posts'))?.find(
+                          (post) => post.id === Number(this.postId)
+                      )
+
+                      const [ward, district, province] = post.address_bd.split(' - ')
+
+                      return {
+                          province,
+                          district,
+                          ward,
+                      }
+                  })()
+                : null
+        ).init(this.handleSubmitLocation.bind(this))
+
+        // if mode is edit, fill form data
+        this.fillFormData()
         this.handleValidator()
         this.handleEvent()
     },
