@@ -1,0 +1,227 @@
+# Cursor Rules - Real Estate Platform (Doan2_Linh)
+
+> **Quy tắc chính cho dự án - Tham chiếu đến các file rules chi tiết**
+
+## 📚 Tài liệu Rules
+
+Dự án này có hệ thống rules được chia thành nhiều file riêng biệt để dễ quản lý:
+
+### 1. [Project Overview](./.cursor/rules/project-overview.md)
+- Tổng quan về dự án
+- Technology stack
+- Kiến trúc ứng dụng
+- Tính năng chính
+- Browser support
+
+### 2. [Code Style](./.cursor/rules/code-style.md)
+- JavaScript style guide (ES6+)
+- Prettier configuration
+- ESLint rules
+- Import sorting
+- CSS/SCSS conventions (BEM)
+- HTML best practices
+- Git commit messages
+
+### 3. [Project Structure](./.cursor/rules/project-structure.md)
+- Directory layout
+- File organization rules
+- Module system patterns
+- Path references
+- Naming conventions
+- Configuration files
+
+### 4. [Development Guidelines](./.cursor/rules/development-guidelines.md)
+- Getting started
+- Development workflow
+- Creating new pages/components/helpers
+- Working with LocalStorage
+- Event handling patterns
+- Form validation
+- Common patterns
+
+### 5. [Best Practices](./.cursor/rules/best-practices.md)
+- Code quality principles
+- Performance optimization
+- Security best practices
+- Accessibility guidelines
+- Code organization
+- Documentation standards
+- Common anti-patterns to avoid
+
+### 6. [Build & Deploy](./.cursor/rules/build-deploy.md)
+- Build configuration (Vite)
+- Environment variables
+- Optimization strategies
+- Deployment options (Netlify, Vercel, etc.)
+- CI/CD pipeline
+- Performance monitoring
+- Rollback strategy
+
+### 7. [Testing Guidelines](./.cursor/rules/testing.md)
+- Manual testing checklists
+- Cross-browser testing
+- Responsive testing
+- Performance testing
+- Accessibility testing
+- Data testing
+- Debug helpers
+
+---
+
+## 🎯 Quick Reference
+
+### Technology Stack
+- **Build Tool**: Vite 7.1.2
+- **Language**: JavaScript ES6+ (Vanilla JS)
+- **Styling**: SCSS/SASS + CSS
+- **Package Manager**: Yarn (preferred)
+- **Linting**: ESLint + Prettier
+
+### Commands
+```bash
+yarn dev      # Start development server
+yarn build    # Build for production
+yarn preview  # Preview production build
+```
+
+### Project Type
+- Multi-page Application (MPA)
+- Vanilla JavaScript (No Framework)
+- LocalStorage for state management
+
+### Key Conventions
+- **JS Files**: `camelCase.js` or `snake_case.js`
+- **CSS Files**: `kebab-case.css` or `snake_case.scss`
+- **CSS Classes**: BEM naming (`.block__element--modifier`)
+- **Variables**: `camelCase`
+- **Constants**: `UPPER_SNAKE_CASE`
+- **Commits**: English (Conventional Commits format)
+- **UI Language**: Vietnamese
+
+### Code Style Rules
+- Tab width: **4 spaces**
+- Print width: **120 characters**
+- Quotes: **Single quotes**
+- Semicolons: **No semicolons**
+- Use `const`/`let`, never `var`
+- Use strict equality (`===`)
+- No `console.log` in production
+
+### File Locations
+```
+HTML files     → Root directory (/)
+JavaScript     → src/js/
+Helpers        → src/js/helpers/
+Mock Data      → src/mocks/
+Styles         → src/styles/
+Static Assets  → public/static/
+Data Files     → public/locations/
+```
+
+---
+
+## 🚀 Quick Start
+
+### For New Developers
+
+1. **Read Documentation** (in order):
+   - Start with [Project Overview](./.cursor/rules/project-overview.md)
+   - Then [Project Structure](./.cursor/rules/project-structure.md)
+   - Then [Development Guidelines](./.cursor/rules/development-guidelines.md)
+
+2. **Setup Environment**:
+   ```bash
+   yarn install
+   yarn dev
+   ```
+
+3. **Explore Codebase**:
+   - Check existing pages in root directory
+   - Review JavaScript modules in `src/js/`
+   - Look at mock data in `src/mocks/`
+   - Study component patterns
+
+4. **Before Coding**:
+   - Read [Code Style](./.cursor/rules/code-style.md)
+   - Read [Best Practices](./.cursor/rules/best-practices.md)
+   - Setup ESLint and Prettier in your editor
+
+### For AI Assistants
+
+When helping with this project:
+
+1. **Always follow** the rules in the linked documentation files
+2. **Code Style**: Follow Prettier config (4 spaces, 120 width, no semicolons, single quotes)
+3. **Patterns**: Use the established app object pattern for page logic
+4. **Data**: Separate mock data from source code (`src/mocks/`)
+5. **Imports**: Sort imports using `eslint-plugin-simple-import-sort`
+6. **CSS**: Use BEM naming convention
+7. **Testing**: Refer to testing checklist before marking work complete
+8. **Output Language**: Vietnamese for UI and explanations, English for commit messages
+
+---
+
+## 📋 Development Checklist
+
+### Before Every Commit
+- [ ] Code follows [Code Style](./.cursor/rules/code-style.md)
+- [ ] No ESLint errors
+- [ ] No console.log in production code
+- [ ] Tested functionality manually
+- [ ] Responsive design checked
+- [ ] No browser console errors
+
+### Before Every Deployment
+- [ ] All [Testing Guidelines](./.cursor/rules/testing.md) passed
+- [ ] Build successful: `yarn build`
+- [ ] Preview tested: `yarn preview`
+- [ ] Cross-browser tested
+- [ ] Performance checked (Lighthouse > 90)
+- [ ] Accessibility verified
+
+---
+
+## 🔗 Important Links
+
+- **Vite Documentation**: https://vitejs.dev/
+- **ESLint Rules**: See `eslint.config.mjs`
+- **Prettier Config**: See `.prettierrc`
+- **Vite Config**: See `vite.config.js`
+
+---
+
+## 📞 Getting Help
+
+1. **Check Documentation**: Read the relevant rule file first
+2. **Search Codebase**: Look for similar patterns in existing code
+3. **Browser Console**: Use debug helpers (available in dev mode)
+4. **Team Discussion**: Discuss with team if unclear
+
+---
+
+## 🎨 Project Philosophy
+
+- **Keep It Simple**: Vanilla JavaScript, no unnecessary dependencies
+- **Separation of Concerns**: Mock data separate, helpers organized
+- **Clean Code**: Self-documenting, well-organized, DRY principles
+- **User First**: Responsive, accessible, performant
+- **Best Practices**: Follow industry standards and conventions
+- **Consistency**: Follow established patterns throughout the project
+
+---
+
+## 📝 Notes
+
+- **UI Language**: Vietnamese
+- **Commit Language**: English
+- **Package Manager**: Always use `yarn`, never `npm`
+- **Code Organization**: Keep code clean, eliminate redundant code
+- **Solutions**: Use best practices and optimal solutions
+
+---
+
+**Last Updated**: 2024
+**Version**: 1.0.0
+
+For detailed information, refer to the specific rule files linked above.
+
