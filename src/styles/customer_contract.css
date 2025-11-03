@@ -14,7 +14,21 @@ body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#152330}
 /* sidebar */
 .sidebar{background:var(--panel);padding:20px;border-right:1px solid #eef2f6;box-shadow:var(--shadow)}
 .logo{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-.logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff8c3c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.logo .mark {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo .mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
 .logo h2{margin:0;font-size:16px;color:var(--accent)}
 .menu a{display:block;padding:10px;border-radius:8px;color:#374151;text-decoration:none;margin-bottom:6px}
 .menu a.active{background:#fff4ec;color:var(--accent);font-weight:600}
