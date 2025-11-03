@@ -1,6 +1,3 @@
-// ====================== //
-// DỮ LIỆU MẪU (2023 - 2025)
-// ====================== //
 const sampleData = [
   // 2023
   { date: '2023-01-12', listings: 5, contracts: 1, commission: 8000000 },
@@ -90,7 +87,7 @@ const DataService = {
 const canvas = document.getElementById("reportChart");
 const ctx = canvas.getContext("2d");
 
-function pxRatio() {
+function pxRatio() { //Điều chỉnh kích thước canvas theo tỷ lệ pixel của màn hình
   return window.devicePixelRatio || 1;
 }
 
@@ -288,6 +285,7 @@ function showGrouped(grouped) {
   renderChart({ labels, listingsCounts, contractsCounts, commissions });
 }
 
+//lọc theo khoảng thời gian tự 
 btnApplyRange.onclick = () => {
   const start = startDateEl.value ? new Date(startDateEl.value + 'T00:00:00') : null;
   const end = endDateEl.value ? new Date(endDateEl.value + 'T23:59:59') : null;

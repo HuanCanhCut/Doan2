@@ -166,27 +166,50 @@ function buildPrintableHtml(payload) {
 // ===== on submit =====
 form.addEventListener('submit', e => {
   e.preventDefault();
-  if (!fullNameEl.value.trim()) { alert('Vui lòng nhập họ tên'); return; }
-  if (!idNumberEl.value.trim()) { alert('Vui lòng nhập CCCD/CMTND'); return; }
-  if (!phoneEl.value.trim()) { alert('Vui lòng nhập số điện thoại'); return; }
-  if (!addressEl.value.trim()) { alert('Vui lòng nhập địa chỉ'); return; }
 
+  // validate nâng cao
+  const name = fullNameEl.value.trim();
+  const id = idNumberEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const address = addressEl.value.trim();
+  const amount = Number(amountEl.value);
+  const duration = Number(durationEl.value);
+
+  if (!name) return alert('Vui lòng nhập họ tên');
+  if (!/^[A-Za-zÀ-ỹ\s]+$/.test(name)) return alert('Họ tên không được chứa số hoặc ký tự đặc biệt');
+
+  if (!id) return alert('Vui lòng nhập CCCD/CMTND');
+  if (!/^\d{9,12}$/.test(id)) return alert('Số CCCD/CMTND phải có 9 hoặc 12 chữ số');
+
+  if (!phone) return alert('Vui lòng nhập số điện thoại');
+  if (!/^(0|\+84)\d{9}$/.test(phone)) return alert('Số điện thoại không hợp lệ');
+
+  if (!address) return alert('Vui lòng nhập địa chỉ');
+
+  if (!amount || amount <= 0) return alert('Giá trị hợp đồng phải là số dương hợp lệ');
+
+  if (!duration || duration <= 0) return alert('Thời hạn hợp đồng phải là số năm hợp lệ');
+
+  if (!paymentEl.value.trim()) return alert('Vui lòng chọn hình thức thanh toán');
+
+  // Nếu qua hết validate thì mới tạo payload
   const payload = {
-    name: fullNameEl.value.trim(),
-    id: idNumberEl.value.trim(),
-    phone: phoneEl.value.trim(),
-    address: addressEl.value.trim(),
+    name,
+    id,
+    phone,
+    address,
     date: signDateEl.value ? yyyymmddToLocale(signDateEl.value) : yyyymmddToLocale(new Date().toISOString().slice(0, 10)),
-    amount: formatCurrency(amountEl.value),
-    durationText: durationEl.value + ' năm',
+    amount: formatCurrency(amount),
+    durationText: duration + ' năm',
     payment: paymentEl.value,
     terms: termsEl.value,
-    signature: signatureEl.value || fullNameEl.value.trim()
+    signature: signatureEl.value || name
   };
 
+  // In ra bản hợp đồng
   const html = buildPrintableHtml(payload);
   const w = window.open('', '_blank');
-  if (!w) { alert('Trình duyệt chặn cửa sổ bật lên.'); return; }
+  if (!w) return alert('Trình duyệt chặn cửa sổ bật lên.');
   w.document.open(); w.document.write(html); w.document.close();
   setTimeout(() => { w.focus(); w.print(); }, 400);
 });

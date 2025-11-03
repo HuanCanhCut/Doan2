@@ -26,7 +26,7 @@ const DataService = {
 
 function money(v){ return (Number(v)||0).toLocaleString('vi-VN') + ' ₫'; }
 function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
-function statusPill(status){
+function statusPill(status){ //trả HTML span màu theo trạng thái
   if(status==='pending') return `<span class="status st-dangcho">Đang chờ</span>`;
   if(status==='signed') return `<span class="status st-dayky">Đã ký</span>`;
   return `<span class="status st-dahuy">Đã hủy</span>`;
