@@ -78,6 +78,7 @@ body {
 .menu a:hover {
     background: #fef3e7;
     color: var(--accent);
+    font-weight: bold;
 }
 
 .menu a.active {
