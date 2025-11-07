@@ -8,6 +8,7 @@ import { momentTimezone } from './helpers/momentTimezone'
 import { listenEvent } from './helpers/event'
 import { getDistrict, getProvince } from './helpers/getLocations'
 import handleConvertPrice from './helpers/handleConvertPrice'
+import middleware from './middleware'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -478,6 +479,7 @@ const app = {
     },
 
     async init() {
+        middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
         this.handleEvent()

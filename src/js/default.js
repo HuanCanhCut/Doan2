@@ -80,7 +80,9 @@ const defaultApp = {
         logoutBtn.onclick = () => {
             localStorage.removeItem('currentUser')
 
-            this.handleLoadUI()
+            window.location.reload()
+
+            // this.handleLoadUI()
         }
 
         headerSearchInput.oninput = (e) => {

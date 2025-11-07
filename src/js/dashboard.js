@@ -1,3 +1,5 @@
+import middleware from './middleware'
+
 const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
 
@@ -617,6 +619,7 @@ const dashboardApp = {
     },
 
     init() {
+        middleware()
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()

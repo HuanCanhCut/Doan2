@@ -6,6 +6,7 @@ import toast from './toast'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
 import convertConcurrency from './helpers/convertConcurrency'
 import getUrlSearchParams from './helpers/getURLSearchParams'
+import middleware from './middleware'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
@@ -363,6 +364,7 @@ const postApp = {
     },
 
     init() {
+        middleware()
         defaultApp.init()
         new locationsDropdownApp(
             document.querySelector('#form__location'),

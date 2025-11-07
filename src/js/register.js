@@ -1,5 +1,6 @@
 import Validator from './Validator'
 import mockUser from '../mocks/users'
+import middleware from './middleware'
 
 const app = {
     handleEvent() {
@@ -89,6 +90,7 @@ const app = {
     },
 
     init() {
+        middleware()
         this.handleEvent()
         this.handleRegister()
     },
