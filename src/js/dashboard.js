@@ -1,7 +1,9 @@
 import middleware from './middleware'
+import toast from './toast'
 
 const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
+const filterBtn = document.querySelector('.filter--btn')
 
 const dashboardApp = {
     posts: JSON.parse(localStorage.getItem('posts')) || [],
@@ -23,7 +25,7 @@ const dashboardApp = {
     handleLoadDate() {
         // default load 30 days ago
         const today = new Date()
-        const thirtyDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
 
         const todayStr = this.dateFormatter.format(today).split('/').reverse().join('-')
         const thirtyDaysAgoStr = this.dateFormatter.format(thirtyDaysAgo).split('/').reverse().join('-')
@@ -45,7 +47,16 @@ const dashboardApp = {
         const overview = [
             {
                 label: 'Tổng tin đăng',
-                value: this.posts.length,
+                value: () => {
+                    return this.posts.filter((post) => {
+                        const postDate = new Date(post.created_at)
+
+                        return (
+                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
+                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
+                        )
+                    }).length
+                },
                 color: 'var(--accent)',
                 backgroundColor: '#ffaa7d2e',
                 icon: 'fa-solid fa-mobile-screen',
@@ -81,9 +92,17 @@ const dashboardApp = {
             },
             {
                 label: 'Tin đã duyệt',
-                value: this.posts.filter((post) => {
-                    return post.post_status === 'approved'
-                }).length,
+                value: () => {
+                    return this.posts.filter((post) => {
+                        const postDate = new Date(post.created_at)
+
+                        return (
+                            post.post_status === 'approved' &&
+                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
+                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
+                        )
+                    }).length
+                },
                 color: 'var(--success)',
                 backgroundColor: '#0bb07924',
                 icon: 'fa-solid fa-circle-check',
@@ -121,16 +140,36 @@ const dashboardApp = {
             },
             {
                 label: 'Chờ duyệt',
-                value: this.posts.filter((post) => {
-                    return post.post_status === 'pending'
-                }).length,
+                value: () => {
+                    return this.posts.filter((post) => {
+                        const postDate = new Date(post.created_at)
+
+                        return (
+                            post.post_status === 'pending' &&
+                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
+                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
+                        )
+                    }).length
+                },
                 color: '#f59e0b',
                 backgroundColor: '#f59f0b28',
                 icon: 'fa-solid fa-clock',
             },
             {
                 label: 'Người dùng',
-                value: JSON.parse(localStorage.getItem('users'))?.length || 0,
+                value: () => {
+                    return (
+                        JSON.parse(localStorage.getItem('users'))?.filter((user) => {
+                            const userDate = new Date(user.created_at)
+
+                            return (
+                                userDate.toISOString().split('T')[0] >=
+                                    new Date(fromDate).toISOString().split('T')[0] &&
+                                userDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
+                            )
+                        }).length || 0
+                    )
+                },
                 color: '#6a6aff',
                 backgroundColor: '#7878ff24',
                 icon: 'fa-solid fa-users-rectangle',
@@ -181,7 +220,7 @@ const dashboardApp = {
                         </div>
                         <div>
                             <span class="analytics__item--title">${item.label}</span>
-                            <h1 style="font-size: 2.8rem; font-weight: 700; margin: 12px auto">${item.value}</h1>
+                            <h1 style="font-size: 2.8rem; font-weight: 700; margin: 12px auto">${item.value()}</h1>
                             <p
                                 style="
                                     font-size: 1.3rem;
@@ -208,7 +247,7 @@ const dashboardApp = {
                                             : '<i class="fa-solid fa-arrow-down"></i>'
                                         : '<i class="fa-solid fa-minus"></i>'
                                 }
-                                ${item.percent ? item.percent() + '%' : item.value}
+                                ${item.percent ? item.percent() + '%' : item.value()}
                             </p>
                         </div>
                     </div>
@@ -592,6 +631,7 @@ const dashboardApp = {
                                 src="${user.avatar}"
                                 alt=""
                                 class="md:col-block col-hidden"
+                                onerror="this.src='/static/fallback.png'"
                             />
                             <div class="user__stats--item--content--info">
                                 <p>
@@ -618,6 +658,34 @@ const dashboardApp = {
         })
     },
 
+    handleEvent() {
+        filterBtn.onclick = () => {
+            if (fromDateInput.value === '') {
+                // 1970-01-01
+                fromDateInput.value = new Date(1970, 0, 1).toISOString().split('T')[0]
+            }
+            if (toDateInput.value === '') {
+                // today
+                toDateInput.value = new Date().toISOString().split('T')[0]
+            }
+
+            if (new Date(fromDateInput.value) > new Date(toDateInput.value)) {
+                toast({
+                    title: 'Thông báo',
+                    message: 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
+                    type: 'error',
+                })
+                return
+            }
+
+            this.handleLoadOverview(fromDateInput.value, toDateInput.value)
+            this.handleDonutChart()
+            this.handleLineChart()
+            this.handleLoadLocationStats()
+            this.handleLoadUserStats()
+        }
+    },
+
     init() {
         middleware()
         this.handleLoadDate()
@@ -626,6 +694,7 @@ const dashboardApp = {
         this.handleLineChart()
         this.handleLoadLocationStats()
         this.handleLoadUserStats()
+        this.handleEvent()
     },
 }
 
