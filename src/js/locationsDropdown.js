@@ -1,5 +1,6 @@
 import { getDistrict, getProvince } from './helpers/getLocations'
 import toast from './toast'
+import { sendEvent } from './helpers/event'
 
 class locationsDropdownApp {
     constructor(root, locations) {
@@ -129,7 +130,7 @@ class locationsDropdownApp {
                     const districts = await getDistrict(this.locations.province)
 
                     const wards = districts.find(
-                        (district) => `${district.pre} ${district.name}` === this.locations.district
+                        (district) => `${district.pre} ${district.name}` === this.locations.district,
                     )?.ward
 
                     if (!wards) {
@@ -274,5 +275,7 @@ class locationsDropdownApp {
         this.loadSelectedLocation()
     }
 }
+
+export {}
 
 export default locationsDropdownApp

@@ -2,6 +2,7 @@
 .details__info--details__wrapper,
 .details__info__description,
 .details__user__info__wrapper,
+.post__actions__wrapper,
 .post__comment__wrapper {
     background-color: #fff;
     border-radius: 10px;
@@ -611,6 +612,68 @@
 .comment--input__submit:disabled {
     color: #ccc;
     cursor: not-allowed;
+}
+
+.post__actions__wrapper h3 {
+    font-weight: 600;
+}
+
+.confirm__modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    border: none;
+    z-index: 1000;
+    transition: all linear 0.2s;
+    background-color: #fff;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all linear 0.2s;
+}
+
+.confirm__modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirm__modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    padding-top: 16px;
+}
+
+.confirm__modal__header {
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 12px 0;
+}
+
+.confirm__modal p {
+    font-size: 1.4rem;
+}
+
+.confirm__modal__actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    justify-content: flex-end;
+}
+
+.post__actions__buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.post__actions__button--delete,
+.post__actions__button--edit {
+    flex: 1;
 }
 
 @media screen and (max-width: 40rem) {

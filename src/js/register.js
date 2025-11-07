@@ -83,7 +83,7 @@ const app = {
                         type: 'modal:auth-success',
                         data: { message: 'Đăng ký tài khoản thành công' },
                     },
-                    '*'
+                    '*',
                 )
             },
         })

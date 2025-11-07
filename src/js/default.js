@@ -155,10 +155,10 @@ const defaultApp = {
                                                 <h4>${post.title}</h4>
                                                 <p>
                                                     <span class="header__search__result__item--info__price">${handleConvertPrice(
-                                                        post.detail.price
+                                                        post.detail.price,
                                                     )}</span>
                                                     <span class="header__search__result__item--info__price__m2">${Number(
-                                                        post.detail.price / post.detail.area / 1000000
+                                                        post.detail.price / post.detail.area / 1000000,
                                                     ).toFixed(2)} tr/m²</span
                                                     ><span class="header__search__result__item--info__price__m2">${
                                                         post.detail.area

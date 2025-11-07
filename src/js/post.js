@@ -90,7 +90,8 @@ const postApp = {
                                 property_category: this.propertyCategory,
                                 role: this.roleType,
                                 images: this.imagesFiles.map(
-                                    () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
+                                    () =>
+                                        'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
                                 ),
                                 project_type: this.categoryType,
                                 user_id: post.user_id,
@@ -117,7 +118,7 @@ const postApp = {
                         property_category: this.propertyCategory,
                         role: this.roleType,
                         images: this.imagesFiles.map(
-                            () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
+                            () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
                         ),
                         project_type: this.categoryType,
                         user_id: postUser.id,
@@ -136,6 +137,22 @@ const postApp = {
                         type: 'success',
                     })
                 }
+
+                document.querySelectorAll('input[name]').forEach((input) => {
+                    input.value = ''
+                })
+
+                document.querySelectorAll('textarea[name]').forEach((textarea) => {
+                    textarea.value = ''
+                })
+
+                this.imagesFiles = []
+
+                this.handleLoadImagesPreview()
+
+                document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
+                    span.textContent = null
+                })
 
                 document.querySelectorAll('input[name]').forEach((input) => {
                     input.value = ''
@@ -300,7 +317,7 @@ const postApp = {
                         input.value = formatted
 
                         parentElement.querySelector('.form-concurrency-converted').innerText = convertConcurrency(
-                            Number(formatted.split('.').join(''))
+                            Number(formatted.split('.').join('')),
                         )
                     }
                 }
@@ -371,7 +388,7 @@ const postApp = {
             this.postType === 'edit'
                 ? (() => {
                       const post = JSON.parse(localStorage.getItem('posts'))?.find(
-                          (post) => post.id === Number(this.postId)
+                          (post) => post.id === Number(this.postId),
                       )
 
                       const [ward, district, province] = post.address_bd.split(' - ')
@@ -382,7 +399,7 @@ const postApp = {
                           ward,
                       }
                   })()
-                : null
+                : null,
         ).init(this.handleSubmitLocation.bind(this))
 
         // if mode is edit, fill form data

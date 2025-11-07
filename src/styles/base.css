@@ -30,7 +30,6 @@
 html,
 body {
     font-size: 62.5% !important;
-    line-height: 1.6rem;
     color: #222;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-style: normal;
@@ -62,6 +61,7 @@ a[href] {
 html *::-webkit-scrollbar {
     border-radius: 0;
     width: 6px;
+    height: 6px;
 }
 
 ul {

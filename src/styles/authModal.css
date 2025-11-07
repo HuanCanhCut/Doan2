@@ -10,7 +10,7 @@
 }
 
 .main__title {
-    font-size: 28px;
+    font-size: 2rem;
     font-weight: 600;
     display: flex;
     flex-direction: column;
