@@ -1,4 +1,4 @@
-import { sendEvent } from './helpers/event'
+import { sendEvent } from './helpers/event.js'
 
 const toggleSidebarBtn = document.querySelector('.header__toggle--sidebar')
 const overlay = document.querySelector('#overlay')

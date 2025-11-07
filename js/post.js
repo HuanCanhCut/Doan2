@@ -1,12 +1,12 @@
-import Validator from './Validator'
-import defaultApp from './default'
-import getParentElement from './helpers/getParentElement'
-import locationsDropdownApp from './locationsDropdown'
-import toast from './toast'
-import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
-import convertConcurrency from './helpers/convertConcurrency'
-import getUrlSearchParams from './helpers/getURLSearchParams'
-import middleware from './middleware'
+import Validator from './Validator.js'
+import defaultApp from './default.js'
+import getParentElement from './helpers/getParentElement.js'
+import locationsDropdownApp from './locationsDropdown.js'
+import toast from './toast.js'
+import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
+import convertConcurrency from './helpers/convertConcurrency.js'
+import getUrlSearchParams from './helpers/getURLSearchParams.js'
+import middleware from './middleware.js'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')

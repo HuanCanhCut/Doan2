@@ -1,6 +1,8 @@
-import defaultApp from './default'
-import getUrlSearchParams from './helpers/getURLSearchParams'
-import { momentTimezone } from './helpers/momentTimezone'
+import defaultApp from './default.js'
+import getUrlSearchParams from './helpers/getURLSearchParams.js'
+import { momentTimezone } from './helpers/momentTimezone.js'
+import middleware from './middleware.js'
+middleware()
 
 const postManagerTabs = document.querySelectorAll('.post__manager__tabs--button')
 const editProfileBtn = document.querySelector('.profile__info--edit')
@@ -130,7 +132,7 @@ const renderUserPost = (activeTab = currentTab) => {
                     <img
                         src=${post.images[0]}
                         alt=""
-                        onerror="this.src='/static/fallback.png'"
+                        onerror="this.src='/public/static/fallback.png'"
                     />
                     <div class="post__item--info">
                         <h4 class="post__item--title">

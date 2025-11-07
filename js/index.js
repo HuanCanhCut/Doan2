@@ -1,14 +1,14 @@
-import defaultApp from './default'
-import getParentElement from './helpers/getParentElement'
-import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
-import './popperWrapper'
-import { handleSetPosition } from './popperWrapper'
-import mockPosts from '../mocks/posts'
-import { momentTimezone } from './helpers/momentTimezone'
-import { listenEvent } from './helpers/event'
-import { getDistrict, getProvince } from './helpers/getLocations'
-import handleConvertPrice from './helpers/handleConvertPrice'
-import middleware from './middleware'
+import defaultApp from './default.js'
+import getParentElement from './helpers/getParentElement.js'
+import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
+import './popperWrapper.js'
+import { handleSetPosition } from './popperWrapper.js'
+import mockPosts from '../mocks/posts.js'
+import { momentTimezone } from './helpers/momentTimezone.js'
+import { listenEvent } from './helpers/event.js'
+import { getDistrict, getProvince } from './helpers/getLocations.js'
+import handleConvertPrice from './helpers/handleConvertPrice.js'
+import middleware from './middleware.js'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -416,7 +416,7 @@ const app = {
                     <div class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
                             <img
-                                onerror="this.src='/static/fallback.png'"
+                                onerror="this.src='/public/static/fallback.png'"
                                 src="${post.images[0]}"
                                 alt=""
                             />

@@ -1,7 +1,7 @@
-import defaultApp from './default'
-import getUrlSearchParams from './helpers/getURLSearchParams'
-import { momentTimezone } from './helpers/momentTimezone'
-import toast from './toast'
+import defaultApp from './default.js'
+import getUrlSearchParams from './helpers/getURLSearchParams.js'
+import { momentTimezone } from './helpers/momentTimezone.js'
+import toast from './toast.js'
 
 const nextImageBtn = document.querySelector('.details__info__images__preview__btn--next')
 const prevImageBtn = document.querySelector('.details__info__images__preview__btn--prev')
@@ -250,7 +250,7 @@ function renderUserPost() {
             <img
                 src="${postUser.avatar}"
                 alt=""
-                onerror="this.src='/static/fallback.png'"
+                onerror="this.src='/public/static/fallback.png'"
             />
             <div class="details__user__info__wrapper__content">
                 <h3>${postUser.full_name}</h3>
@@ -304,7 +304,7 @@ const renderCommentItem = (comment, allComments, level = 0) => {
 
     const parentComment = allComments.find((cmt) => cmt.id === comment.parent_id)
     const userParentComment = JSON.parse(localStorage.getItem('users')).find(
-        (user) => user?.id === parentComment?.user_id,
+        (user) => user?.id === parentComment?.user_id
     )
 
     const commentHTML = `
@@ -313,7 +313,7 @@ const renderCommentItem = (comment, allComments, level = 0) => {
                 <img
                     src="${commentUser.avatar}"
                     alt="${commentUser.full_name}"
-                    onerror="this.src='/static/fallback.png'"
+                    onerror="this.src='/public/static/fallback.png'"
                 />
             </div>
             <div class="comment--item__content__wrapper">
@@ -341,8 +341,8 @@ const renderCommentItem = (comment, allComments, level = 0) => {
         repliesHTML = `
             <div class="replies--wrapper">
                 <button class="reply--count active" data-parent-comment-id="${comment.id}" style="margin-left: ${
-                    level < 3 ? (level + 1) * 40 + 14 : 140
-                }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
+            level < 3 ? (level + 1) * 40 + 14 : 140
+        }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
                     Xem ${replyCount} phản hồi
                 </button>
                 <div class="replies--container" style="display: ${comment.is_show_replies ? 'block' : 'none'}">
@@ -499,7 +499,7 @@ confirmModalButtonCancel.addEventListener('click', () => {
 confirmModalButtonConfirm.addEventListener('click', () => {
     localStorage.setItem(
         'posts',
-        JSON.stringify(JSON.parse(localStorage.getItem('posts')).filter((post) => post.id !== postId)),
+        JSON.stringify(JSON.parse(localStorage.getItem('posts')).filter((post) => post.id !== postId))
     )
 
     toast({

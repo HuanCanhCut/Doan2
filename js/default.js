@@ -1,9 +1,9 @@
-import locationsDropdownApp from './locationsDropdown'
-import toast from './toast'
-import sidebarApp from './sidebar'
-import { listenEvent, sendEvent } from './helpers/event'
-import handleConvertPrice from './helpers/handleConvertPrice'
-import mockPosts from '../mocks/posts'
+import locationsDropdownApp from './locationsDropdown.js'
+import toast from './toast.js'
+import sidebarApp from './sidebar.js'
+import { listenEvent, sendEvent } from './helpers/event.js'
+import handleConvertPrice from './helpers/handleConvertPrice.js'
+import mockPosts from '../mocks/posts.js'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')

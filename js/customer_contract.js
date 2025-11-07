@@ -1,4 +1,4 @@
-import middleware from './middleware'
+import middleware from './middleware.js'
 middleware();
 
 function formatCurrency(v) {

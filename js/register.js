@@ -1,6 +1,6 @@
-import Validator from './Validator'
-import mockUser from '../mocks/users'
-import middleware from './middleware'
+import Validator from './Validator.js'
+import mockUser from '../mocks/users.js'
+import middleware from './middleware.js'
 
 const app = {
     handleEvent() {

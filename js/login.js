@@ -1,5 +1,5 @@
-import Validator from './Validator'
-import middleware from './middleware'
+import Validator from './Validator.js'
+import middleware from './middleware.js'
 
 const app = {
     handleEvent() {

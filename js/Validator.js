@@ -1,4 +1,4 @@
-import getParentElement from './helpers/getParentElement'
+import getParentElement from './helpers/getParentElement.js'
 
 const Validator = (options) => {
     let formElement = document.querySelector(options.form)

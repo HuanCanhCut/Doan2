@@ -1,5 +1,5 @@
-import middleware from './middleware'
-import toast from './toast'
+import middleware from './middleware.js'
+import toast from './toast.js'
 
 const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
@@ -631,7 +631,7 @@ const dashboardApp = {
                                 src="${user.avatar}"
                                 alt=""
                                 class="md:col-block col-hidden"
-                                onerror="this.src='/static/fallback.png'"
+                                onerror="this.src='/public/static/fallback.png'"
                             />
                             <div class="user__stats--item--content--info">
                                 <p>

@@ -1,4 +1,4 @@
-import Validator from './Validator'
+import Validator from './Validator.js'
 
 const nicknameInput = document.querySelector('#nickname')
 const profileImageInput = document.querySelector('#profile-image')

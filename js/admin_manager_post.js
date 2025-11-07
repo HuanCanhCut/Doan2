@@ -1,7 +1,7 @@
-import toast from './toast'
-import mockPosts from '../mocks/posts'
-import { convertConcurrencyToNumber } from './helpers/convertConcurrency'
-import { momentTimezone } from './helpers/momentTimezone'
+import toast from './toast.js'
+import mockPosts from '../mocks/posts.js'
+import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
+import { momentTimezone } from './helpers/momentTimezone.js'
 
 const postsTableBody = document.querySelector('#posts-table-body')
 const searchInput = document.querySelector('#search-input')
@@ -238,7 +238,7 @@ const viewPost = (postId) => {
             ${post.images
                 .map(
                     (img) => `
-                <img src="${img}" alt="${post.title}" class="modal__image" onerror="this.src='/static/fallback.png'" />
+                <img src="${img}" alt="${post.title}" class="modal__image" onerror="this.src='/public/static/fallback.png'" />
             `
                 )
                 .join('')}

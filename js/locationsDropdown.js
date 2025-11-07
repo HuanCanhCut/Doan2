@@ -1,6 +1,6 @@
-import { getDistrict, getProvince } from './helpers/getLocations'
-import toast from './toast'
-import { sendEvent } from './helpers/event'
+import { getDistrict, getProvince } from './helpers/getLocations.js'
+import toast from './toast.js'
+import { sendEvent } from './helpers/event.js'
 
 class locationsDropdownApp {
     constructor(root, locations) {
