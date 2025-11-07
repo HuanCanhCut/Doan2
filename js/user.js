@@ -41,7 +41,7 @@ postManagerTabs.forEach((tab) => {
 })
 
 editProfileBtn.onclick = () => {
-    modal.setAttribute('src', `src/modal/editProfile.html`)
+    modal.setAttribute('src', `modal/editProfile.html`)
     modal.classList.add('active')
     overlay.classList.add('active')
 }

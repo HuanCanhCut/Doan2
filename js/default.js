@@ -20,7 +20,7 @@ const defaultApp = {
         window.addEventListener('message', (e) => {
             switch (e.data.type) {
                 case 'modal:toggle-modal':
-                    modal.setAttribute('src', `src/modal/${e.data.data}.html`)
+                    modal.setAttribute('src', `modal/${e.data.data}.html`)
                     break
                 case 'modal:auth-success':
                     this.closeModal()
@@ -155,10 +155,10 @@ const defaultApp = {
                                                 <h4>${post.title}</h4>
                                                 <p>
                                                     <span class="header__search__result__item--info__price">${handleConvertPrice(
-                                                        post.detail.price,
+                                                        post.detail.price
                                                     )}</span>
                                                     <span class="header__search__result__item--info__price__m2">${Number(
-                                                        post.detail.price / post.detail.area / 1000000,
+                                                        post.detail.price / post.detail.area / 1000000
                                                     ).toFixed(2)} tr/m²</span
                                                     ><span class="header__search__result__item--info__price__m2">${
                                                         post.detail.area
@@ -204,7 +204,7 @@ const defaultApp = {
     },
 
     openAuthModal(modalName) {
-        modal.setAttribute('src', `src/modal/${modalName}.html`)
+        modal.setAttribute('src', `modal/${modalName}.html`)
         modal.classList.add('active')
         overlay.classList.add('active')
     },

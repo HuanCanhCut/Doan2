@@ -1,16 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/static/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nhà đất</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-        <link rel="stylesheet" href="./src/styles/normalize.css" />
-        <link rel="stylesheet" href="./src/styles/base.css" />
-        <link rel="stylesheet" href="./src/styles/default.css" />
-        <link rel="stylesheet" href="./src/styles/grid.css" />
-        <link rel="stylesheet" href="./src/styles/index.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/default.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/index.css" />
     </head>
     <body>
         <div id="app">
@@ -22,10 +22,13 @@
                         <i class="fa-solid fa-bars"></i>
                     </button>
                     <a href="/">
-                        <img src="/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
+                        <img src="/public/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
                     /></a>
                     <a href="/">
-                        <img src="/static/logo.png" alt="" class="col-hidden md:col-block lg:col-hidden header__logo"
+                        <img
+                            src="/public/static/logo.png"
+                            alt=""
+                            class="col-hidden md:col-block lg:col-hidden header__logo"
                     /></a>
 
                     <div class="province" id="header__location">
@@ -333,19 +336,19 @@
                         <div class="filter__items">
                             <!-- Loại Bất Động Sản -->
                             <button class="filter__item--category" data-type="apartment">
-                                <img src="/static/categories/apartment.svg" alt="" />
+                                <img src="/public/static/categories/apartment.svg" alt="" />
                                 <span>Căn hộ/Chung cư</span>
                             </button>
                             <button class="filter__item--category" data-type="house">
-                                <img src="/static/categories/house.svg" alt="" />
+                                <img src="/public/static/categories/house.svg" alt="" />
                                 <span>Nhà ở</span>
                             </button>
                             <button class="filter__item--category" data-type="land">
-                                <img src="/static/categories/land.svg" alt="" />
+                                <img src="/public/static/categories/land.svg" alt="" />
                                 <span>Đất nền</span>
                             </button>
                             <button class="filter__item--category" data-type="room">
-                                <img src="/static/categories/room.svg" alt="" />
+                                <img src="/public/static/categories/room.svg" alt="" />
                                 <span>Phòng trọ</span>
                             </button>
                         </div>
@@ -410,6 +413,7 @@
                 </div>
             </main>
         </div>
-        <script type="module" src="./src/js/index.js"></script>
+
+        <script type="module" src="js/index.js"></script>
     </body>
 </html>

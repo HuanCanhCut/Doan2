@@ -1,96 +1,96 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Báo cáo - Real Estate</title>
-  <link rel="stylesheet" href="./src/styles/admin_reports.css" />
-</head>
-<body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="logo">
-        <div class="mark">
-          <img src="./public/static/logo.png" alt="Logo" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Báo cáo - Real Estate</title>
+        <link rel="stylesheet" href="styles/admin_reports.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="logo">
+                    <div class="mark">
+                        <img src="./public/static/logo.png" alt="Logo" />
+                    </div>
+                    <div>
+                        <h2>Real Estate</h2>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#">Trang chủ</a>
+                    <a href="#">Dự án</a>
+                    <a href="#">Căn hộ</a>
+                    <a href="#">Tin đăng</a>
+                    <a href="#">Hợp đồng</a>
+                    <a href="#" class="active">Báo cáo</a>
+                    <a href="#">Tài khoản</a>
+                </nav>
+            </aside>
+
+            <main class="main">
+                <header class="header">
+                    <div>
+                        <h1>Báo cáo tổng hợp</h1>
+                        <div class="small muted">Thống kê tin đăng, hợp đồng, hoa hồng</div>
+                    </div>
+                    <div class="user">
+                        <div class="small muted">Xin chào, Admin</div>
+                        <div class="avatar">A</div>
+                    </div>
+                </header>
+
+                <section class="content">
+                    <div class="stats-panel">
+                        <div class="stat card">
+                            <div class="label">Tổng tin đăng</div>
+                            <div class="value" id="statListings">0</div>
+                            <div class="note">Trong khoảng thời gian chọn</div>
+                        </div>
+                        <div class="stat card">
+                            <div class="label">Tổng hợp đồng</div>
+                            <div class="value" id="statContracts">0</div>
+                            <div class="note">Đã ký</div>
+                        </div>
+                        <div class="stat card">
+                            <div class="label">Tổng hoa hồng</div>
+                            <div class="value" id="statCommission">0 ₫</div>
+                            <div class="note">Theo hợp đồng đã ký</div>
+                        </div>
+                    </div>
+
+                    <div class="filter-panel">
+                        <div class="date-range">
+                            <label>Từ</label>
+                            <input type="date" id="startDate" />
+                            <label>Đến</label>
+                            <input type="date" id="endDate" />
+                            <button id="btnApplyRange" class="btn primary">Lọc</button>
+                            <button id="btnReset" class="btn secondary">Đặt lại</button>
+                        </div>
+
+                        <div class="quick">
+                            <button class="quick-btn" data-type="month">Theo tháng</button>
+                            <button class="quick-btn" data-type="quarter">Theo quý</button>
+                            <button class="quick-btn" data-type="year">Theo năm</button>
+                        </div>
+                    </div>
+
+                    <div id="optionSelector" class="option-selector hidden"></div>
+
+                    <div class="panel chart-panel">
+                        <canvas id="reportChart" height="360"></canvas>
+                        <div class="legend">
+                            <span><span class="color-box orange"></span>Tin đăng</span>
+                            <span><span class="color-box red"></span>Hợp đồng</span>
+                            <span><span class="color-box yellow"></span>Hoa hồng</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-        <div>
-          <h2>Real Estate</h2>
-        </div>
-      </div>
 
-      <nav class="menu">
-        <a href="#">Trang chủ</a>
-        <a href="#">Dự án</a>
-        <a href="#">Căn hộ</a>
-        <a href="#">Tin đăng</a>
-        <a href="#">Hợp đồng</a>
-        <a href="#" class="active">Báo cáo</a>
-        <a href="#">Tài khoản</a>
-      </nav>
-    </aside>
-
-    <main class="main">
-      <header class="header">
-        <div>
-          <h1>Báo cáo tổng hợp</h1>
-          <div class="small muted">Thống kê tin đăng, hợp đồng, hoa hồng</div>
-        </div>
-        <div class="user">
-          <div class="small muted">Xin chào, Admin</div>
-          <div class="avatar">A</div>
-        </div>
-      </header>
-
-      <section class="content">
-        <div class="stats-panel">
-          <div class="stat card">
-            <div class="label">Tổng tin đăng</div>
-            <div class="value" id="statListings">0</div>
-            <div class="note">Trong khoảng thời gian chọn</div>
-          </div>
-          <div class="stat card">
-            <div class="label">Tổng hợp đồng</div>
-            <div class="value" id="statContracts">0</div>
-            <div class="note">Đã ký</div>
-          </div>
-          <div class="stat card">
-            <div class="label">Tổng hoa hồng</div>
-            <div class="value" id="statCommission">0 ₫</div>
-            <div class="note">Theo hợp đồng đã ký</div>
-          </div>
-        </div>
-
-        <div class="filter-panel">
-          <div class="date-range">
-            <label>Từ</label>
-            <input type="date" id="startDate">
-            <label>Đến</label>
-            <input type="date" id="endDate">
-            <button id="btnApplyRange" class="btn primary">Lọc</button>
-            <button id="btnReset" class="btn secondary">Đặt lại</button>
-          </div>
-
-          <div class="quick">
-            <button class="quick-btn" data-type="month">Theo tháng</button>
-            <button class="quick-btn" data-type="quarter">Theo quý</button>
-            <button class="quick-btn" data-type="year">Theo năm</button>
-          </div>
-        </div>
-
-        <div id="optionSelector" class="option-selector hidden"></div>
-
-        <div class="panel chart-panel">
-          <canvas id="reportChart" height="360"></canvas>
-          <div class="legend">
-            <span><span class="color-box orange"></span>Tin đăng</span>
-            <span><span class="color-box red"></span>Hợp đồng</span>
-            <span><span class="color-box yellow"></span>Hoa hồng</span>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script type="module" src="./src/js/admin_reports.js"></script>
-</body>
+        <script type="module" src="js/admin_reports.js"></script>
+    </body>
 </html>

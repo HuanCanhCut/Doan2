@@ -1,6 +1,6 @@
 const PRIVATE_ROUTES = ['/post', '/agent_contracts', '/customer_contracts']
 const PUBLIC_ROUTES = ['/']
-const AUTH_ROUTES = ['/src/modal/loginModal', '/src/modal/registerModal']
+const AUTH_ROUTES = ['/loginModal', '/registerModal']
 const ADMIN_ROUTES = ['/dashboard', '/admin_contracts', '/admin_reports']
 
 const checkRoute = (routes) => {
@@ -49,7 +49,7 @@ const middleware = () => {
             if (window.history.length > 1) {
                 window.history.back()
             } else {
-                window.location.href = '/src/modal/loginModal'
+                window.location.href = '/loginModal'
             }
         } else {
             return

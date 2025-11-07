@@ -2,21 +2,21 @@
 <html lang="vi">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/static/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Quản lý tin đăng - Admin | Nhà đất</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-        <link rel="stylesheet" href="./src/styles/normalize.css" />
-        <link rel="stylesheet" href="./src/styles/base.css" />
-        <link rel="stylesheet" href="./src/styles/grid.css" />
-        <link rel="stylesheet" href="./src/styles/admin_manager_post.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/admin_manager_post.css" />
     </head>
     <body>
         <div class="app">
             <div id="overlay" class=""></div>
             <aside class="sidebar" aria-label="sidebar">
                 <div class="logo">
-                    <a href="/"><img src="/static/logo.png" alt="logo" /></a>
+                    <a href="/"><img src="/public/static/logo.png" alt="logo" /></a>
                     <div>
                         <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
                         <div class="small">Bảng quản trị</div>
@@ -188,11 +188,19 @@
                                 <i class="fa-solid fa-check"></i>
                                 Duyệt
                             </button>
-                            <button id="bulk-reject-btn" class="btn btn--outline" style="border-color: #ff9800; color: #ff9800;">
+                            <button
+                                id="bulk-reject-btn"
+                                class="btn btn--outline"
+                                style="border-color: #ff9800; color: #ff9800"
+                            >
                                 <i class="fa-solid fa-times"></i>
                                 Từ chối
                             </button>
-                            <button id="bulk-delete-btn" class="btn btn--outline" style="border-color: #f44336; color: #f44336;">
+                            <button
+                                id="bulk-delete-btn"
+                                class="btn btn--outline"
+                                style="border-color: #f44336; color: #f44336"
+                            >
                                 <i class="fa-solid fa-trash"></i>
                                 Xóa
                             </button>
@@ -241,6 +249,6 @@
             </div>
         </div>
 
-        <script type="module" src="./src/js/admin_manager_post.js"></script>
+        <script type="module" src="js/admin_manager_post.js"></script>
     </body>
 </html>

@@ -436,7 +436,7 @@ const app = {
                             </span>
                             <div class="post__item__info__wrapper__price__wrapper">
                                 <span class="post__item__info__wrapper__price">${handleConvertPrice(
-                                    post.detail.price,
+                                    post.detail.price
                                 )}</span>
                                 <span>${Number(post.detail.price / post.detail.area / 1000000).toFixed(2)} tr/m²</span>
                                 <span>${post.detail.area}m²</span>
