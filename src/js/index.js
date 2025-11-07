@@ -7,6 +7,8 @@ import mockPosts from '../mocks/posts'
 import { momentTimezone } from './helpers/momentTimezone'
 import { listenEvent } from './helpers/event'
 import { getDistrict, getProvince } from './helpers/getLocations'
+import handleConvertPrice from './helpers/handleConvertPrice'
+import middleware from './middleware'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -291,9 +293,16 @@ const app = {
 
         sidebarFilterByLocationListWrapper.onclick = (e) => {
             if (e.target.closest('.sidebar__filter--by--location__list li')) {
-                const value = e.target.closest('.sidebar__filter--by--location__list li').dataset.value
+                const liElement = e.target.closest('.sidebar__filter--by--location__list li')
+                const value = liElement.dataset.value
 
-                this.filters.location = value
+                this.filters.location = value === 'all' ? '' : value
+
+                document.querySelectorAll('.sidebar__filter--by--location__list li').forEach((li) => {
+                    li.classList.remove('active')
+                })
+
+                liElement.classList.add('active')
 
                 this.handleRenderPost(this.handleFilterPost())
             }
@@ -370,7 +379,9 @@ const app = {
             })
             .join('')
 
-        document.querySelector('.sidebar__filter--by--location__list').innerHTML = htmls
+        const allHtmls = `<li data-value="all" class="active">Tất cả</li>`
+
+        document.querySelector('.sidebar__filter--by--location__list').innerHTML = allHtmls + htmls
     },
 
     handleToggleLikePost(postId) {
@@ -398,18 +409,9 @@ const app = {
             localStorage.setItem('posts', JSON.stringify(this.posts))
         }
 
-        const handleConvertPrice = (amount) => {
-            if (amount.length < 7) {
-                return `${Number(amount) / 1000} nghìn`
-            } else if (amount.length >= 7 && amount.length <= 9) {
-                return `${Number(amount) / 1000000} triệu`
-            } else {
-                return `${Number(amount) / 1000000000} tỷ`
-            }
-        }
-
         postInner.innerHTML = posts
             .map((post) => {
+                const user = JSON.parse(localStorage.getItem('users'))?.find((user) => user.id === post.user_id) || null
                 return `
                     <div class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
@@ -441,30 +443,32 @@ const app = {
                             </div>
                             <span class="post__item__info__wrapper__location">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>${post.address_bd}</span>
+                                <span>${post.address + ' - ' + post.address_bd}</span>
                             </span>
 
                             <div class="post__item__info--user">
                                 <div class="post__item__info--user__item">
                                     <img
                                         onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
-                                        src="${post.user?.avatar}"
+                                        src="${user?.avatar}"
                                         alt=""
                                     />
-                                    <span>${post.user?.full_name}</span>
+                                    <span>${user?.full_name}</span>
                                 </div>
 
                                 <span class="post__item__info--user--post--length">
                                     <i class="fa-solid fa-briefcase"></i>
                                     <span>${
                                         JSON.parse(localStorage.getItem('posts')).filter((postUser) => {
-                                            return post.user.id === postUser.user.id
+                                            return post.user_id === postUser.user_id
                                         }).length
                                     } bài đăng</span>
                                 </span>
                             </div>
                         </div>
-                        <button class="post__item--heart" data-id="${post.id}">
+                        <button class="post__item--heart ${
+                            localStorage.getItem('favorites')?.includes(post.id) ? 'active' : ''
+                        }" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
@@ -475,6 +479,7 @@ const app = {
     },
 
     async init() {
+        middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
         this.handleEvent()

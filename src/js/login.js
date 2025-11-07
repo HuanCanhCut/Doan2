@@ -1,4 +1,5 @@
 import Validator from './Validator'
+import middleware from './middleware'
 
 const app = {
     handleEvent() {
@@ -47,6 +48,7 @@ const app = {
     },
 
     init() {
+        middleware()
         this.handleEvent()
         this.handleLogin()
     },
