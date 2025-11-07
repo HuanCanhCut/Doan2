@@ -216,6 +216,7 @@
     font-family: inherit;
     resize: vertical;
     min-height: 120px;
+    line-height: 1;
 }
 
 .post__form__textarea:focus {
