@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agent - Quản lý Hợp đồng | Real Estate</title>
+  <link rel="stylesheet" href="./src/styles/base.css" />
+  <link rel="stylesheet" href="./src/styles/agent_contracts.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="mark">
+          <img src="./public/static/logo.png" alt="Logo" />
+        </div>
+        <div><h2>Real Estate</h2></div>
+      </div>
+      <nav class="menu">
+        <a href="#">Trang chủ</a>
+        <a href="#">Dự án</a>
+        <a href="#">Căn hộ</a>
+        <a href="#">Tin đăng</a>
+        <a href="#" class="active">Hợp đồng</a>
+        <a href="#">Báo cáo</a>
+        <a href="#">Tài khoản</a>
+      </nav>
+    </aside>
+
+    <main style="min-height:100vh;display:flex;flex-direction:column">
+      <header class="header">
+        <div class="searchbar">
+          <input id="globalSearch" placeholder="Tìm nhanh (tên khách hoặc dự án)..." />
+        </div>
+        <div class="user">
+          <div class="small muted">Xin chào, Agent Huy</div>
+          <div class="avatar">H</div>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="top">
+          <div>
+            <h1>Quản lý Hợp đồng của tôi</h1>
+            <div class="small">Xem và theo dõi tiến trình các hợp đồng bạn phụ trách</div>
+          </div>
+
+          <div class="controls">
+            <select id="filterStatus">
+              <option value="">— Tất cả trạng thái —</option>
+              <option value="pending">Chờ thanh toán</option>
+              <option value="signed">Hoàn tất</option>
+              <option value="cancelled">Hết hiệu lực</option>
+            </select>
+            <input type="date" id="fromDate" />
+            <input type="date" id="toDate" />
+            <input type="text" id="searchInput" placeholder="Tìm theo tên khách hoặc địa chỉ..." />
+            <button class="btn secondary" id="btnFilter">Lọc</button>
+            <button class="btn secondary" id="btnReset">Đặt lại</button>
+          </div>
+        </div>
+
+        <!-- Thống kê -->
+        <div class="panel stats">
+          <div class="stat">
+            <div class="small">Tổng hợp đồng</div>
+            <h3 id="statCount">0</h3>
+          </div>
+          <div class="stat">
+            <div class="small">Tổng giá trị</div>
+            <h3 id="statAmount">0 ₫</h3>
+          </div>
+          <div class="stat">
+            <div class="small">Tổng hoa hồng</div>
+            <h3 id="statComm">0 ₫</h3>
+          </div>
+        </div>
+
+        <!-- Bảng hợp đồng -->
+        <div class="panel" style="margin-top:12px">
+          <div class="table-wrap">
+            <table id="contractsTable" aria-label="Danh sách hợp đồng">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Bất động sản</th>
+                  <th>Người mua</th>
+                  <th>Giá trị</th>
+                  <th>Hoa hồng</th>
+                  <th>Ngày ký</th>
+                  <th>Trạng thái</th>
+                  <th>Chi tiết</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal chi tiết -->
+  <div class="modal-back" id="modalBack">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>Chi tiết hợp đồng</h3>
+        <button class="btn secondary" id="modalClose">Đóng</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/js/agent_contracts.js"></script>
+</body>
+</html>

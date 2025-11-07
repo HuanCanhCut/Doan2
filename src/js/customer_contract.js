@@ -1,3 +1,6 @@
+import middleware from './middleware'
+middleware();
+
 function formatCurrency(v) {
   return (Number(v) || 0).toLocaleString('vi-VN') + ' ₫';
 }

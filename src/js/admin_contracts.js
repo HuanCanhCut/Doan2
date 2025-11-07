@@ -1,3 +1,6 @@
+import middleware from './middleware'
+middleware();
+
 const DataService = {
   KEY: 'real_estate_contracts',
   getAll(){

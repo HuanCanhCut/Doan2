@@ -1,7 +1,7 @@
-const PRIVATE_ROUTES = ['/post']
+const PRIVATE_ROUTES = ['/post', '/agent_contracts', '/customer_contracts']
 const PUBLIC_ROUTES = ['/']
 const AUTH_ROUTES = ['/src/modal/loginModal', '/src/modal/registerModal']
-const ADMIN_ROUTES = ['/dashboard']
+const ADMIN_ROUTES = ['/dashboard', '/admin_contracts', '/admin_reports']
 
 const checkRoute = (routes) => {
     const pathname = window.location.pathname

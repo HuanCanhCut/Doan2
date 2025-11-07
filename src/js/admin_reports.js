@@ -1,3 +1,6 @@
+import middleware from './middleware'
+middleware();
+
 const sampleData = [
   // 2023
   { date: '2023-01-12', listings: 5, contracts: 1, commission: 8000000 },
