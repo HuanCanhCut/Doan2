@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quản lý tin đăng - Admin | Nhà đất</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/admin_manager_post.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
+    </head>
+    <body>
+        <div class="app">
+            <div id="overlay" class=""></div>
+            <aside class="sidebar" aria-label="sidebar">
+                <div class="logo">
+                    <a href="/"><img src="/public/static/logo.png" alt="logo" /></a>
+                    <div>
+                        <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
+                        <div class="small">Bảng quản trị</div>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#" class="menu__item">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                    <a href="/admin_manager_post.html" class="menu__item">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Bài đăng</span>
+                    </a>
+                    <a href="#" class="menu__item">
+                        <i class="fa-solid fa-door-open"></i>
+                        <span>Căn hộ</span>
+                    </a>
+                    <a href="#" class="menu__item active">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <span>Tin đăng</span>
+                    </a>
+                    <a href="#" class="menu__item">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span>Hợp đồng</span>
+                    </a>
+                    <a href="#" class="menu__item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Báo cáo</span>
+                    </a>
+                    <a href="#" class="menu__item">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Tài khoản</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar__footer">
+                    <div class="admin__profile">
+                        <img
+                            src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
+                            alt="Admin avatar"
+                            class="admin__avatar"
+                        />
+                        <div class="admin__info">
+                            <span class="admin__name">Admin</span>
+                            <span class="admin__role">Quản trị viên</span>
+                        </div>
+                    </div>
+                    <button class="sidebar__logout" title="Đăng xuất">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <header class="header">
+                    <div class="header__left">
+                        <button class="header__toggle" aria-label="Toggle sidebar">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <h1 class="header__title">Quản lý tin đăng</h1>
+                    </div>
+                    <div class="header__right">
+                        <div class="header__admin">
+                            <img
+                                src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
+                                alt="Admin"
+                            />
+                            <span>Admin</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="stats">
+                    <div class="stats__card stats__card--total">
+                        <div class="stats__icon">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </div>
+                        <div class="stats__info">
+                            <span class="stats__label">Tổng tin đăng</span>
+                            <span class="stats__value" id="total-posts">0</span>
+                        </div>
+                    </div>
+                    <div class="stats__card stats__card--pending">
+                        <div class="stats__icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="stats__info">
+                            <span class="stats__label">Chờ duyệt</span>
+                            <span class="stats__value" id="pending-posts">0</span>
+                        </div>
+                    </div>
+                    <div class="stats__card stats__card--approved">
+                        <div class="stats__icon">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                        <div class="stats__info">
+                            <span class="stats__label">Đã duyệt</span>
+                            <span class="stats__value" id="approved-posts">0</span>
+                        </div>
+                    </div>
+                    <div class="stats__card stats__card--rejected">
+                        <div class="stats__icon">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                        <div class="stats__info">
+                            <span class="stats__label">Bị từ chối</span>
+                            <span class="stats__value" id="rejected-posts">0</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="controls">
+                    <div class="controls__filters">
+                        <div class="search__box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input
+                                type="text"
+                                id="search-input"
+                                placeholder="Tìm kiếm theo tiêu đề, địa chỉ..."
+                                class="search__input"
+                            />
+                        </div>
+                        <select id="status-filter" class="filter__select">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="pending">Chờ duyệt</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="rejected">Bị từ chối</option>
+                        </select>
+                        <select id="type-filter" class="filter__select">
+                            <option value="all">Tất cả loại</option>
+                            <option value="sell">Bán</option>
+                            <option value="rent">Cho thuê</option>
+                        </select>
+                        <select id="category-filter" class="filter__select">
+                            <option value="all">Tất cả danh mục</option>
+                            <option value="apartment">Chung cư</option>
+                            <option value="house">Nhà riêng</option>
+                            <option value="land">Đất nền</option>
+                            <option value="room">Phòng trọ</option>
+                        </select>
+                    </div>
+                    <div class="controls__actions">
+                        <button id="refresh-btn" class="btn btn--outline" title="Làm mới">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Làm mới</span>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="posts__table__wrapper">
+                    <div class="table__header">
+                        <h2 class="table__title">Danh sách tin đăng</h2>
+                        <div class="table__info">
+                            <span
+                                >Hiển thị <span id="showing-count">0</span> / <span id="total-count">0</span> tin</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- BULK ACTIONS -->
+                    <div class="bulk__actions" id="bulk-actions" style="display: none">
+                        <div class="bulk__actions__info">
+                            <span>Đã chọn <strong id="selected-count">0</strong> tin đăng</span>
+                        </div>
+                        <div class="bulk__actions__buttons">
+                            <button id="bulk-approve-btn" class="btn btn--primary">
+                                <i class="fa-solid fa-check"></i>
+                                Duyệt
+                            </button>
+                            <button
+                                id="bulk-reject-btn"
+                                class="btn btn--outline"
+                                style="border-color: #ff9800; color: #ff9800"
+                            >
+                                <i class="fa-solid fa-times"></i>
+                                Từ chối
+                            </button>
+                            <button
+                                id="bulk-delete-btn"
+                                class="btn btn--outline"
+                                style="border-color: #f44336; color: #f44336"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table__container">
+                        <table class="posts__table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">
+                                        <input type="checkbox" id="select-all" />
+                                    </th>
+                                    <th width="8%">ID</th>
+                                    <th width="35%">Tiêu đề</th>
+                                    <th width="12%">Loại</th>
+                                    <th width="12%">Giá</th>
+                                    <th width="10%">Trạng thái</th>
+                                    <th width="10%">Ngày đăng</th>
+                                    <th width="8%">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="posts-table-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="empty-state" id="empty-state" style="display: none">
+                        <i class="fa-solid fa-inbox"></i>
+                        <h3>Không có tin đăng nào</h3>
+                        <p>Thử thay đổi bộ lọc để xem kết quả khác</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div class="modal" id="post-detail-modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__content">
+                <div class="modal__header">
+                    <h2 class="modal__title">Chi tiết tin đăng</h2>
+                    <button class="modal__close" id="close-modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal__body" id="modal-body"></div>
+            </div>
+        </div>
+
+        <script type="module" src="js/admin_manager_post.js"></script>
+    </body>
+</html>

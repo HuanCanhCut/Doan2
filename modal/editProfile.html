@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="../styles/base.css" />
+        <link rel="stylesheet" href="../styles/baseModal.css" />
+        <link rel="stylesheet" href="../styles/editProfile.css" />
+    </head>
+    <body>
+        <div class="modal">
+            <div class="modal__bg"></div>
+
+            <main class="main">
+                <header class="header">
+                    <h1 style="font-size: 20px">Chỉnh sửa hồ sơ</h1>
+
+                    <button class="close-modal-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </header>
+
+                <form id="edit-profile-form">
+                    <div class="profile__section">
+                        <div class="profile__section--title">
+                            <h4>Ảnh hồ sơ</h4>
+                        </div>
+                        <div class="profile__section__content profile__section__content--image">
+                            <div class="profile__image--wrapper">
+                                <img
+                                    class="profile__image--preview"
+                                    src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
+                                    alt=""
+                                />
+                                <input type="file" name="profile-image" hidden id="profile-image" accept="image/*" />
+                                <label for="profile-image" class="profile__image--label">
+                                    <i class="fa-solid fa-camera"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile__section">
+                        <div class="profile__section--title" style="margin-top: 6px">
+                            <h4>Nickname</h4>
+                        </div>
+                        <div class="profile__section__content">
+                            <div class="form-group">
+                                <div class="form-group__input">
+                                    <input
+                                        type="text"
+                                        name="nickname"
+                                        id="nickname"
+                                        class="form-control"
+                                        placeholder=" "
+                                    />
+                                    <label for="nickname">Nhập nickname của bạn</label>
+                                </div>
+                                <span class="form-message"></span>
+
+                                <small class="form-detail nickname-link"
+                                    >https://tiktok-ui-4e01f.web.app/user/@huancanhcut</small
+                                >
+                                <span class="form-detail"
+                                    >Nickname chỉ có thể bao gồm chữ cái, chữ số, dấu gạch dưới và dấu chấm. Khi thay
+                                    đổi nickname, liên kết hồ sơ của bạn cũng sẽ thay đổi.</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile__section">
+                        <div class="profile__section--title" style="margin-top: 6px">
+                            <h4>Tên hiển thị</h4>
+                        </div>
+                        <div class="profile__section__content">
+                            <div class="form-group">
+                                <div class="form-group__input">
+                                    <input
+                                        type="text"
+                                        name="full_name"
+                                        id="full_name"
+                                        class="form-control"
+                                        placeholder=" "
+                                    />
+                                    <label for="full_name">Nhập tên của bạn</label>
+                                </div>
+                                <span class="form-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile__section">
+                        <div class="profile__section--title" style="margin-top: 6px">
+                            <h4>Số điện thoại</h4>
+                        </div>
+                        <div class="profile__section__content">
+                            <div class="form-group">
+                                <div class="form-group__input">
+                                    <input type="number" name="phone" id="phone" class="form-control" placeholder=" " />
+                                    <label for="phone">Nhập số điện thoại của bạn</label>
+                                </div>
+                                <span class="form-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile__section profile__section--button">
+                        <button type="button" class="button--outline">Hủy</button>
+                        <button type="submit" class="button--primary">Cập nhật</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </body>
+
+    <script src="../js/baseModal.js"></script>
+    <script type="module" src="../js/editProfile.js"></script>
+</html>
