@@ -1,74 +1,62 @@
 // Hàm đọc số thành chữ tiếng Việt
-const convertConcurrency = (num) => {
-    const ones = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín']
-    const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ', 'tỷ tỷ']
 
-    if (num === 0) return 'không đồng'
-    if (num < 0) return 'âm ' + convertConcurrency(-num)
+const unitTexts = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín']
+const scaleTexts = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ', 'tỷ tỷ']
+
+const readThreeDigits = (num, hasScale = false) => {
+    const absNum = Math.abs(num)
+    const hundred = Math.floor(absNum / 100)
+    const remainder = absNum % 100
+    const tens = Math.floor(remainder / 10)
+    const units = remainder % 10
 
     let result = ''
-    let scaleIndex = 0
+
+    if (hundred > 0) {
+        result += `${unitTexts[hundred]} trăm `
+    } else if (hasScale && (tens > 0 || units > 0)) {
+        result += 'không trăm '
+    }
+
+    if (tens > 1) {
+        result += `${unitTexts[tens]} mươi `
+    } else if (tens === 1) {
+        result += 'mười '
+    } else if (units > 0 && hasScale) {
+        result += `lẻ `
+    }
+
+    if (tens > 1 && units === 1) {
+        result += 'mốt '
+    } else if (tens > 0 && units === 5) {
+        result += 'lăm '
+    } else if (units > 0) {
+        result += unitTexts[units]
+    }
+
+    return result
+}
+
+const convertConcurrency = (num) => {
+    let result = ''
+    let index = 0
+
+    const lastIndex = Math.floor(String(num).length / 3)
 
     while (num > 0) {
-        const chunk = num % 1000
-        if (chunk !== 0) {
-            const chunkWords = convertChunk(chunk)
-            if (scaleIndex > 0) {
-                result = chunkWords + ' ' + scales[scaleIndex] + ' ' + result
-            } else {
-                result = chunkWords + ' ' + result
-            }
+        const threeDigits = num % 1000
+        const hasScale = index !== lastIndex
+
+        if (threeDigits) {
+            result = `${readThreeDigits(threeDigits, hasScale)} ${scaleTexts[index]} ${result}`
         }
+
+        index++
+
         num = Math.floor(num / 1000)
-        scaleIndex++
     }
 
-    return result.trim() + ' đồng'
-
-    function convertChunk(n) {
-        let words = ''
-        const hundreds = Math.floor(n / 100)
-        const remainder = n % 100
-        const tensDigit = Math.floor(remainder / 10)
-        const onesDigit = remainder % 10
-
-        // Xử lý hàng trăm
-        if (hundreds > 0) {
-            words += ones[hundreds] + ' trăm'
-        }
-
-        // Xử lý phần còn lại (< 100)
-        if (remainder > 0) {
-            if (hundreds > 0) words += ' '
-
-            if (remainder < 10) {
-                // Chỉ thêm "lẻ" nếu có hàng trăm và số < 10
-                if (hundreds > 0) {
-                    words += 'lẻ ' + ones[remainder]
-                } else {
-                    words += ones[remainder]
-                }
-            } else if (remainder >= 10 && remainder < 20) {
-                // 10-19: mười, mười một, mười hai...
-                if (remainder === 10) {
-                    words += 'mười'
-                } else {
-                    words += 'mười ' + ones[onesDigit]
-                }
-            } else {
-                // 20-99: hai mươi, ba mươi...
-                if (onesDigit === 5) {
-                    words += ones[tensDigit] + ' mươi lăm'
-                } else if (onesDigit === 0) {
-                    words += ones[tensDigit] + ' mươi'
-                } else {
-                    words += ones[tensDigit] + ' mươi ' + ones[onesDigit]
-                }
-            }
-        }
-
-        return words.trim()
-    }
+    return `${result[0].toUpperCase()}${result.substring(1)} đồng`
 }
 
 export const convertConcurrencyToNumber = (amount) => {
