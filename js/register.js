@@ -11,14 +11,6 @@ const app = {
         }
     },
 
-    generateUuidV4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-            const r = (Math.random() * 16) | 0
-            const v = c === 'x' ? r : (r & 0x3) | 0x8
-            return v.toString(16)
-        })
-    },
-
     handleRegister() {
         Validator({
             form: '#register-form',
@@ -69,7 +61,6 @@ const app = {
                     id: lastUserId,
                     email,
                     password,
-                    uuid: this.generateUuidV4(),
                     full_name: email.split('@')[0],
                     avatar: 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
                     nickname,
