@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nhà đất</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/dashboard.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar" aria-label="sidebar">
+                <div class="logo">
+                    <img src="/public/static/logo.png" alt="logo" />
+                    <div>
+                        <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
+                        <div class="small">Bảng quản trị</div>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#" class="active">Trang chủ</a>
+                    <a href="#" class="">Dự án</a>
+                    <a href="#" class="">Căn hộ</a>
+                    <a href="#" class="">Tin đăng</a>
+                    <a href="#" class="">Hợp đồng</a>
+                    <a href="#" class="">Báo cáo</a>
+                    <a href="#" class="">Tài khoản</a>
+                </nav>
+            </aside>
+
+            <main style="min-height: 100vh; display: flex; flex-direction: column">
+                <header class="header">
+                    <h1 style="font-weight: 600" class="col-hidden md:col-block">Dashboard</h1>
+                    <div class="filter--container">
+                        <div class="calendar__picker">
+                            <div class="calendar--start">
+                                <h5 class="col-hidden xl:col-block">Từ ngày</h5>
+                                <input
+                                    type="date"
+                                    name="from_date"
+                                    placeholder="Chọn ngày"
+                                    class="calendar-picker__input"
+                                />
+                            </div>
+                            <div class="calendar--end">
+                                <h5 class="col-hidden xl:col-block">Đến ngày</h5>
+                                <input type="date" name="to_date" format="yyyy-MM-dd" class="calendar-picker__input" />
+                            </div>
+                        </div>
+                        <button class="filter--btn">
+                            <span
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="lucide lucide-funnel-icon lucide-funnel"
+                                >
+                                    <path
+                                        d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"
+                                    /></svg
+                            ></span>
+                            Lọc
+                        </button>
+                    </div>
+                </header>
+
+                <div class="analytics__container">
+                    <div class="grid">
+                        <div class="row overview__container"></div>
+                        <div class="row chart__container">
+                            <div class="col md:col-4 xl:col-4 col-12">
+                                <div class="chart__item">
+                                    <div class="chart__item--donut"></div>
+                                    <div class="chart__item--donut--info"></div>
+                                </div>
+                            </div>
+                            <div class="col md:col-8 xl:col-8 col-12">
+                                <div class="chart__item">
+                                    <div class="chart__item--line"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-12 md:col-6">
+                                <div class="location__stats--item">
+                                    <header class="location__stats--item--title">
+                                        <h2>Thống kê theo vị trí</h2>
+                                    </header>
+                                    <div class="grid">
+                                        <div class="location__stats--inner">
+                                            <header style="background: rgba(198, 198, 198, 0.262); margin-top: 18px">
+                                                <div class="row">
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>TỈNH THÀNH</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>SỐ TIN ĐĂNG</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>TĂNG TRƯỞNG</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>TỶ LỆ</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </header>
+                                            <div
+                                                style="border-bottom: 1px solid rgba(198, 198, 198, 0.262)"
+                                                class="location__stats--item--content--wrapper"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 md:col-6">
+                                <div class="location__stats--item">
+                                    <header class="location__stats--item--title">
+                                        <h2>Top người dùng đăng tin</h2>
+                                    </header>
+                                    <div class="grid">
+                                        <div class="location__stats--inner">
+                                            <header style="background: rgba(198, 198, 198, 0.262); margin-top: 18px">
+                                                <div class="row">
+                                                    <div class="col col-6">
+                                                        <div class="location__stats--item--header">
+                                                            <p>NGƯỜI DÙNG</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>SỐ TIN ĐĂNG</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col col-3">
+                                                        <div class="location__stats--item--header">
+                                                            <p>THAO TÁC</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </header>
+                                            <div
+                                                style="border-bottom: 1px solid rgba(198, 198, 198, 0.262)"
+                                                class="user__stats--item--content--wrapper"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script type="module" src="js/dashboard.js"></script>
+    </body>
+</html>

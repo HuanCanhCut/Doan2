@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Admin - Quản lý Hợp đồng | Real Estate</title>
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/admin_contracts.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar" aria-label="sidebar">
+                <div class="logo">
+                    <div class="mark">
+                        <img src="./public/static/logo.png" alt="Logo" />
+                    </div>
+                    <div>
+                        <h2>Real Estate</h2>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#" class="">Trang chủ</a>
+                    <a href="#" class="">Dự án</a>
+                    <a href="#" class="">Căn hộ</a>
+                    <a href="#" class="">Tin đăng</a>
+                    <a href="#" class="active">Hợp đồng</a>
+                    <a href="#" class="">Báo cáo</a>
+                    <a href="#" class="">Tài khoản</a>
+                </nav>
+            </aside>
+
+            <main style="min-height: 100vh; display: flex; flex-direction: column">
+                <header class="header">
+                    <div class="searchbar">
+                        <input id="globalSearch" placeholder="Tìm nhanh (tên khách, môi giới, BĐS)..." />
+                    </div>
+                    <div class="user">
+                        <div class="small muted">Xin chào, Admin</div>
+                        <div class="avatar">A</div>
+                    </div>
+                </header>
+
+                <section class="content">
+                    <div class="top">
+                        <div>
+                            <h1>Quản lý Hợp đồng</h1>
+                            <div class="small">Xem, lọc, quản lý trạng thái hợp đồng</div>
+                        </div>
+
+                        <div class="controls">
+                            <select id="filterStatus">
+                                <option value="">— Tất cả trạng thái —</option>
+                                <option value="pending">Đang chờ</option>
+                                <option value="signed">Đã ký</option>
+                                <option value="cancelled">Đã hủy</option>
+                            </select>
+
+                            <input type="date" id="fromDate" />
+                            <input type="date" id="toDate" />
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Tìm theo tên khách/môi giới/bđs"
+                                style="min-width: 220px"
+                            />
+
+                            <button class="btn secondary" id="btnFilter">Lọc</button>
+                            <button class="btn secondary" id="btnReset">Đặt lại</button>
+                            <button class="btn" id="btnNew">Tạo hợp đồng (mẫu)</button>
+                            <button class="btn secondary" id="btnExport">Xuất CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="stats panel">
+                        <div class="stats" style="margin: 0">
+                            <div class="stat">
+                                <div class="small">Tổng hợp đồng đã ký</div>
+                                <h3 id="statCount">0</h3>
+                            </div>
+                            <div class="stat">
+                                <div class="small">Tổng giá trị</div>
+                                <h3 id="statAmount">0 ₫</h3>
+                            </div>
+                            <div class="stat">
+                                <div class="small">Tổng hoa hồng</div>
+                                <h3 id="statComm">0 ₫</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel" style="margin-top: 12px">
+                        <div class="table-wrap">
+                            <table id="contractsTable" aria-label="Danh sách hợp đồng">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Bất động sản</th>
+                                        <th>Người mua</th>
+                                        <th>Nhân viên môi giới</th>
+                                        <th>Giá trị</th>
+                                        <th>Hoa hồng</th>
+                                        <th>Ngày bắt đầu</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div class="modal-back" id="modalBack">
+            <div class="modal" role="dialog" aria-modal="true">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                    <h3>Chi tiết hợp đồng</h3>
+                    <div>
+                        <button class="btn secondary" id="modalClose">Đóng</button>
+                    </div>
+                </div>
+                <div id="modalBody"></div>
+
+                <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px">
+                    <button class="btn" id="btnMarkSigned">Đánh dấu "Đã ký"</button>
+                    <button class="btn warn" id="btnMarkCancelled">Đánh dấu "Đã hủy"</button>
+                    <button class="btn secondary" id="btnModalDelete">Xóa</button>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="js/admin_contracts.js"></script>
+    </body>
+</html>

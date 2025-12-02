@@ -2,15 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/static/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Nhà đất</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-        <link rel="stylesheet" href="./src/styles/normalize.css" />
-        <link rel="stylesheet" href="./src/styles/base.css" />
-        <link rel="stylesheet" href="./src/styles/default.css" />
-        <link rel="stylesheet" href="./src/styles/grid.css" />
-        <link rel="stylesheet" href="./src/styles/post.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/default.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/post.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
     </head>
     <body>
         <div id="app">
@@ -22,10 +23,13 @@
                         <i class="fa-solid fa-bars"></i>
                     </button>
                     <a href="/">
-                        <img src="/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
+                        <img src="/public/static/logo-full.png" alt="" class="col-hidden lg:col-block header__logo"
                     /></a>
                     <a href="/">
-                        <img src="/static/logo.png" alt="" class="col-hidden md:col-block lg:col-hidden header__logo"
+                        <img
+                            src="/public/static/logo.png"
+                            alt=""
+                            class="col-hidden md:col-block lg:col-hidden header__logo"
                     /></a>
 
                     <div class="province" id="header__location">
@@ -133,11 +137,22 @@
                 </div>
                 <div class="header__search header__item">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" class="header__search__input" placeholder="Tìm kiếm bất động sản" />
+                    <input
+                        name="header__search__input"
+                        type="text"
+                        class="header__search__input"
+                        placeholder="Tìm kiếm bất động sản"
+                    />
+                    <div class="header__search__result"></div>
                 </div>
                 <div class="header__actions header__item">
                     <div class="header__actions--post col-hidden">
-                        <a href="post">
+                        <a href="">
+                            <button class="header__actions__button header__actions__button--outline">
+                                Quản lý tin
+                            </button>
+                        </a>
+                        <a href="post.html">
                             <button class="header__actions__button header__actions__button--primary">Đăng tin</button>
                         </a>
                     </div>
@@ -221,7 +236,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/post">
+                                <a href="/post.html">
                                     <i class="fa-regular fa-cloud"></i>
                                     <p>Đăng tin</p>
                                 </a>
@@ -745,6 +760,6 @@
                 </div>
             </main>
         </div>
-        <script type="module" src="./src/js/post.js"></script>
+        <script type="module" src="js/post.js"></script>
     </body>
 </html>
