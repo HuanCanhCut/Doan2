@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/public/static/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nhà đất</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+        <link rel="stylesheet" href="styles/normalize.css" />
+        <link rel="stylesheet" href="styles/base.css" />
+        <link rel="stylesheet" href="styles/grid.css" />
+        <link rel="stylesheet" href="styles/admin_manager_post.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar" aria-label="sidebar">
+                <div class="logo">
+                    <img src="/public/static/logo.png" alt="logo" />
+                    <div>
+                        <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
+                        <div class="small">Bảng quản trị</div>
+                    </div>
+                </div>
+
+                <nav class="menu">
+                    <a href="#" class="">Trang chủ</a>
+                    <a href="#" class="">Dự án</a>
+                    <a href="#" class="">Căn hộ</a>
+                    <a href="#" class="active">Tin đăng</a>
+                    <a href="#" class="">Hợp đồng</a>
+                    <a href="#" class="">Báo cáo</a>
+                    <a href="#" class="">Tài khoản</a>
+                </nav>
+            </aside>
+
+            <main style="min-height: 100vh; display: flex; flex-direction: column">
+                <header class="header">
+                    <h2>Quản lí tin đăng</h2>
+
+                    <div class="header__user__info">
+                        <img
+                            src="https://weart.vn/wp-content/uploads/2025/06/hinh-anh-meo-cute-dang-cuon-tron-ngu-say-sua.jpg"
+                            alt=""
+                        />
+                        <h4>Admin</h4>
+                    </div>
+                </header>
+
+                <div class="analytics__container">
+                    <div class="grid">
+                        <div class="row overview__container"></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="controls__filters">
+                        <div class="search__box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input
+                                type="text"
+                                id="search-input"
+                                placeholder="Tìm kiếm theo tiêu đề, địa chỉ"
+                                class="search__input"
+                            />
+                        </div>
+                        <select id="status-filter" class="filter__select">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="pending">Chờ duyệt</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="rejected">Bị từ chối</option>
+                        </select>
+                        <select id="type-filter" class="filter__select">
+                            <option value="all">Tất cả loại</option>
+                            <option value="sell">Bán</option>
+                            <option value="rent">Cho thuê</option>
+                        </select>
+                        <select id="category-filter" class="filter__select">
+                            <option value="all">Tất cả danh mục</option>
+                            <option value="apartment">Chung cư</option>
+                            <option value="house">Nhà riêng</option>
+                            <option value="land">Đất nền</option>
+                            <option value="room">Phòng trọ</option>
+                        </select>
+                    </div>
+                    <div class="controls__actions">
+                        <button id="reset-btn" class="reset-btn" title="Làm mới">
+                            <i class="fa-solid fa-rotate"></i>
+                            <span>Đặt lại</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table_title">
+                    <h2>Danh sách tin đăng</h2>
+                    <p class="table_title__count">Hiển thị <span id="count">68/68</span></p>
+                </div>
+                <div class="table_container">
+                    <table class="posts__table">
+                        <thead>
+                            <tr>
+                                <th width="5%">
+                                    <input type="checkbox" id="select-all" />
+                                </th>
+                                <th width="8%">STT</th>
+                                <th width="35%">Tiêu đề</th>
+                                <th width="12%">Loại</th>
+                                <th width="12%">Giá</th>
+                                <th width="10%">Trạng thái</th>
+                                <th width="10%">Ngày đăng</th>
+                                <th width="8%">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="posts-table-body"></tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <script type="module" src="js/admin_manager_post.js"></script>
+    </body>
+</html>

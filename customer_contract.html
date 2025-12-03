@@ -1,118 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ký hợp đồng online — Real Estate</title>
-  <link rel="stylesheet" href="./src/styles/customer_contract.css">
-</head>
-<body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="logo">
-        <div class="mark">
-          <img src="./public/static/logo.png" alt="Logo" />
-        </div>
-        <div>
-          <h2>Real Estate</h2>
-        </div>
-      </div>
-      <nav class="menu">
-        <a href="#">Trang chủ</a>
-        <a href="#">Dự án</a>
-        <a href="#">Căn hộ</a>
-        <a href="#">Tin đăng</a>
-        <a href="#" class="active">Hợp đồng</a>
-        <a href="#">Báo cáo</a>
-      </nav>
-    </aside>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Ký hợp đồng online — Real Estate</title>
+        <link rel="stylesheet" href="styles/customer_contract.css" />
+        <link rel="stylesheet" href="styles/toast.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="logo">
+                    <div class="mark">
+                        <img src="./public/static/logo.png" alt="Logo" />
+                    </div>
+                    <div>
+                        <h2>Real Estate</h2>
+                    </div>
+                </div>
+                <nav class="menu">
+                    <a href="#">Trang chủ</a>
+                    <a href="#">Dự án</a>
+                    <a href="#">Căn hộ</a>
+                    <a href="#">Tin đăng</a>
+                    <a href="#" class="active">Hợp đồng</a>
+                    <a href="#">Báo cáo</a>
+                </nav>
+            </aside>
 
-    <main class="main">
-      <header class="header">
-        <div>
-          <h1>Ký hợp đồng online</h1>
-          <div class="small muted">
-            Khách hàng điền thông tin — hệ thống sinh hợp đồng và hỗ trợ lưu PDF
-          </div>
-        </div>
-        <div class="user">
-          <div class="small muted">Xin chào, Khách</div>
-          <div class="avatar">K</div>
-        </div>
-      </header>
+            <main class="main">
+                <header class="header">
+                    <div>
+                        <h1>Ký hợp đồng online</h1>
+                        <div class="small muted">
+                            Khách hàng điền thông tin — hệ thống sinh hợp đồng và hỗ trợ lưu PDF
+                        </div>
+                    </div>
+                    <div class="user">
+                        <div class="small muted">Xin chào, Khách</div>
+                        <div class="avatar">K</div>
+                    </div>
+                </header>
 
-      <section class="content">
-        <div class="layout">
-          <!-- FORM -->
-          <form id="contractForm" class="panel form-panel" autocomplete="off">
-            <h3>Thông tin ký hợp đồng</h3>
+                <section class="content">
+                    <div class="layout">
+                        <!-- FORM -->
+                        <form id="contractForm" class="panel form-panel" autocomplete="off">
+                            <h3>Thông tin ký hợp đồng</h3>
 
-            <label>Họ và tên
-              <input id="fullName" name="fullName" type="text" placeholder="Nguyễn Văn A" required />
-            </label>
+                            <label
+                                >Họ và tên
+                                <input id="fullName" name="fullName" type="text" placeholder="Nguyễn Văn A" required />
+                            </label>
 
-            <label>Số Căn cước / CMTND
-              <input id="idNumber" name="idNumber" type="text" placeholder="012345678" required />
-            </label>
+                            <label
+                                >Số Căn cước / CMTND
+                                <input id="idNumber" name="idNumber" type="text" placeholder="012345678" required />
+                            </label>
 
-            <label>Số điện thoại
-              <input id="phone" name="phone" type="tel" placeholder="0987654321" required />
-            </label>
+                            <label
+                                >Số điện thoại
+                                <input id="phone" name="phone" type="tel" placeholder="0987654321" required />
+                            </label>
 
-            <label>Địa chỉ liên hệ
-              <input id="address" name="address" type="text" placeholder="Số 123, Đường ABC, Quận XYZ, TP. Hà " required />
-            </label>
+                            <label
+                                >Địa chỉ liên hệ
+                                <input
+                                    id="address"
+                                    name="address"
+                                    type="text"
+                                    placeholder="Số 123, Đường ABC, Quận XYZ, TP. Hà "
+                                    required
+                                />
+                            </label>
 
-            <label>Ngày ký
-              <input id="signDate" name="signDate" type="date" required />
-            </label>
+                            <label
+                                >Ngày ký
+                                <input id="signDate" name="signDate" type="date" required />
+                            </label>
 
-            <label>Giá trị hợp đồng (VNĐ)
-              <input id="amount" name="amount" type="number" min="0" step="1000" placeholder="1000000000" required />
-            </label>
+                            <label
+                                >Giá trị hợp đồng (VNĐ)
+                                <input
+                                    id="amount"
+                                    name="amount"
+                                    type="number"
+                                    min="0"
+                                    step="1000"
+                                    placeholder="1000000000"
+                                    required
+                                />
+                            </label>
 
-            <label>Thời hạn hợp đồng
-              <select id="duration" name="duration">
-                <option value="2">2 năm</option>
-                <option value="5">5 năm</option>
-                <option value="10">10 năm</option>
-              </select>
-            </label>
+                            <label
+                                >Thời hạn hợp đồng
+                                <select id="duration" name="duration">
+                                    <option value="2">2 năm</option>
+                                    <option value="5">5 năm</option>
+                                    <option value="10">10 năm</option>
+                                </select>
+                            </label>
 
-            <label>Hình thức thanh toán
-              <input id="payment" name="payment" type="text" value="Gặp mặt trao đổi và thanh toán tiền mặt" readonly />
-            </label>
+                            <label
+                                >Hình thức thanh toán
+                                <input
+                                    id="payment"
+                                    name="payment"
+                                    type="text"
+                                    value="Gặp mặt trao đổi và thanh toán tiền mặt"
+                                    readonly
+                                />
+                            </label>
 
-            <label>Điều khoản (mẫu)
-              <textarea id="terms" rows="5">1. Bên A cam kết thông tin BĐS là chính xác và chịu trách nhiệm pháp lý liên quan. 
+                            <label
+                                >Điều khoản (mẫu)
+                                <textarea id="terms" rows="5">
+1. Bên A cam kết thông tin BĐS là chính xác và chịu trách nhiệm pháp lý liên quan. 
 2. Bên B thanh toán bằng tiền mặt khi hai bên gặp mặt, có biên nhận rõ ràng. 
-3. Hai bên thống nhất giải quyết tranh chấp bằng thương lượng; nếu không thành, tòa án có thẩm quyền giải quyết.</textarea>
-            </label>
+3. Hai bên thống nhất giải quyết tranh chấp bằng thương lượng; nếu không thành, tòa án có thẩm quyền giải quyết.</textarea
+                                >
+                            </label>
 
-            <label>Chữ ký (gõ tên hoặc để mặc định)
-              <input id="signature" name="signature" type="text" placeholder="Nguyễn Văn A" required />
-            </label>
+                            <label
+                                >Chữ ký (gõ tên hoặc để mặc định)
+                                <input
+                                    id="signature"
+                                    name="signature"
+                                    type="text"
+                                    placeholder="Nguyễn Văn A"
+                                    required
+                                />
+                            </label>
 
-            <div class="actions">
-              <button type="submit" class="btn primary">Ký hợp đồng & Tải PDF</button>
-              <button type="button" id="downloadHtml" class="btn secondary">Tải HTML</button>
-            </div>
+                            <div class="actions">
+                                <button type="submit" class="btn primary">Ký hợp đồng & Tải PDF</button>
+                                <button type="button" id="downloadHtml" class="btn secondary">Tải HTML</button>
+                            </div>
 
-            <p class="hint">
-              Sau khi ký, trang in sẽ mở — chọn "Save as PDF" và đặt tên file 
-              <code>contract_TenKhongDau.pdf</code>
-            </p>
-          </form>
+                            <p class="hint">
+                                Sau khi ký, trang in sẽ mở — chọn "Save as PDF" và đặt tên file
+                                <code>contract_TenKhongDau.pdf</code>
+                            </p>
+                        </form>
 
-          <!-- PREVIEW -->
-          <div class="panel preview-panel" id="preview">
-            <div class="contract" id="contractPreview"></div>
-          </div>
+                        <!-- PREVIEW -->
+                        <div class="panel preview-panel" id="preview">
+                            <div class="contract" id="contractPreview"></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-      </section>
-    </main>
-  </div>
 
-  <script src="./src/js/customer_contract.js"></script>
-</body>
+        <script type="module" src="js/customer_contract.js"></script>
+    </body>
 </html>

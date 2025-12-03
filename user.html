@@ -10,13 +10,13 @@
         <link rel="stylesheet" href="styles/base.css" />
         <link rel="stylesheet" href="styles/default.css" />
         <link rel="stylesheet" href="styles/grid.css" />
-        <link rel="stylesheet" href="styles/post.css" />
+        <link rel="stylesheet" href="styles/user.css" />
         <link rel="stylesheet" href="styles/toast.css" />
     </head>
     <body>
         <div id="app">
-            <div id="overlay"></div>
-            <iframe src="" frameborder="0" id="modal"></iframe>
+            <div id="overlay" class=""></div>
+            <iframe src="" class="" frameborder="0" id="modal"></iframe>
             <header id="header">
                 <div class="header__left">
                     <button class="header__toggle--sidebar header__item col-block md:col-hidden">
@@ -147,12 +147,7 @@
                 </div>
                 <div class="header__actions header__item">
                     <div class="header__actions--post col-hidden">
-                        <a href="">
-                            <button class="header__actions__button header__actions__button--outline">
-                                Quản lý tin
-                            </button>
-                        </a>
-                        <a href="post">
+                        <a href="post.html">
                             <button class="header__actions__button header__actions__button--primary">Đăng tin</button>
                         </a>
                     </div>
@@ -264,8 +259,140 @@
                 </div>
             </aside>
 
-            <main id="main"></main>
+            <main id="main">
+                <div class="profile__wrapper">
+                    <div class="grid wide">
+                        <div class="row">
+                            <div class="col col-12 md:col-8">
+                                <div class="profile">
+                                    <img
+                                        onerror="this.src='/public/static/fallback.png'"
+                                        src="https://hinhnenpowerpoint.app/wp-content/uploads/2025/07/avatar-anh-meo-cute.jpg"
+                                        alt=""
+                                    />
+                                    <div class="profile__info">
+                                        <h1 class="profile__info--name">John Doe</h1>
+                                        <h2 class="profile__info--nickname">john.doe@example.com</h2>
+                                        <button class="profile__info--edit">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            Chỉnh sửa hồ sơ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 md:col-4">
+                                <div class="profile__info--detail">
+                                    <h3 class="profile__detail--title">Thông tin chi tiết</h3>
+                                    <div class="profile__detail--grid">
+                                        <div class="profile__detail--column">
+                                            <div class="profile__detail--item">
+                                                <div class="profile__detail--label">
+                                                    <i class="fa-solid fa-envelope"></i>
+                                                    <span>Email</span>
+                                                </div>
+                                                <p class="profile__detail--value profile__detail--value--email">
+                                                    john.doe@example.com
+                                                </p>
+                                            </div>
+                                            <div class="profile__detail--item">
+                                                <div class="profile__detail--label">
+                                                    <i class="fa-solid fa-phone"></i>
+                                                    <span>Số điện thoại</span>
+                                                </div>
+                                                <p class="profile__detail--value profile__detail--value--phone">
+                                                    0123 456 789
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="profile__detail--column">
+                                            <div class="profile__detail--item">
+                                                <div class="profile__detail--label">
+                                                    <i class="fa-solid fa-calendar-days"></i>
+                                                    <span>Đã tham gia</span>
+                                                </div>
+                                                <p class="profile__detail--value profile__detail--value--joined">
+                                                    15 tháng 3, 2024
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post__manager__wrapper">
+                    <div class="grid wide">
+                        <div class="row">
+                            <div class="col col-12">
+                                <div class="post__manager__tabs">
+                                    <button class="post__manager__tabs--button" data-type="approved">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span
+                                            >Đã duyệt
+                                            <span class="post__manager__tabs--button--count" data-type="approved"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                    <button class="post__manager__tabs--button" data-type="pending">
+                                        <i class="fa-regular fa-clock"></i>
+                                        <span
+                                            >Chờ duyệt
+                                            <span class="post__manager__tabs--button--count" data-type="pending"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                    <button class="post__manager__tabs--button" data-type="rejected">
+                                        <i class="fa-solid fa-ban"></i>
+                                        <span
+                                            >Bị từ chối
+                                            <span class="post__manager__tabs--button--count" data-type="rejected"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                    <button class="post__manager__tabs--button" data-type="not_delivered">
+                                        <i class="fa-regular fa-hourglass-half"></i>
+                                        <span
+                                            >Chưa bàn giao
+                                            <span class="post__manager__tabs--button--count" data-type="not_delivered"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                    <button class="post__manager__tabs--button" data-type="delivered">
+                                        <i class="fa-regular fa-truck"></i>
+                                        <span
+                                            >Đã bàn giao
+                                            <span class="post__manager__tabs--button--count" data-type="delivered"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                    <button class="post__manager__tabs--button" data-type="favorites">
+                                        <i class="fa-regular fa-truck"></i>
+                                        <span
+                                            >Bài viết yêu thích
+                                            <span class="post__manager__tabs--button--count" data-type="favorites"
+                                                >(0)</span
+                                            ></span
+                                        >
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col col-12">
+                                <div class="grid">
+                                    <div class="row post__inner__wrapper"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <script type="module" src="js/default.js"></script>
+
+        <script type="module" src="js/user.js"></script>
     </body>
 </html>
