@@ -1,4 +1,5 @@
 import defaultApp from './default.js'
+import { sendEvent } from './helpers/event.js'
 import getUrlSearchParams from './helpers/getURLSearchParams.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
 import toast from './toast.js'
@@ -139,52 +140,52 @@ function renderDetails() {
         {
             label: 'Tình trạng',
             value: currentPost.status,
-            image: '/static/property_status.png',
+            image: 'public/static/property_status.png',
         },
         {
             label: 'Loại hình nhà ở',
             value: currentPost.detail.type,
-            image: '/static/house_type.png',
+            image: 'public/static/house_type.png',
         },
         {
             label: 'Diện tích',
             value: currentPost.detail.area,
-            image: '/static/size.png',
+            image: 'public/static/size.png',
         },
         {
             label: 'Giá/m²',
             value: `${Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)} triệu/m²`,
-            image: '/static/price_m2.png',
+            image: 'public/static/price_m2.png',
         },
         {
             label: 'Hướng cửa chính',
             value: currentPost.detail.main_door,
-            image: '/static/direction.png',
+            image: 'public/static/direction.png',
         },
         {
             label: 'Hướng ban công',
             value: currentPost.detail.balcony,
-            image: '/static/balcony_direction.png',
+            image: 'public/static/balcony_direction.png',
         },
         {
             label: 'Giấy tờ pháp lý',
             value: currentPost.detail.legal_documents,
-            image: '/static/property_legal_document.png',
+            image: 'public/static/property_legal_document.png',
         },
         {
             label: 'Tình trạng nội thất',
             value: currentPost.detail.interior_status,
-            image: '/static/interior_status.png',
+            image: 'public/static/interior_status.png',
         },
         {
             label: 'Số phòng ngủ',
             value: currentPost.detail.bedrooms,
-            image: '/static/rooms.png',
+            image: 'public/static/rooms.png',
         },
         {
             label: 'Số phòng vệ sinh',
             value: currentPost.detail.bathrooms,
-            image: '/static/toilets.png',
+            image: 'public/static/toilets.png',
         },
     ]
 
@@ -264,16 +265,48 @@ function renderUserPost() {
             <span> ${postLength} tin đăng </span>
             <span> ${momentTimezone(postUser.created_at).replace('trước', '')} trên Nhà Tốt </span>
         </div>
-        <a 
-            href="tel:${postUser.phone}" 
-            class="button--primary details__user__info--contact--btn" 
-            target="_blank"
-            data-phone="${postUser.phone}"
-        >
-            <span><i class="fa-solid fa-phone-volume"></i></span>
-            <span>${postUser.phone || 'Không có số điện thoại'}</span>
-        </a>
+        <div class="details__user__info--contact--wrapper">
+            <button class="button--outline sign-contract-btn" style="white-space: nowrap;">
+                Ký hợp đồng online
+            </button> 
+            <a 
+                href="tel:${postUser.phone}" 
+                class="button--primary details__user__info--contact--btn" 
+                target="_blank"
+                data-phone="${postUser.phone}"
+            >
+                <span><i class="fa-solid fa-phone-volume"></i></span>
+                <span>${postUser.phone || 'Không có số điện thoại'}</span>
+            </a>
+        </div>
     `
+}
+
+// handle when click sign contract button
+document.querySelector('.details__user__info__wrapper').onclick = (e) => {
+    if (e.target.closest('.sign-contract-btn')) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+        if (!currentUser) {
+            sendEvent({
+                eventName: 'modal:auth-open',
+                detail: 'loginModal',
+            })
+        } else {
+            if (currentUser.id === postUser.id) {
+                toast({
+                    title: 'Cảnh báo',
+                    message: 'Bạn không thể ký hợp đồng với chính mình.',
+                    type: 'warning',
+                    duration: 2000,
+                })
+
+                return
+            }
+
+            window.location.href = `customer_contract.html?buyer_id=${currentUser.id}&agent_id=${postUser.id}&property_id=${postId}`
+        }
+    }
 }
 
 const handleLoadComments = () => {
