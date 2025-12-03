@@ -10,6 +10,8 @@ const postsTableBody = document.querySelector('#posts-table-body')
 
 let currentPost = JSON.parse(localStorage.getItem('posts')) || []
 
+let selectedPost = []
+
 let filterState = {
     search: '',
     status: 'all',
@@ -95,7 +97,9 @@ function handleLoadPosts(posts) {
             return `
             <tr>
                 <td>
-                    <input data-id=${post.id} type="checkbox" class="post-checkbox"/>
+                    <input data-id=${post.id} type="checkbox" class="post-checkbox" ${
+                selectedPost.includes(post.id) ? 'checked' : ''
+            }/>
                 </td>
                 <td>${index + 1}</td>
                 <td>
@@ -239,19 +243,23 @@ postsTableBody.onclick = (e) => {
     // handle when click action btn
     const isMatchBtn = e.target.closest('.action__btn')
 
+    // handle when click action btn
     if (isMatchBtn) {
         const postId = isMatchBtn.dataset.id
 
         const post = currentPost.find((post) => post.id === Number(postId))
 
+        if (!selectedPost.includes(Number(postId))) {
+            return
+        }
+
         let isConfirm = false
         let typeConfirm = ''
 
         switch (isMatchBtn.dataset.action) {
-            case 'view':
-                break
             case 'approve':
-                if (post.post_status === 'approved') {
+                // không xử lí duyệt cho các bài đăng đã duyệt
+                if (post.post_status === 'approved' && selectedPost.length === 0) {
                     return
                 }
 
@@ -262,7 +270,7 @@ postsTableBody.onclick = (e) => {
 
                 break
             case 'pending':
-                if (post.post_status === 'pending') {
+                if (post.post_status === 'pending' && selectedPost.length === 0) {
                     return
                 }
 
@@ -273,7 +281,7 @@ postsTableBody.onclick = (e) => {
 
                 break
             case 'reject':
-                if (post.post_status === 'rejected') {
+                if (post.post_status === 'rejected' && selectedPost.length === 0) {
                     return
                 }
 
@@ -303,7 +311,7 @@ postsTableBody.onclick = (e) => {
 
         if (isConfirm) {
             currentPost = currentPost.map((p) => {
-                if (p.id === post.id) {
+                if (selectedPost.includes(p.id)) {
                     return {
                         ...p,
                         post_status: typeConfirm,
@@ -313,13 +321,11 @@ postsTableBody.onclick = (e) => {
                 return p
             })
 
-            handleLoadPosts(currentPost)
-
             localStorage.setItem(
                 'posts',
                 JSON.stringify(
                     JSON.parse(localStorage.getItem('posts'))?.map((p) => {
-                        if (p.id === post.id) {
+                        if (selectedPost.includes(p.id)) {
                             return {
                                 ...p,
                                 post_status: typeConfirm,
@@ -331,9 +337,43 @@ postsTableBody.onclick = (e) => {
                 )
             )
 
+            selectedPost = []
+
+            document.querySelector('#select-all').checked = false
+
+            handleLoadPosts(currentPost)
+
             handleLoadOverview(JSON.parse(localStorage.getItem('posts')) || [])
         }
     }
+
+    // handle when click post checkbox
+    if (e.target.closest('.post-checkbox')) {
+        const postId = Number(e.target.closest('.post-checkbox').dataset.id)
+
+        if (!postId) {
+            return
+        }
+
+        if (selectedPost.includes(postId)) {
+            selectedPost = selectedPost.filter((selected) => selected !== postId)
+        } else {
+            selectedPost.push(Number(postId))
+        }
+
+        handleLoadPosts(currentPost)
+    }
+}
+
+document.querySelector('#select-all').onchange = (e) => {
+    if (e.target.checked) {
+        JSON.parse(localStorage.getItem('posts')).forEach((post) => {
+            selectedPost.push(post.id)
+        })
+    } else {
+        selectedPost = []
+    }
+    handleLoadPosts(currentPost)
 }
 
 handleLoadPosts(currentPost)
