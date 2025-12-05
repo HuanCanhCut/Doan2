@@ -313,7 +313,6 @@
 
 .details__user__info--contact--btn {
     width: 100%;
-    margin-top: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -674,6 +673,13 @@
 .post__actions__button--delete,
 .post__actions__button--edit {
     flex: 1;
+}
+
+.details__user__info--contact--wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
 }
 
 @media screen and (max-width: 40rem) {
