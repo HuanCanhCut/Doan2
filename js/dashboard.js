@@ -5,6 +5,11 @@ const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
 const filterBtn = document.querySelector('.filter--btn')
 
+const addCategoryBtn = document.querySelector('.button--add--category')
+const categoryNameInput = document.querySelector('input[name="category_name"]')
+const categoryKeyInput = document.querySelector('input[name="category_key"]')
+const categoryManagementBodyContent = document.querySelector('.category__management__body--content')
+
 const dashboardApp = {
     posts: JSON.parse(localStorage.getItem('posts')) || [],
 
@@ -295,25 +300,22 @@ const dashboardApp = {
     handleDonutChart() {
         const groupedPosts = this.groupPostsByCategory(this.filterPostsByDate(fromDateInput.value, toDateInput.value))
 
-        // Dữ liệu (có thể có n giá trị)
         const data = Object.values(groupedPosts).map((item) => item.value)
         const colors = Object.values(groupedPosts).map((item) => item.color)
         const names = Object.values(groupedPosts).map((item) => item.name)
 
-        // Tính tổng
         const total = data.reduce((a, b) => a + b, 0)
 
-        // Tính chu vi vòng tròn
+        // Chu vi vòng tròn
         const radius = 140
         const circumference = 2 * Math.PI * radius
 
-        // Tạo SVG với group để dễ animate
         let svgContent = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="donut-chart-svg">
             <g class="donut-segments">`
 
         let offset = 0
 
-        // Vòng lặp tạo từng segment
+        // Tạo segment
         data.forEach((value, index) => {
             const percentage = (value / total) * 100
             const dashLength = (percentage / 100) * circumference
@@ -333,21 +335,10 @@ const dashboardApp = {
 
         svgContent += `</g>`
 
-        // Thêm center circle
         svgContent += `<circle cx="200" cy="200" r="60" fill="white"/>`
-
-        // Thêm tooltip
-        svgContent += `
-            <g class="donut-tooltip" style="opacity: 0; pointer-events: none;">
-                <rect x="150" y="180" width="120" height="40" rx="6" fill="rgba(0,0,0,0.85)"/>
-                <text x="210" y="195" fill="white" text-anchor="middle" font-size="12" class="tooltip-name"></text>
-                <text x="210" y="215" fill="white" text-anchor="middle" font-size="14" font-weight="bold" class="tooltip-percentage"></text>
-            </g>
-        `
 
         svgContent += `</svg>`
 
-        // Copy output vào HTML hoặc DOM
         document.querySelector('.chart__item--donut').innerHTML = svgContent
 
         document.querySelector('.chart__item--donut--info').innerHTML = Object.keys(groupedPosts)
@@ -360,149 +351,6 @@ const dashboardApp = {
             `
             })
             .join('')
-
-        // Thêm event listeners cho hover
-        this.handleDonutChartHover()
-    },
-
-    handleDonutChartHover() {
-        const segments = document.querySelectorAll('.donut-segment')
-        const tooltip = document.querySelector('.donut-tooltip')
-        const tooltipName = document.querySelector('.tooltip-name')
-        const tooltipPercentage = document.querySelector('.tooltip-percentage')
-
-        segments.forEach((segment) => {
-            segment.addEventListener('mouseenter', (e) => {
-                const percentage = e.target.dataset.percentage
-                const name = e.target.dataset.name
-                const value = e.target.dataset.value
-
-                tooltipName.textContent = this.translatedCategories[name]
-                tooltipPercentage.textContent = `${percentage}% (${value})`
-
-                tooltip.style.opacity = '1'
-
-                // Scale up segment
-                e.target.style.strokeWidth = '94'
-                e.target.style.filter = 'brightness(1.1)'
-                e.target.style.cursor = 'pointer'
-            })
-
-            segment.addEventListener('mouseleave', (e) => {
-                tooltip.style.opacity = '0'
-
-                // Reset segment
-                e.target.style.strokeWidth = '90'
-                e.target.style.filter = 'none'
-            })
-        })
-    },
-
-    handleLineChart() {
-        const mockData = [
-            { month: 'T1', value: 20 },
-            { month: 'T2', value: 40 },
-            { month: 'T3', value: 10 },
-            { month: 'T4', value: 10 },
-            { month: 'T5', value: 0 },
-            { month: 'T6', value: 60 },
-            { month: 'T7', value: 50 },
-            { month: 'T8', value: 80 },
-            { month: 'T9', value: 90 },
-            { month: 'T10', value: 40 },
-            { month: 'T11', value: 50 },
-            { month: 'T12', value: 100 },
-        ]
-
-        const padding = 80
-
-        const linesCount = 5
-        const maxValue = Math.max(...mockData.map((item) => item.value))
-
-        const xLineWidth = 1000 - 30 * 2
-
-        const lineGap = 75
-
-        let svg = `<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">`
-
-        // vẽ lưới 5 line
-        for (let i = 1; i <= linesCount; i++) {
-            svg += `<line x1="${padding}" y1="${lineGap * i}" x2="${xLineWidth}" y2="${
-                lineGap * i
-            }" stroke="#e0e0e0" stroke-width="1" />`
-        }
-
-        // vẽ trục x
-        svg += `<line x1="${padding}" y1="${(linesCount + 1) * lineGap}" x2="${xLineWidth}" y2="${
-            (linesCount + 1) * lineGap
-        }" stroke="#333" stroke-width="2" />`
-
-        // Vẽ trục y
-        svg += `<line x1="${padding}" y1="0" x2="${padding}" y2="${
-            (linesCount + 1) * lineGap
-        }" stroke="#333" stroke-width="2" />`
-
-        // Vẽ các giá trị trên trục y
-        for (let i = 0; i <= linesCount; i++) {
-            svg += `
-                <text x="${padding - 20}" y="${
-                (linesCount + 1) * lineGap - lineGap * i
-            }" font-size="14" text-anchor="end" fill="#666">${Math.round((maxValue / linesCount) * i, 0)}</text>
-            `
-        }
-
-        // vẽ các giá trị trên trục x
-        for (let i = 0; i < mockData.length; i++) {
-            svg += `
-                <text x="${(xLineWidth / mockData.length) * i + padding}" y="${
-                (linesCount + 1) * lineGap + 20
-            }" font-size="14" text-anchor="middle" fill="#666">
-                    ${mockData[i].month}
-                </text>
-            `
-        }
-
-        // Hàm tính tọa độ X từ index
-        const getX = (index) => {
-            return (xLineWidth / mockData.length) * index + padding
-        }
-
-        // Hàm tính tọa độ Y từ giá trị
-        const getY = (value) => {
-            return (linesCount + 1) * lineGap - (value / maxValue) * (lineGap * linesCount)
-        }
-
-        // Tính toán điểm cho polyline
-        let polylinePoints = []
-        for (let i = 0; i < mockData.length; i++) {
-            polylinePoints.push(`${getX(i)}, ${getY(mockData[i].value)}`)
-        }
-
-        // Vẽ path (miền)
-        let pathD = `M ${polylinePoints[0]}`
-        for (let i = 1; i < polylinePoints.length; i++) {
-            pathD += ` L ${polylinePoints[i]}`
-        }
-        // Đóng path bằng cách đi xuống trục x rồi quay lại điểm đầu
-        pathD += ` L ${getX(mockData.length - 1)}, ${(linesCount + 1) * lineGap} L ${padding}, ${
-            (linesCount + 1) * lineGap
-        } Z`
-
-        svg += `<path d="${pathD}" fill="#3b82f6" opacity="0.6" />`
-
-        // Vẽ polyline (đường cong)
-        svg += `<polyline points="${polylinePoints.join(' ')}" fill="none" stroke="#1e40af" stroke-width="3" />`
-
-        // Vẽ các chấm tròn tại các đỉnh
-        for (let i = 0; i < mockData.length; i++) {
-            const x = getX(i)
-            const y = getY(mockData[i].value)
-            svg += `<circle cx="${x}" cy="${y}" r="5" fill="#1e40af" />`
-        }
-
-        svg += `</svg>`
-
-        document.querySelector('.chart__item--line').innerHTML = svg
     },
 
     handleLoadLocationStats() {
@@ -684,6 +532,134 @@ const dashboardApp = {
             this.handleLoadLocationStats()
             this.handleLoadUserStats()
         }
+
+        addCategoryBtn.onclick = () => {
+            this.handleAddCategory()
+        }
+
+        // handle submit when click enter in categoryKeyInput or categoryNameInput
+        Array.from([categoryKeyInput, categoryNameInput]).forEach((input) => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    this.handleAddCategory()
+                }
+            })
+        })
+
+        categoryManagementBodyContent.onclick = (e) => {
+            if (e.target.closest('.action__btn--edit')) {
+                const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
+                const categoryId = e.target.closest('.action__btn--edit').dataset.categoryId
+
+                const category = categoriesDb.find((category) => category.id === Number(categoryId))
+
+                if (category) {
+                    categoryNameInput.value = category.name
+                    categoryKeyInput.value = category.key
+                }
+
+                categoryNameInput.focus()
+
+                return
+            }
+
+            if (e.target.closest('.action__btn--delete')) {
+                if (!confirm('Bạn có chắc chắn muốn xóa danh mục này không?')) {
+                    return
+                }
+
+                let categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
+                const categoryId = e.target.closest('.action__btn--delete').dataset.categoryId
+
+                const category = categoriesDb.find((category) => category.id === Number(categoryId))
+
+                if (category) {
+                    categoriesDb = categoriesDb.filter((category) => category.id !== Number(categoryId))
+
+                    localStorage.setItem('categories', JSON.stringify(categoriesDb))
+
+                    toast({
+                        title: 'Thành công',
+                        message: 'Danh mục đã được xóa thành công',
+                        type: 'success',
+                    })
+
+                    this.handleLoadCategoryManagement()
+
+                    return
+                }
+            }
+        }
+    },
+
+    handleAddCategory() {
+        if (categoryNameInput.value === '' || categoryKeyInput.value === '') {
+            toast({
+                title: 'Thông báo',
+                message: 'Vui lòng nhập đầy đủ thông tin',
+                type: 'error',
+            })
+            return
+        }
+
+        const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
+
+        // check if category name or key already exists
+        if (
+            categoriesDb.some(
+                (category) =>
+                    category.name === categoryNameInput.value.trim() || category.key === categoryKeyInput.value.trim()
+            )
+        ) {
+            toast({
+                title: 'Thông báo',
+                message: 'Tên danh mục hoặc key đã tồn tại',
+                type: 'error',
+            })
+            return
+        }
+
+        categoriesDb.push({
+            id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
+            name: categoryNameInput.value.trim(),
+            key: categoryKeyInput.value.trim(),
+        })
+
+        localStorage.setItem('categories', JSON.stringify(categoriesDb))
+
+        toast({
+            title: 'Thành công',
+            message: 'Danh mục đã được thêm thành công',
+            type: 'success',
+        })
+
+        categoryNameInput.value = ''
+        categoryKeyInput.value = ''
+
+        categoryNameInput.focus()
+
+        this.handleLoadCategoryManagement()
+    },
+
+    handleLoadCategoryManagement() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+
+        categoryManagementBodyContent.innerHTML = categories
+            .map((category) => {
+                return `
+                <div class="row">
+                    <div class="col-4">${category.name}</div>
+                    <div class="col-4">${category.key}</div>
+                    <div class="col-4">
+                        <div style="display: flex; justify-content: center; gap: 16px">
+                            <button data-category-id="${category.id}" class="action__btn action__btn--edit" title="Cập nhật"><i class="fa-solid fa-pencil"></i></button>
+                            <button data-category-id="${category.id}" class="action__btn action__btn--delete" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `
+            })
+            .join('')
     },
 
     init() {
@@ -691,7 +667,7 @@ const dashboardApp = {
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()
-        this.handleLineChart()
+        this.handleLoadCategoryManagement()
         this.handleLoadLocationStats()
         this.handleLoadUserStats()
         this.handleEvent()

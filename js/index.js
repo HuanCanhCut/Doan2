@@ -73,6 +73,7 @@ const app = {
         return filteredPosts
     },
 
+    // Mua bán / Giá bán
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {
             const parentElement = getParentElement(btn, '.filter__item')
@@ -259,6 +260,7 @@ const app = {
             }
         })
 
+        // handle when click on heart icon
         postInner.onclick = (e) => {
             if (e.target.closest('.post__item--heart')) {
                 e.target.closest('.post__item--heart').classList.toggle('active')
@@ -344,6 +346,7 @@ const app = {
             },
         })
 
+        // handle when click outside filter dropdown
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()
