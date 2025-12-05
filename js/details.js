@@ -551,7 +551,7 @@ confirmModalButtonConfirm.addEventListener('click', () => {
 })
 
 postActionsEditBtn.onclick = () => {
-    window.location.href = `/post?post_id=${postId}&type=edit`
+    window.location.href = `/post.html?post_id=${postId}&type=edit`
 }
 
 renderImages()

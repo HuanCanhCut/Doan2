@@ -263,6 +263,11 @@ const app = {
         // handle when click on heart icon
         postInner.onclick = (e) => {
             if (e.target.closest('.post__item--heart')) {
+                if (e.target.closest('.post__item')) {
+                    e.preventDefault()
+                    e.stopPropagation()
+                }
+
                 e.target.closest('.post__item--heart').classList.toggle('active')
 
                 this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
@@ -416,7 +421,7 @@ const app = {
             .map((post) => {
                 const user = JSON.parse(localStorage.getItem('users'))?.find((user) => user.id === post.user_id) || null
                 return `
-                    <div class="post__item" data-id="${post.id}">
+                    <a href="/details.html?post_id=${post.id}" class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
                             <img
                                 onerror="this.src='/public/static/fallback.png'"
@@ -475,7 +480,7 @@ const app = {
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
-                    </div>
+                    </a>
             `
             })
             .join('')

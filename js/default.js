@@ -146,7 +146,7 @@ const defaultApp = {
                                 .slice(0, 5)
                                 .map((post) => {
                                     return `
-                                        <a class="header__search__result__item" href="details?post_id=1">
+                                        <a class="header__search__result__item" href="details.html?post_id=1">
                                             <img
                                                 src="${post.images[0]}"
                                                 alt=""
@@ -192,6 +192,14 @@ const defaultApp = {
 
             document.querySelector('.sidebar__user__info').classList.add('active')
             document.querySelector('.sidebar__auth').classList.remove('active')
+
+            document.querySelectorAll('.header__user__action--profile').forEach((item) => {
+                item.setAttribute('href', `user.html?nickname=${currentUser.nickname}`)
+            })
+
+            document.querySelectorAll('.header__user__action--favorite').forEach((item) => {
+                item.setAttribute('href', `user.html?nickname=${currentUser.nickname}&active_tab=favorites`)
+            })
         } else {
             document.querySelector('.header__actions--post').classList.add('col-hidden')
             document.querySelector('.header__actions--auth').classList.remove('col-hidden')
