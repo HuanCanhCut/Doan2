@@ -26,6 +26,15 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    background-color: #ebebeb;
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 40px;
+    border: none;
 }
 
 .filter__item--category.active * {
@@ -327,6 +336,7 @@
     word-break: break-word;
     max-width: 100%;
     width: 100%;
+    line-height: 1.2;
 }
 
 .post__item__info__description {

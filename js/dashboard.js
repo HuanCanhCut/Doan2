@@ -20,13 +20,6 @@ const dashboardApp = {
         timeZone: 'Asia/Ho_Chi_Minh',
     }),
 
-    translatedCategories: {
-        apartment: 'Căn hộ/Chung cư',
-        house: 'Nhà ở',
-        land: 'Đất nền',
-        room: 'Phòng trọ',
-    },
-
     handleLoadDate() {
         // default load 30 days ago
         const today = new Date()
@@ -272,10 +265,14 @@ const dashboardApp = {
     },
 
     groupPostsByCategory(posts) {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+
         return posts.reduce((acc, curr) => {
             if (!acc[curr.property_category]) {
                 acc[curr.property_category] = {
-                    name: curr.property_category,
+                    name:
+                        categories.find((category) => category.key === curr.property_category)?.name ||
+                        curr.property_category,
                     value: 0,
                     color: this.getRandomColor(),
                 }
@@ -346,7 +343,7 @@ const dashboardApp = {
                 return `
                     <div class="chart__item--donut--info--item">
                         <div class="chart__item--donut--info--item--color" style="background-color: ${colors[index]}"></div>
-                        <span class="chart__item--donut--info--item--name">${this.translatedCategories[item]}</span>
+                        <span class="chart__item--donut--info--item--name">${groupedPosts[item].name}</span>
                     </div>
             `
             })

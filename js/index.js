@@ -486,10 +486,24 @@ const app = {
             .join('')
     },
 
+    handleLoadCategory() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const htmls = categories.map((category) => {
+            return `
+                <button class="filter__item--category" data-type="${category.key}">
+                    <span>${category.name}</span>
+                </button>
+            `
+        })
+
+        document.querySelector('.filter__items').innerHTML = htmls.join('')
+    },
+
     async init() {
         middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
+        this.handleLoadCategory()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()
