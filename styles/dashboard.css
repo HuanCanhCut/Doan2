@@ -320,6 +320,13 @@ body {
     align-items: center;
 }
 
+.user__stats--item--content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
 .location__stats--item .user__stats--item--content.user__stats--item--content--user {
     display: flex;
     align-items: center;

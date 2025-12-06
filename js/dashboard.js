@@ -370,9 +370,7 @@ const dashboardApp = {
         }, {})
 
         // only show 8 location stats
-        let locationStatsSorted = Object.values(groupedPosts)
-            .sort((a, b) => b.value - a.value)
-            .slice(0, 8)
+        let locationStatsSorted = Object.values(groupedPosts).sort((a, b) => b.value - a.value)
 
         const dateDiff = (new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24)
 
@@ -453,7 +451,7 @@ const dashboardApp = {
             .join('')
     },
 
-    handleLoadUserStats() {
+    handleLoadUser() {
         let users = JSON.parse(localStorage.getItem('users')) || []
 
         users = users.map((user) => {
@@ -463,13 +461,9 @@ const dashboardApp = {
             }
         })
 
-        users = users
-            .sort((a, b) => b.post_amount - a.post_amount)
-            .slice(0, 8)
-            .filter((user) => user.post_amount > 0)
-
-        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users.map((user) => {
-            return `
+        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users
+            .map((user) => {
+                return `
                 <div class="row">
                     <div class="col col-6">
                         <div
@@ -478,7 +472,6 @@ const dashboardApp = {
                             <img
                                 src="${user.avatar}"
                                 alt=""
-                                class="md:col-block col-hidden"
                                 onerror="this.src='/public/static/fallback.png'"
                             />
                             <div class="user__stats--item--content--info">
@@ -499,11 +492,15 @@ const dashboardApp = {
                             <a href="/user?nickname=${user.nickname} ">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
+                            <button title="Xóa" class="user__stats--item--content--delete" data-user-id="${user.id}">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             `
-        })
+            })
+            .join('')
     },
 
     handleEvent() {
@@ -530,7 +527,7 @@ const dashboardApp = {
             this.handleDonutChart()
             this.handleLineChart()
             this.handleLoadLocationStats()
-            this.handleLoadUserStats()
+            this.handleLoadUser()
         }
 
         addCategoryBtn.onclick = () => {
@@ -588,6 +585,39 @@ const dashboardApp = {
 
                     return
                 }
+            }
+        }
+
+        document.querySelector('.user__stats--item--content--wrapper').onclick = (e) => {
+            if (e.target.closest('.user__stats--item--content--delete')) {
+                const userId = Number(e.target.closest('.user__stats--item--content--delete').dataset.userId)
+
+                if (!confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+                    return
+                }
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+                if (userId === currentUser?.id) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Bạn không thể xóa chính mình',
+                        type: 'error',
+                    })
+                }
+
+                let usersDb = JSON.parse(localStorage.getItem('users')) || []
+                usersDb = usersDb.filter((user) => user.id !== userId)
+
+                localStorage.setItem('users', JSON.stringify(usersDb))
+
+                this.handleLoadUser()
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Người dùng đã được xóa',
+                    type: 'success',
+                })
             }
         }
     },
@@ -669,7 +699,7 @@ const dashboardApp = {
         this.handleDonutChart()
         this.handleLoadCategoryManagement()
         this.handleLoadLocationStats()
-        this.handleLoadUserStats()
+        this.handleLoadUser()
         this.handleEvent()
     },
 }
