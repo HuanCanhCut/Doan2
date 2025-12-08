@@ -36,7 +36,7 @@ postManagerTabs.forEach((tab) => {
 
         currentTab = tab.dataset.type
 
-        window.history.replaceState({}, '', `/user?nickname=${user.nickname}&active_tab=${currentTab}`)
+        window.history.replaceState({}, '', `/user.html?nickname=${user.nickname}&active_tab=${currentTab}`)
 
         renderUserPost(currentTab)
     }
@@ -171,7 +171,7 @@ window.addEventListener('message', (e) => {
             {
                 const updatedUser = e.data.data
 
-                window.history.replaceState({}, '', `/user?nickname=${updatedUser.nickname}`)
+                window.history.replaceState({}, '', `/user.html?nickname=${updatedUser.nickname}`)
                 loadUserProfile(updatedUser)
             }
 

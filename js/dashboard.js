@@ -486,7 +486,7 @@ const dashboardApp = {
                     </div>
                     <div class="col col-3">
                         <div class="user__stats--item--content">
-                            <a href="/user?nickname=${user.nickname} ">
+                            <a href="/user.html?nickname=${user.nickname} ">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
                             <button title="Xóa" class="user__stats--item--content--delete" data-user-id="${user.id}">
