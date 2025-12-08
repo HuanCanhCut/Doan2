@@ -11,7 +11,7 @@ const authBtn = document.querySelector('.header__actions__button--auth')
 const modal = document.querySelector('#modal')
 const overlay = document.querySelector('#overlay')
 const userAvatar = document.querySelector('.header__actions__user img')
-const logoutBtn = document.querySelector('.header__user__action--logout button')
+const logoutBtn = document.querySelector('.header__user__action--logout')
 const headerSearchInput = document.querySelector('.header__search__input')
 
 const defaultApp = {
@@ -31,7 +31,7 @@ const defaultApp = {
                         type: 'success',
                     })
 
-                    this.handleLoadUI()
+                    window.location.reload()
 
                     break
                 case 'modal:toast-success':
@@ -81,8 +81,6 @@ const defaultApp = {
             localStorage.removeItem('currentUser')
 
             window.location.reload()
-
-            // this.handleLoadUI()
         }
 
         headerSearchInput.oninput = (e) => {
