@@ -108,8 +108,10 @@ const renderUserPost = (activeTab = currentTab) => {
             })
             break
         case 'favorites':
+            const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+
             posts = posts.filter((post) => {
-                return JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+                return favoritesDb.find((favorite) => favorite.post_id === post.id && favorite.user_id === user.id)
             })
             break
         default:
@@ -119,7 +121,10 @@ const renderUserPost = (activeTab = currentTab) => {
 
     document.querySelector('.post__inner__wrapper').innerHTML = posts
         .map((post) => {
-            const isFavorite = JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+            const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+            const isFavorite = favoritesDb.find(
+                (favorite) => favorite.post_id === post.id && favorite.user_id === user.id
+            )
 
             return `
             <a href="/details.html?post_id=${post.id}" class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
@@ -232,19 +237,23 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
 
         heart.classList.toggle('active')
 
-        let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+        let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
-        const postId = Number(heart.dataset.postId)
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
-        const postExist = postDb.find((post) => post === postId)
+        const favoritesExist = favoritesDb.find((favorite) => {
+            return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+        })
 
-        if (postExist) {
-            postDb = postDb.filter((post) => post !== postId)
+        if (favoritesExist) {
+            favoritesDb = favoritesDb.filter(
+                (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+            )
         } else {
-            postDb.push(postId)
+            favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]
         }
 
-        localStorage.setItem('favorites', JSON.stringify(postDb))
+        localStorage.setItem('favorites', JSON.stringify(favoritesDb))
     }
 }
 

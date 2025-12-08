@@ -87,6 +87,19 @@ function loadPostDetails() {
 
     detailsLocationValue.textContent = currentPost.address
     detailsLocationUpdated.textContent = `${momentTimezone(currentPost.created_at)}`
+
+    // check if the post is in the favorites
+    const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+    const favoritesExist = favoritesDb.find((favorite) => {
+        return (
+            favorite.post_id === Number(postId) &&
+            favorite.user_id === JSON.parse(localStorage.getItem('currentUser')).id
+        )
+    })
+
+    if (favoritesExist) {
+        detailsInfoSave.classList.add('active')
+    }
 }
 
 imagesList.addEventListener('click', (e) => {
@@ -122,17 +135,23 @@ prevImageBtn.addEventListener('click', () => {
 detailsInfoSave.addEventListener('click', () => {
     detailsInfoSave.classList.toggle('active')
 
-    let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+    let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
-    const postExist = postDb.find((post) => post === postId)
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
-    if (postExist) {
-        postDb = postDb.filter((post) => post !== postId)
+    const favoritesExist = favoritesDb.find((favorite) => {
+        return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+    })
+
+    if (favoritesExist) {
+        favoritesDb = favoritesDb.filter(
+            (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+        )
     } else {
-        postDb.push(postId)
+        favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]
     }
 
-    localStorage.setItem('favorites', JSON.stringify(postDb))
+    localStorage.setItem('favorites', JSON.stringify(favoritesDb))
 })
 
 function renderDetails() {

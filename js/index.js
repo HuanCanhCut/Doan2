@@ -412,7 +412,9 @@ const app = {
             })
 
             if (favoritesExist) {
-                favoritesDb = favoritesDb.filter((favorite) => favorite.post_id !== postId)
+                favoritesDb = favoritesDb.filter(
+                    (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+                )
             } else {
                 favoritesDb = [
                     ...favoritesDb,
