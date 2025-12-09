@@ -15,22 +15,19 @@
     <body>
         <div class="app">
             <aside class="sidebar" aria-label="sidebar">
-                <div class="logo">
+                <a href="/" class="logo">
                     <img src="/public/static/logo.png" alt="logo" />
                     <div>
                         <h2 style="white-space: nowrap; margin-bottom: 6px">Real Estate</h2>
                         <div class="small">Bảng quản trị</div>
                     </div>
-                </div>
+                </a>
 
                 <nav class="menu">
-                    <a href="#" class="active">Trang chủ</a>
-                    <a href="#" class="">Dự án</a>
-                    <a href="#" class="">Căn hộ</a>
-                    <a href="#" class="">Tin đăng</a>
-                    <a href="#" class="">Hợp đồng</a>
-                    <a href="#" class="">Báo cáo</a>
-                    <a href="#" class="">Tài khoản</a>
+                    <a href="dashboard.html" class="active">Trang chủ</a>
+                    <a href="admin_manager_post.html">Tin đăng</a>
+                    <a href="admin_contracts.html">Hợp đồng</a>
+                    <a href="admin_reports.html">Báo cáo</a>
                 </nav>
             </aside>
 
@@ -87,8 +84,42 @@
                                 </div>
                             </div>
                             <div class="col md:col-8 xl:col-8 col-12">
-                                <div class="chart__item">
-                                    <div class="chart__item--line"></div>
+                                <div class="category__management">
+                                    <div class="category__management__header">
+                                        <h2>Quản lí danh mục tin đăng</h2>
+                                    </div>
+                                    <div class="category__management__add--container">
+                                        <div class="category__management__add--inputs">
+                                            <input type="text" name="category_name" placeholder="Tên danh mục" />
+                                            <input type="text" name="category_key" placeholder="Key" />
+                                        </div>
+                                        <button class="button--primary button--add--category">Thêm danh mục</button>
+                                    </div>
+                                    <div class="category__management__body">
+                                        <div class="grid">
+                                            <div class="row" style="background: rgba(198, 198, 198, 0.262)">
+                                                <div class="col-4" style="text-align: center">Tên danh mục</div>
+                                                <div class="col-4" style="text-align: center">Key</div>
+                                                <div class="col-4" style="text-align: center">Action</div>
+                                            </div>
+                                            <div class="category__management__body--content">
+                                                <div class="row">
+                                                    <div class="col-4">Chung cư</div>
+                                                    <div class="col-4">apartment</div>
+                                                    <div class="col-4">
+                                                        <div style="display: flex; justify-content: center; gap: 16px">
+                                                            <button class="action__btn action__btn--edit">
+                                                                <i class="fa-solid fa-pencil"></i>
+                                                            </button>
+                                                            <button class="action__btn action__btn--delete">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +167,7 @@
                             <div class="col col-12 md:col-6">
                                 <div class="location__stats--item">
                                     <header class="location__stats--item--title">
-                                        <h2>Top người dùng đăng tin</h2>
+                                        <h2>Người dùng</h2>
                                     </header>
                                     <div class="grid">
                                         <div class="location__stats--inner">

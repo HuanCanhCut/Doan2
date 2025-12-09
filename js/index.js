@@ -5,7 +5,7 @@ import './popperWrapper.js'
 import { handleSetPosition } from './popperWrapper.js'
 import mockPosts from '../mocks/posts.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
-import { listenEvent } from './helpers/event.js'
+import { listenEvent, sendEvent } from './helpers/event.js'
 import { getDistrict, getProvince } from './helpers/getLocations.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import middleware from './middleware.js'
@@ -73,6 +73,7 @@ const app = {
         return filteredPosts
     },
 
+    // Mua bán / Giá bán
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {
             const parentElement = getParentElement(btn, '.filter__item')
@@ -259,8 +260,23 @@ const app = {
             }
         })
 
+        // handle when click on heart icon
         postInner.onclick = (e) => {
             if (e.target.closest('.post__item--heart')) {
+                if (e.target.closest('.post__item')) {
+                    e.preventDefault()
+                    e.stopPropagation()
+                }
+
+                if (!JSON.parse(localStorage.getItem('currentUser'))) {
+                    sendEvent({
+                        eventName: 'modal:auth-open',
+                        detail: 'loginModal',
+                    })
+
+                    return
+                }
+
                 e.target.closest('.post__item--heart').classList.toggle('active')
 
                 this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
@@ -344,6 +360,7 @@ const app = {
             },
         })
 
+        // handle when click outside filter dropdown
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.filter__item')) {
                 this.handleCloseDropdownFilter()
@@ -386,17 +403,26 @@ const app = {
 
     handleToggleLikePost(postId) {
         if (postId) {
-            let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+            let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
-            const postExist = postDb.find((post) => post === postId)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
-            if (postExist) {
-                postDb = postDb.filter((post) => post !== postId)
+            const favoritesExist = favoritesDb.find((favorite) => {
+                return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+            })
+
+            if (favoritesExist) {
+                favoritesDb = favoritesDb.filter(
+                    (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+                )
             } else {
-                postDb = [...postDb, postId]
+                favoritesDb = [
+                    ...favoritesDb,
+                    { post_id: postId, user_id: JSON.parse(localStorage.getItem('currentUser')).id },
+                ]
             }
 
-            localStorage.setItem('favorites', JSON.stringify(postDb))
+            localStorage.setItem('favorites', JSON.stringify(favoritesDb))
         }
     },
 
@@ -413,7 +439,7 @@ const app = {
             .map((post) => {
                 const user = JSON.parse(localStorage.getItem('users'))?.find((user) => user.id === post.user_id) || null
                 return `
-                    <div class="post__item" data-id="${post.id}">
+                    <a href="/details.html?post_id=${post.id}" class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
                             <img
                                 onerror="this.src='/public/static/fallback.png'"
@@ -467,21 +493,43 @@ const app = {
                             </div>
                         </div>
                         <button class="post__item--heart ${
-                            localStorage.getItem('favorites')?.includes(post.id) ? 'active' : ''
+                            JSON.parse(localStorage.getItem('currentUser'))
+                                ? JSON.parse(localStorage.getItem('favorites'))?.some(
+                                      (favorite) =>
+                                          favorite.post_id === post.id &&
+                                          favorite.user_id === JSON.parse(localStorage.getItem('currentUser')).id
+                                  )
+                                    ? 'active'
+                                    : ''
+                                : ''
                         }" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
-                    </div>
+                    </a>
             `
             })
             .join('')
+    },
+
+    handleLoadCategory() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const htmls = categories.map((category) => {
+            return `
+                <button class="filter__item--category" data-type="${category.key}">
+                    <span>${category.name}</span>
+                </button>
+            `
+        })
+
+        document.querySelector('.filter__items').innerHTML = htmls.join('')
     },
 
     async init() {
         middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
+        this.handleLoadCategory()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()

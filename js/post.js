@@ -379,6 +379,17 @@ const postApp = {
         }
     },
 
+    handleLoadCategory() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const htmls = categories.map((category) => {
+            return `
+                <option value="${category.key}">Bất động sản - ${category.name}</option>
+            `
+        })
+
+        document.querySelector('.post__form__select').innerHTML = htmls.join('')
+    },
+
     init() {
         middleware()
         defaultApp.init()
@@ -403,6 +414,7 @@ const postApp = {
 
         // if mode is edit, fill form data
         this.fillFormData()
+        this.handleLoadCategory()
         this.handleValidator()
         this.handleEvent()
     },

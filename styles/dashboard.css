@@ -164,12 +164,75 @@ body {
     color: #3741519e;
 }
 
-.chart__container .chart__item {
+.chart__container .chart__item,
+.category__management {
     background-color: #fff;
     border-radius: 12px;
     box-shadow: var(--shadow);
     padding: 20px;
     margin-top: 28px;
+}
+
+.category__management__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category__management__add--inputs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.category__management__add--container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+
+.category__management__add--inputs input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    font-size: 1.2rem;
+    flex: 1;
+}
+
+.category__management__body {
+    margin-top: 12px;
+    padding: 8px 12px;
+}
+
+.category__management__body .row {
+    padding: 8px 12px;
+}
+
+.category__management__body .row div[class^='col-']:not(:first-child) {
+    text-align: center;
+}
+
+.category__management__body--content .action__btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.category__management__body--content .action__btn--edit {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+.category__management__body--content .action__btn--delete {
+    background-color: #ffebee;
+    color: #f44336;
 }
 
 .chart__container .chart__item--donut {
@@ -204,17 +267,7 @@ body {
     border-radius: 50%;
 }
 
-@keyframes donutChartRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .donut-chart-svg {
-    animation: donutChartRotate 1.2s ease-out forwards;
     transform-origin: center;
 }
 
@@ -223,42 +276,7 @@ body {
 }
 
 .donut-chart-svg .donut-segment {
-    opacity: 0;
-    animation: fadeIn 0.6s ease-out forwards;
-    transition: all 0.3s ease;
     cursor: pointer;
-}
-
-.donut-chart-svg .donut-segment:hover {
-    filter: brightness(1.1);
-}
-
-.donut-chart-svg .donut-segment:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.donut-chart-svg .donut-segment:nth-child(2) {
-    animation-delay: 0.35s;
-}
-
-.donut-chart-svg .donut-segment:nth-child(3) {
-    animation-delay: 0.5s;
-}
-
-.donut-chart-svg .donut-segment:nth-child(4) {
-    animation-delay: 0.65s;
-}
-
-.donut-chart-svg .donut-segment:nth-child(5) {
-    animation-delay: 0.8s;
-}
-
-.donut-chart-svg .donut-tooltip {
-    transition: opacity 0.3s ease;
-}
-
-.donut-chart-svg .donut-tooltip rect {
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .location__stats--item {
@@ -302,6 +320,13 @@ body {
     align-items: center;
 }
 
+.user__stats--item--content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
 .location__stats--item .user__stats--item--content.user__stats--item--content--user {
     display: flex;
     align-items: center;
@@ -321,7 +346,10 @@ body {
     overflow: hidden;
 }
 
-.location__stats--item .user__stats--item--content.user__stats--item--content--user .user__stats--item--content--info p {
+.location__stats--item
+    .user__stats--item--content.user__stats--item--content--user
+    .user__stats--item--content--info
+    p {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     line-clamp: 2;
@@ -330,19 +358,13 @@ body {
     text-overflow: ellipsis;
 }
 
-.location__stats--item .user__stats--item--content.user__stats--item--content--user .user__stats--item--content--info p.user__stats--item--content--info--email {
+.location__stats--item
+    .user__stats--item--content.user__stats--item--content--user
+    .user__stats--item--content--info
+    p.user__stats--item--content--info--email {
     font-size: 1.2rem;
     color: #6b7280;
     margin-top: 2px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 @media screen and (max-width: 40rem) {
@@ -393,4 +415,3 @@ body {
         font-size: 2rem;
     }
 }
-

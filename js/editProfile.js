@@ -109,10 +109,12 @@ profileImageInput.onchange = (e) => {
 
 document.querySelector(
     '.nickname-link'
-).textContent = `${window.location.origin}/user?nickname=${currentUser?.nickname}`
+).textContent = `${window.location.origin}/user.html?nickname=${currentUser?.nickname}`
 
 nicknameInput.oninput = (e) => {
-    document.querySelector('.nickname-link').textContent = `${window.location.origin}/user?nickname=${e.target.value}`
+    document.querySelector(
+        '.nickname-link'
+    ).textContent = `${window.location.origin}/user.html?nickname=${e.target.value}`
 }
 
 const fillFormValue = () => {

@@ -147,11 +147,6 @@
                 </div>
                 <div class="header__actions header__item">
                     <div class="header__actions--post col-hidden">
-                        <a href="">
-                            <button class="header__actions__button header__actions__button--outline">
-                                Quản lý tin
-                            </button>
-                        </a>
                         <a href="post.html">
                             <button class="header__actions__button header__actions__button--primary">Đăng tin</button>
                         </a>
@@ -184,12 +179,12 @@
                         <div class="header__actions__user__wrapper">
                             <ul>
                                 <li>
-                                    <a href="">
+                                    <a href="" class="header__user__action--profile">
                                         <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="">
+                                    <a href="" class="header__user__action--favorite">
                                         <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
                                     </a>
                                 </li>
@@ -241,20 +236,15 @@
                                     <p>Đăng tin</p>
                                 </a>
                             </li>
+
                             <li>
-                                <a href="">
-                                    <i class="fa-solid fa-list-check"></i>
-                                    <p>Quản lí tin</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
+                                <a href="" class="header__user__action--favorite">
                                     <i class="fa-solid fa-heart"></i>
                                     <p>Tin đã thích</p>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="" class="header__user__action--profile">
                                     <i class="fa-solid fa-user"></i>
                                     <p>Thông tin tài khoản</p>
                                 </a>
@@ -334,25 +324,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter__items">
-                            <!-- Loại Bất Động Sản -->
-                            <button class="filter__item--category" data-type="apartment">
-                                <img src="/public/static/categories/apartment.svg" alt="" />
-                                <span>Căn hộ/Chung cư</span>
-                            </button>
-                            <button class="filter__item--category" data-type="house">
-                                <img src="/public/static/categories/house.svg" alt="" />
-                                <span>Nhà ở</span>
-                            </button>
-                            <button class="filter__item--category" data-type="land">
-                                <img src="/public/static/categories/land.svg" alt="" />
-                                <span>Đất nền</span>
-                            </button>
-                            <button class="filter__item--category" data-type="room">
-                                <img src="/public/static/categories/room.svg" alt="" />
-                                <span>Phòng trọ</span>
-                            </button>
-                        </div>
+                        <div class="filter__items"></div>
                     </div>
                 </div>
 
@@ -366,12 +338,7 @@
                                     <button data-type="personal">Cá nhân</button>
                                     <div class="post__tabs--line"></div>
                                 </div>
-                                <div class="post__inner">
-                                    <button class="post__item--heart">
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-solid fa-heart"></i>
-                                    </button>
-                                </div>
+                                <div class="post__inner"></div>
                             </div>
                         </div>
                         <div class="col col-hidden md:col-block md:col-4 lg:col-3">

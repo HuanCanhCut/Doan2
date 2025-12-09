@@ -9,7 +9,6 @@ const user = {
     nickname: '',
     avatar: '',
     phone: '',
-    uuid: '',
 }
 
 export default user
