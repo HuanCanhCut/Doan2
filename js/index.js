@@ -16,7 +16,7 @@ const resetPriceFilterButton = document.querySelector('.price_min_max_reset')
 const priceMinInput = document.querySelector('.price_min')
 const priceMaxInput = document.querySelector('.price_max')
 const filterItemDropdownButtons = document.querySelectorAll('.filter__item__dropdown--button')
-const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
+const filterItemsCategoryWrapper = document.querySelector('.filter__items--category')
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
 const postInner = document.querySelector('.post__inner')
 const collapseSidebarFilterButtons = document.querySelectorAll('.sidebar__filter--collapse')
@@ -212,27 +212,33 @@ const app = {
         }
 
         // Filter by category
-        filterItemCategoryButtons.forEach((btn) => {
-            btn.onclick = () => {
-                if (this.filters.type.includes(btn.dataset.type)) {
-                    this.filters.type = this.filters.type.filter((type) => type !== btn.dataset.type)
-                } else {
-                    this.filters.type.push(btn.dataset.type)
-                }
+        filterItemsCategoryWrapper.onclick = (e) => {
+            if (e.target.closest('.filter__item--category')) {
+                const filterItemCategoryButtons = filterItemsCategoryWrapper.querySelectorAll('.filter__item--category')
 
                 filterItemCategoryButtons.forEach((btn) => {
-                    if (btn.classList.contains('active')) {
-                        return
+                    if (e.target.closest('.filter__item--category') === btn) {
+                        if (this.filters.type.includes(btn.dataset.type)) {
+                            this.filters.type = this.filters.type.filter((type) => type !== btn.dataset.type)
+                        } else {
+                            this.filters.type.push(btn.dataset.type)
+                        }
+
+                        filterItemCategoryButtons.forEach((btn) => {
+                            if (btn.classList.contains('active')) {
+                                return
+                            }
+
+                            btn.classList.remove('active')
+                        })
+
+                        btn.classList.toggle('active')
+
+                        this.handleRenderPost(this.handleFilterPost())
                     }
-
-                    btn.classList.remove('active')
                 })
-
-                btn.classList.toggle('active')
-
-                this.handleRenderPost(this.handleFilterPost())
             }
-        })
+        }
 
         postTabs.forEach((btn) => {
             btn.onclick = (e) => {
@@ -522,7 +528,7 @@ const app = {
             `
         })
 
-        document.querySelector('.filter__items').innerHTML = htmls.join('')
+        document.querySelector('.filter__items--category').innerHTML = htmls.join('')
     },
 
     async init() {
