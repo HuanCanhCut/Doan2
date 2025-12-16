@@ -235,6 +235,12 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
 
         const heart = e.target.closest('.post__item--heart')
 
+        const postId = heart.dataset.postId
+
+        if (!postId) {
+            return
+        }
+
         heart.classList.toggle('active')
 
         let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
