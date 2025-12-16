@@ -93,7 +93,7 @@ function loadPostDetails() {
     const favoritesExist = favoritesDb.find((favorite) => {
         return (
             favorite.post_id === Number(postId) &&
-            favorite.user_id === JSON.parse(localStorage.getItem('currentUser')).id
+            favorite.user_id === JSON.parse(localStorage.getItem('currentUser'))?.id
         )
     })
 
@@ -133,11 +133,21 @@ prevImageBtn.addEventListener('click', () => {
 })
 
 detailsInfoSave.addEventListener('click', () => {
-    detailsInfoSave.classList.toggle('active')
-
     let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+    if (!currentUser) {
+        // open login modal
+        sendEvent({
+            eventName: 'modal:auth-open',
+            detail: 'loginModal',
+        })
+
+        return
+    }
+
+    detailsInfoSave.classList.toggle('active')
 
     const favoritesExist = favoritesDb.find((favorite) => {
         return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
@@ -363,11 +373,26 @@ postActionsEditBtn.onclick = () => {
     window.location.href = `/post.html?post_id=${postId}&type=edit`
 }
 
+function loadPostManagement() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+    if (!currentUser) {
+        document.querySelector('.post__actions__wrapper').style.display = 'none'
+        return
+    }
+
+    if (currentUser.id !== postUser.id) {
+        document.querySelector('.post__actions__wrapper').style.display = 'none'
+        return
+    }
+}
+
 renderImages()
 handleLoadCurrentImage(activeImageIndex)
 loadPostDetails()
 renderDetails()
 renderDescription()
 renderUserPost()
+loadPostManagement()
 
 defaultApp.init()
