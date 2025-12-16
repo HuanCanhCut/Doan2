@@ -49,7 +49,7 @@ editProfileBtn.onclick = () => {
 }
 
 // load ui based on current user
-if (currentUser.id !== user.id) {
+if (currentUser?.id !== user.id) {
     editProfileBtn.style.display = 'none'
 
     document.querySelectorAll('.post__manager__tabs--button').forEach((tab) => {
