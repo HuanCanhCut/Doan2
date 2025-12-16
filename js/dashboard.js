@@ -6,6 +6,7 @@ const toDateInput = document.querySelector('input[name="to_date"]')
 const filterBtn = document.querySelector('.filter--btn')
 
 const addCategoryBtn = document.querySelector('.button--add--category')
+const updateCategoryBtn = document.querySelector('.button--update--category')
 const categoryNameInput = document.querySelector('input[name="category_name"]')
 const categoryKeyInput = document.querySelector('input[name="category_key"]')
 const categoryManagementBodyContent = document.querySelector('.category__management__body--content')
@@ -19,6 +20,8 @@ const dashboardApp = {
         day: '2-digit',
         timeZone: 'Asia/Ho_Chi_Minh',
     }),
+
+    currentCategoryId: null,
 
     handleLoadDate() {
         // default load 30 days ago
@@ -528,20 +531,26 @@ const dashboardApp = {
         }
 
         addCategoryBtn.onclick = () => {
-            this.handleAddCategory()
+            this.handleModifyCategory()
+        }
+
+        updateCategoryBtn.onclick = () => {
+            this.handleModifyCategory('update')
         }
 
         // handle submit when click enter in categoryKeyInput or categoryNameInput
         Array.from([categoryKeyInput, categoryNameInput]).forEach((input) => {
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
-                    this.handleAddCategory()
+                    this.handleModifyCategory()
                 }
             })
         })
 
         categoryManagementBodyContent.onclick = (e) => {
             if (e.target.closest('.action__btn--edit')) {
+                this.currentCategoryId = Number(e.target.closest('.action__btn--edit').dataset.categoryId)
+
                 const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
                 const categoryId = e.target.closest('.action__btn--edit').dataset.categoryId
 
@@ -619,7 +628,7 @@ const dashboardApp = {
         }
     },
 
-    handleAddCategory() {
+    handleModifyCategory(type = 'add') {
         if (categoryNameInput.value === '' || categoryKeyInput.value === '') {
             toast({
                 title: 'Thông báo',
@@ -629,36 +638,71 @@ const dashboardApp = {
             return
         }
 
-        const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
+        let categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
 
-        // check if category name or key already exists
-        if (
-            categoriesDb.some(
-                (category) =>
-                    category.name === categoryNameInput.value.trim() || category.key === categoryKeyInput.value.trim()
-            )
-        ) {
-            toast({
-                title: 'Thông báo',
-                message: 'Tên danh mục hoặc key đã tồn tại',
-                type: 'error',
-            })
-            return
+        switch (type) {
+            case 'add':
+                // check if category name or key already exists
+                if (
+                    categoriesDb.some(
+                        (category) =>
+                            category.name === categoryNameInput.value.trim() ||
+                            category.key === categoryKeyInput.value.trim()
+                    )
+                ) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Tên danh mục hoặc key đã tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
+                categoriesDb.push({
+                    id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
+                    name: categoryNameInput.value.trim(),
+                    key: categoryKeyInput.value.trim(),
+                })
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Danh mục đã được thêm thành công',
+                    type: 'success',
+                })
+                break
+            case 'update':
+                // check if category id not found
+                if (categoriesDb.find((category) => category.id === this.currentCategoryId).length === 0) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Danh mục không tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
+                categoriesDb = categoriesDb.map((category) => {
+                    if (category.id === this.currentCategoryId) {
+                        return {
+                            ...category,
+                            name: categoryNameInput.value.trim(),
+                            key: categoryKeyInput.value.trim(),
+                        }
+                    }
+                    return category
+                })
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Danh mục đã được cập nhật thành công',
+                    type: 'success',
+                })
+                break
+            default:
+                break
         }
 
-        categoriesDb.push({
-            id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
-            name: categoryNameInput.value.trim(),
-            key: categoryKeyInput.value.trim(),
-        })
-
         localStorage.setItem('categories', JSON.stringify(categoriesDb))
-
-        toast({
-            title: 'Thành công',
-            message: 'Danh mục đã được thêm thành công',
-            type: 'success',
-        })
 
         categoryNameInput.value = ''
         categoryKeyInput.value = ''
@@ -669,6 +713,8 @@ const dashboardApp = {
     },
 
     handleLoadCategoryManagement() {
+        this.currentCategoryId = null
+
         const categories = JSON.parse(localStorage.getItem('categories')) || []
 
         categoryManagementBodyContent.innerHTML = categories
