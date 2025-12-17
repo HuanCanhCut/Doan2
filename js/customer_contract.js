@@ -30,6 +30,43 @@ const paymentEl = document.getElementById('payment');
 const previewEl = document.getElementById('contractPreview');
 const downloadHtmlBtn = document.getElementById('downloadHtml');
 
+// ===== Party A (Bên bán) =====
+const DEFAULT_PARTY_A = {
+  name: 'Công ty Bất động sản Real Estate',
+  address: 'Đường Đỗ Thế Diên, Nguyễn Xá, Mỹ Hào, Hưng Yên, Việt Nam',
+  phone: '024 9999 8888'
+};
+
+function getPostIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('post_id') || params.get('property_id') || params.get('id');
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+
+function resolvePartyA() {
+  const postId = getPostIdFromUrl();
+  if (!postId) return DEFAULT_PARTY_A;
+
+  const posts = JSON.parse(localStorage.getItem('posts')) || [];
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+
+  const post = posts.find(p => Number(p.id) === postId);
+  if (!post) return DEFAULT_PARTY_A;
+
+  const agent = users.find(u => Number(u.id) === Number(post.user_id));
+  if (!agent) return DEFAULT_PARTY_A;
+
+  return {
+    name: agent.full_name || agent.nickname || DEFAULT_PARTY_A.name,
+    address: agent.address || DEFAULT_PARTY_A.address,
+    phone: agent.phone || DEFAULT_PARTY_A.phone
+  };
+}
+
+let partyA = resolvePartyA();
+
 // ===== initialize defaults =====
 (function init() {
   const today = new Date();
@@ -79,9 +116,9 @@ function renderPreview() {
     </div>
 
     <div class="section"><strong>Bên A (Bên Bán)</strong>
-      <div>Họ tên: Công ty Bất động sản Real Estate</div>
-      <div>Địa chỉ: Đường Đỗ Thế Diên, Nguyễn Xá, Mỹ Hào, Hưng Yên, Việt Nam</div>
-      <div>Điện thoại: 024 9999 8888</div>
+      <div>Họ tên: ${escapeHtml(partyA.name)}</div>
+      <div>Địa chỉ: ${escapeHtml(partyA.address)}</div>
+      <div>Điện thoại: ${escapeHtml(partyA.phone)}</div>
     </div>
 
     <div class="section"><strong>Bên B (Bên Mua)</strong>
@@ -110,6 +147,8 @@ function renderPreview() {
 
 // ===== build printable HTML =====
 function buildPrintableHtml(payload) {
+  const partyA = payload.partyA || DEFAULT_PARTY_A; // fallback để không bị undefined
+
   const css = `
     body{font-family:"Be Vietnam Pro",Inter,Arial,sans-serif;color:#14202b;padding:28px;line-height:1.5}
     .container{max-width:800px;margin:0 auto;}
@@ -137,9 +176,9 @@ function buildPrintableHtml(payload) {
     <div class="meta"><div>Người ký: <strong>${escapeHtml(payload.name)}</strong></div><div>Ngày ký: <strong>${escapeHtml(payload.date)}</strong></div></div>
 
     <div class="section"><div class="head">Bên A (Bên Bán)</div>
-      <div>Họ tên: Công ty Bất động sản Real Estate</div>
-      <div>Địa chỉ: Đường Đỗ Thế Diên, Nguyễn Xá, Mỹ Hào, Hưng Yên, Việt Nam</div>
-      <div>Điện thoại: 024 9999 8888</div>
+      <div>Họ tên: ${escapeHtml(partyA.name)}</div>
+      <div>Địa chỉ: ${escapeHtml(partyA.address)}</div>
+      <div>Điện thoại: ${escapeHtml(partyA.phone)}</div>
     </div>
 
     <div class="section"><div class="head">Bên B (Bên Mua)</div>
@@ -206,7 +245,8 @@ form.addEventListener('submit', e => {
     durationText: duration + ' năm',
     payment: paymentEl.value,
     terms: termsEl.value,
-    signature: signatureEl.value || name
+    signature: signatureEl.value || name,
+    partyA
   };
 
   // In ra bản hợp đồng
@@ -224,12 +264,13 @@ downloadHtmlBtn.addEventListener('click', () => {
     id: idNumberEl.value.trim(),
     phone: phoneEl.value.trim(),
     address: addressEl.value.trim(),
-    date: yyyymmddToLocale(signDateEl.value),
+    date: signDateEl.value ? yyyymmddToLocale(signDateEl.value) : yyyymmddToLocale(new Date().toISOString().slice(0, 10)),
     amount: formatCurrency(amountEl.value),
     durationText: durationEl.value + ' năm',
     payment: paymentEl.value,
     terms: termsEl.value,
-    signature: signatureEl.value || fullNameEl.value.trim()
+    signature: signatureEl.value || fullNameEl.value.trim(),
+    partyA // ✅ thêm để buildPrintableHtml không bị undefined
   };
   const html = buildPrintableHtml(payload);
   const blob = new Blob([html], { type: 'text/html' });
