@@ -67,6 +67,15 @@ function resolvePartyA() {
 
 let partyA = resolvePartyA();
 
+const params = new URLSearchParams(location.search);
+const postId = params.get('post_id') || params.get('property_id'); // hỗ trợ link cũ
+
+const navTinDang = document.getElementById('navTinDang');
+if (navTinDang && postId) {
+  navTinDang.href = `./details.html?post_id=${postId}`;
+}
+
+
 // ===== initialize defaults =====
 (function init() {
   const today = new Date();
