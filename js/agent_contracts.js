@@ -99,7 +99,11 @@ const modalBody = document.getElementById('modalBody');
 const modalClose = document.getElementById('modalClose');
 
 function getFiltered() {
-  let list = DataService.getAll().filter(x => x.agent === 'Ngọc Huy');
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const agentName = currentUser?.full_name || currentUser?.nickname || currentUser?.name || '';
+
+  let list = DataService.getAll();
+  if (agentName) list = list.filter(x => x.agent === agentName);
 
   const status = filterStatus.value;
   const f = fromDate.value;
