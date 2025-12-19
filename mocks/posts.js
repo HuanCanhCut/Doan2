@@ -26,7 +26,7 @@ export default [
             'https://cdn2.fptshop.com.vn/unsafe/800x0/avatar_meo_3_08ba546876.jpg',
         ],
         project_type: 'sell',
-        user_id: 1,
+        user_id: 2,
         post_status: 'approved', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),

@@ -49,7 +49,7 @@ editProfileBtn.onclick = () => {
 }
 
 // load ui based on current user
-if (currentUser.id !== user.id) {
+if (currentUser?.id !== user.id) {
     editProfileBtn.style.display = 'none'
 
     document.querySelectorAll('.post__manager__tabs--button').forEach((tab) => {
@@ -234,6 +234,12 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
         e.preventDefault()
 
         const heart = e.target.closest('.post__item--heart')
+
+        const postId = heart.dataset.postId
+
+        if (!postId) {
+            return
+        }
 
         heart.classList.toggle('active')
 

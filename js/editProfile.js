@@ -124,3 +124,7 @@ const fillFormValue = () => {
 }
 
 fillFormValue()
+
+document.querySelector('.button-cancel').onclick = () => {
+    window.parent.postMessage({ type: 'modal:close' }, '*')
+}
