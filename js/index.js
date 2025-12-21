@@ -1,7 +1,6 @@
 import defaultApp from './default.js'
 import getParentElement from './helpers/getParentElement.js'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
-import './popperWrapper.js'
 import { handleSetPosition } from './popperWrapper.js'
 import mockPosts from '../mocks/posts.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
@@ -48,27 +47,31 @@ const app = {
     postType: 'all', // all, agent, personal
 
     handleFilterPost() {
-        const filteredPosts = this.posts.filter((post) => {
-            const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
-            if (!matchCategory) return false
+        const filteredPosts = this.posts
+            .filter((post) => {
+                return post.status === 'Chưa bàn giao' && post.post_status === 'approved'
+            })
+            .filter((post) => {
+                const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
+                if (!matchCategory) return false
 
-            const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
-            if (!matchType) return false
+                const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
+                if (!matchType) return false
 
-            const matchPostType = this.postType === 'all' || post.role === this.postType
-            if (!matchPostType) return false
+                const matchPostType = this.postType === 'all' || post.role === this.postType
+                if (!matchPostType) return false
 
-            if (this.filters.price.active) {
-                const matchPrice =
-                    post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
-                if (!matchPrice) return false
-            }
+                if (this.filters.price.active) {
+                    const matchPrice =
+                        post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
+                    if (!matchPrice) return false
+                }
 
-            const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
-            if (!matchLocation) return false
+                const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
+                if (!matchLocation) return false
 
-            return true
-        })
+                return true
+            })
 
         return filteredPosts
     },
@@ -419,7 +422,7 @@ const app = {
 
             if (favoritesExist) {
                 favoritesDb = favoritesDb.filter(
-                    (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+                    (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
                 )
             } else {
                 favoritesDb = [

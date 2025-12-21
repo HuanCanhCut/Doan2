@@ -198,6 +198,11 @@ const defaultApp = {
             document.querySelectorAll('.header__user__action--favorite').forEach((item) => {
                 item.setAttribute('href', `user.html?nickname=${currentUser.nickname}&active_tab=favorites`)
             })
+
+            if (currentUser.role === 'admin') {
+                document.querySelector('#header__user__action--dashboard').removeAttribute('hidden')
+                document.querySelector('#sidebar__menu__item--dashboard').removeAttribute('hidden')
+            }
         } else {
             document.querySelector('.header__actions--post').classList.add('col-hidden')
             document.querySelector('.header__actions--auth').classList.remove('col-hidden')

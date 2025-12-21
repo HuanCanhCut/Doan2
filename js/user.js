@@ -253,7 +253,7 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
 
         if (favoritesExist) {
             favoritesDb = favoritesDb.filter(
-                (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+                (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
             )
         } else {
             favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]

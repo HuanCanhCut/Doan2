@@ -71,11 +71,11 @@ function loadPostDetails() {
     detailsTypeType.textContent = currentPost.detail.type
 
     if (currentPost.detail.price.length < 7) {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000} nghìn`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000).toLocaleString('vi-VN')} nghìn`
     } else if (currentPost.detail.price.length >= 7 && currentPost.detail.price.length <= 9) {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000000} triệu`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000).toLocaleString('vi-VN')} triệu`
     } else {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000000000} tỷ`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000000).toLocaleString('vi-VN')} tỷ`
     }
 
     detailsUnitPrice.textContent = Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)
@@ -151,7 +151,7 @@ detailsInfoSave.addEventListener('click', () => {
 
     if (favoritesExist) {
         favoritesDb = favoritesDb.filter(
-            (favorite) => favorite.post_id !== postId && favorite.user_id !== currentUser?.id
+            (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
         )
     } else {
         favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]
