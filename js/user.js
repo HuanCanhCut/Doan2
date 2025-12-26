@@ -111,8 +111,11 @@ const renderUserPost = (activeTab = currentTab) => {
             const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
             posts = posts.filter((post) => {
-                return favoritesDb.find((favorite) => favorite.post_id === post.id && favorite.user_id === user.id)
+                return favoritesDb.find(
+                    (favorite) => Number(favorite.post_id) === post.id && favorite.user_id === user.id
+                )
             })
+
             break
         default:
             posts = []
@@ -215,7 +218,9 @@ document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) =
             break
         case 'favorites':
             {
-                const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+                const favorites = (JSON.parse(localStorage.getItem('favorites')) || []).filter((favorite) => {
+                    return favorite.user_id === user.id
+                })
 
                 tab.textContent = `(${favorites.length})`
             }
