@@ -1,5 +1,6 @@
 import Validator from './Validator.js'
 import middleware from './middleware.js'
+import * as authService from './services/authService.js'
 
 const app = {
     handleEvent() {
@@ -25,24 +26,21 @@ const app = {
             submit: async (data) => {
                 const { email, password } = data
 
-                const users = JSON.parse(localStorage.getItem('users')) || []
+                try {
+                    const response = await authService.login(email, password)
 
-                const userExist = users.find((user) => user.email === email && user.password === password)
+                    localStorage.setItem('currentUser', JSON.stringify(response))
 
-                if (!userExist) {
-                    document.querySelector('.error-message').innerText = 'Email hoặc mật khẩu không chính xác'
-                    return
+                    window.parent.postMessage(
+                        {
+                            type: 'modal:auth-success',
+                            data: { message: 'Đăng nhập thành công' },
+                        },
+                        '*'
+                    )
+                } catch (error) {
+                    document.querySelector('.error-message').innerText = error.message
                 }
-
-                localStorage.setItem('currentUser', JSON.stringify(userExist))
-
-                window.parent.postMessage(
-                    {
-                        type: 'modal:auth-success',
-                        data: { message: 'Đăng nhập thành công' },
-                    },
-                    '*'
-                )
             },
         })
     },
