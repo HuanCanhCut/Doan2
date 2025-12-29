@@ -535,7 +535,7 @@ const app = {
     },
 
     async init() {
-        middleware()
+        await middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
         this.handleLoadCategory()

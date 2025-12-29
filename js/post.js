@@ -400,8 +400,8 @@ const postApp = {
         document.querySelector('.post__form__select').innerHTML = htmls.join('')
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         defaultApp.init()
         new locationsDropdownApp(
             document.querySelector('#form__location'),

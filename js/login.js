@@ -45,8 +45,8 @@ const app = {
         })
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         this.handleEvent()
         this.handleLogin()
     },

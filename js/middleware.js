@@ -1,3 +1,5 @@
+import * as meServices from './services/meService.js'
+
 const PRIVATE_ROUTES = ['/post.html', '/agent_contracts.html', '/customer_contracts.html']
 const PUBLIC_ROUTES = ['/index.html', '/user.html', 'details.html', '/']
 const AUTH_ROUTES = ['/loginModal.html', '/registerModal.html']
@@ -9,8 +11,15 @@ const checkRoute = (routes) => {
     return routes.some((path) => (path === '/' ? pathname === '/' : pathname.startsWith(path)))
 }
 
-const middleware = () => {
-    const currentUser = localStorage.getItem('currentUser')
+const middleware = async () => {
+    let currentUser = null
+
+    try {
+        const { data: currentUser } = await meServices.getCurrentUser()
+        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+    } catch (error) {
+        localStorage.removeItem('currentUser')
+    }
 
     const isPrivateRoute = checkRoute(PRIVATE_ROUTES)
 

@@ -1,4 +1,4 @@
-const baseURL = 'https://localhost:8080'
+const baseURL = 'https://localhost:8080/api/'
 
 let isRefreshing = false
 let failedQueue = [{ resolve: () => {}, reject: () => {} }]

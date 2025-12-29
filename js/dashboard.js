@@ -745,8 +745,8 @@ const dashboardApp = {
             .join('')
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()

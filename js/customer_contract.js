@@ -1,5 +1,5 @@
 import middleware from './middleware.js'
-middleware();
+await middleware();
 
 function formatCurrency(v) {
   return (Number(v) || 0).toLocaleString('vi-VN') + ' ₫';
