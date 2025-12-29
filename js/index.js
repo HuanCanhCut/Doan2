@@ -1,11 +1,10 @@
 import defaultApp from './default.js'
 import getParentElement from './helpers/getParentElement.js'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
-import './popperWrapper.js'
 import { handleSetPosition } from './popperWrapper.js'
 import mockPosts from '../mocks/posts.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
-import { listenEvent } from './helpers/event.js'
+import { listenEvent, sendEvent } from './helpers/event.js'
 import { getDistrict, getProvince } from './helpers/getLocations.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import middleware from './middleware.js'
@@ -16,7 +15,7 @@ const resetPriceFilterButton = document.querySelector('.price_min_max_reset')
 const priceMinInput = document.querySelector('.price_min')
 const priceMaxInput = document.querySelector('.price_max')
 const filterItemDropdownButtons = document.querySelectorAll('.filter__item__dropdown--button')
-const filterItemCategoryButtons = document.querySelectorAll('.filter__item--category')
+const filterItemsCategoryWrapper = document.querySelector('.filter__items--category')
 const removeCategoryBtn = document.querySelector('.remove__category--btn')
 const postInner = document.querySelector('.post__inner')
 const collapseSidebarFilterButtons = document.querySelectorAll('.sidebar__filter--collapse')
@@ -48,27 +47,31 @@ const app = {
     postType: 'all', // all, agent, personal
 
     handleFilterPost() {
-        const filteredPosts = this.posts.filter((post) => {
-            const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
-            if (!matchCategory) return false
+        const filteredPosts = this.posts
+            .filter((post) => {
+                return post.status === 'Chưa bàn giao' && post.post_status === 'approved'
+            })
+            .filter((post) => {
+                const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
+                if (!matchCategory) return false
 
-            const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
-            if (!matchType) return false
+                const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
+                if (!matchType) return false
 
-            const matchPostType = this.postType === 'all' || post.role === this.postType
-            if (!matchPostType) return false
+                const matchPostType = this.postType === 'all' || post.role === this.postType
+                if (!matchPostType) return false
 
-            if (this.filters.price.active) {
-                const matchPrice =
-                    post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
-                if (!matchPrice) return false
-            }
+                if (this.filters.price.active) {
+                    const matchPrice =
+                        post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
+                    if (!matchPrice) return false
+                }
 
-            const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
-            if (!matchLocation) return false
+                const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
+                if (!matchLocation) return false
 
-            return true
-        })
+                return true
+            })
 
         return filteredPosts
     },
@@ -212,27 +215,33 @@ const app = {
         }
 
         // Filter by category
-        filterItemCategoryButtons.forEach((btn) => {
-            btn.onclick = () => {
-                if (this.filters.type.includes(btn.dataset.type)) {
-                    this.filters.type = this.filters.type.filter((type) => type !== btn.dataset.type)
-                } else {
-                    this.filters.type.push(btn.dataset.type)
-                }
+        filterItemsCategoryWrapper.onclick = (e) => {
+            if (e.target.closest('.filter__item--category')) {
+                const filterItemCategoryButtons = filterItemsCategoryWrapper.querySelectorAll('.filter__item--category')
 
                 filterItemCategoryButtons.forEach((btn) => {
-                    if (btn.classList.contains('active')) {
-                        return
+                    if (e.target.closest('.filter__item--category') === btn) {
+                        if (this.filters.type.includes(btn.dataset.type)) {
+                            this.filters.type = this.filters.type.filter((type) => type !== btn.dataset.type)
+                        } else {
+                            this.filters.type.push(btn.dataset.type)
+                        }
+
+                        filterItemCategoryButtons.forEach((btn) => {
+                            if (btn.classList.contains('active')) {
+                                return
+                            }
+
+                            btn.classList.remove('active')
+                        })
+
+                        btn.classList.toggle('active')
+
+                        this.handleRenderPost(this.handleFilterPost())
                     }
-
-                    btn.classList.remove('active')
                 })
-
-                btn.classList.toggle('active')
-
-                this.handleRenderPost(this.handleFilterPost())
             }
-        })
+        }
 
         postTabs.forEach((btn) => {
             btn.onclick = (e) => {
@@ -266,6 +275,15 @@ const app = {
                 if (e.target.closest('.post__item')) {
                     e.preventDefault()
                     e.stopPropagation()
+                }
+
+                if (!JSON.parse(localStorage.getItem('currentUser'))) {
+                    sendEvent({
+                        eventName: 'modal:auth-open',
+                        detail: 'loginModal',
+                    })
+
+                    return
                 }
 
                 e.target.closest('.post__item--heart').classList.toggle('active')
@@ -394,17 +412,26 @@ const app = {
 
     handleToggleLikePost(postId) {
         if (postId) {
-            let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+            let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
-            const postExist = postDb.find((post) => post === postId)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
-            if (postExist) {
-                postDb = postDb.filter((post) => post !== postId)
+            const favoritesExist = favoritesDb.find((favorite) => {
+                return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+            })
+
+            if (favoritesExist) {
+                favoritesDb = favoritesDb.filter(
+                    (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
+                )
             } else {
-                postDb = [...postDb, postId]
+                favoritesDb = [
+                    ...favoritesDb,
+                    { post_id: postId, user_id: JSON.parse(localStorage.getItem('currentUser')).id },
+                ]
             }
 
-            localStorage.setItem('favorites', JSON.stringify(postDb))
+            localStorage.setItem('favorites', JSON.stringify(favoritesDb))
         }
     },
 
@@ -475,7 +502,15 @@ const app = {
                             </div>
                         </div>
                         <button class="post__item--heart ${
-                            localStorage.getItem('favorites')?.includes(post.id) ? 'active' : ''
+                            JSON.parse(localStorage.getItem('currentUser'))
+                                ? JSON.parse(localStorage.getItem('favorites'))?.some(
+                                      (favorite) =>
+                                          favorite.post_id === post.id &&
+                                          favorite.user_id === JSON.parse(localStorage.getItem('currentUser')).id
+                                  )
+                                    ? 'active'
+                                    : ''
+                                : ''
                         }" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
@@ -486,10 +521,24 @@ const app = {
             .join('')
     },
 
+    handleLoadCategory() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const htmls = categories.map((category) => {
+            return `
+                <button class="filter__item--category" data-type="${category.key}">
+                    <span>${category.name}</span>
+                </button>
+            `
+        })
+
+        document.querySelector('.filter__items--category').innerHTML = htmls.join('')
+    },
+
     async init() {
         middleware()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost(this.handleFilterPost())
+        this.handleLoadCategory()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()

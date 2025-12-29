@@ -7,6 +7,7 @@ import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
 import convertConcurrency from './helpers/convertConcurrency.js'
 import getUrlSearchParams from './helpers/getURLSearchParams.js'
 import middleware from './middleware.js'
+import uploadToCloudinary from './helpers/uploadToCloudinary.js'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
@@ -81,6 +82,17 @@ const postApp = {
 
                 const postDb = JSON.parse(localStorage.getItem('posts')) || []
 
+                const images = await Promise.all(
+                    this.imagesFiles.map(async (image) => {
+                        const response = await uploadToCloudinary(
+                            image,
+                            'real_estate',
+                            `${image.name}-${window.crypto.randomUUID()}`
+                        )
+                        return response.secure_url
+                    })
+                )
+
                 if (this.postType === 'edit') {
                     const newPosts = postDb.map((post) => {
                         if (post.id === Number(this.postId)) {
@@ -89,14 +101,13 @@ const postApp = {
                                 ...newData,
                                 property_category: this.propertyCategory,
                                 role: this.roleType,
-                                images: this.imagesFiles.map(
-                                    () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
-                                ),
+                                images,
                                 project_type: this.categoryType,
                                 user_id: post.user_id,
                                 post_status: 'pending', // pending, approved, rejected
                                 created_at: post.created_at,
                                 updated_at: new Date(),
+                                status: 'Chưa bàn giao', // Chưa bàn giao, đã bàn giao
                             }
                         }
 
@@ -116,14 +127,13 @@ const postApp = {
                         ...newData,
                         property_category: this.propertyCategory,
                         role: this.roleType,
-                        images: this.imagesFiles.map(
-                            () => 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg'
-                        ),
+                        images,
                         project_type: this.categoryType,
                         user_id: postUser.id,
                         post_status: 'pending', // pending, approved, rejected
                         created_at: new Date(),
                         updated_at: new Date(),
+                        status: 'Chưa bàn giao', // Chưa bàn giao, đã bàn giao
                     }
 
                     postDb.push(updatedData)
@@ -379,6 +389,17 @@ const postApp = {
         }
     },
 
+    handleLoadCategory() {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const htmls = categories.map((category) => {
+            return `
+                <option value="${category.key}">Bất động sản - ${category.name}</option>
+            `
+        })
+
+        document.querySelector('.post__form__select').innerHTML = htmls.join('')
+    },
+
     init() {
         middleware()
         defaultApp.init()
@@ -403,6 +424,7 @@ const postApp = {
 
         // if mode is edit, fill form data
         this.fillFormData()
+        this.handleLoadCategory()
         this.handleValidator()
         this.handleEvent()
     },

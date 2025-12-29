@@ -19,9 +19,6 @@ const detailsUnitPrice = document.querySelector('.details__info--unit__price')
 const detailsAcreageValue = document.querySelector('.details__info--acreage__value')
 const detailsLocationValue = document.querySelector('.details__info--location__value')
 const detailsLocationUpdated = document.querySelector('.details__info--location__updated')
-const commentInput = document.querySelector('textarea[name="comment-input"]')
-const commentSubmit = document.querySelector('.comment--input__submit')
-const postComments = document.querySelector('.post__comment__wrapper__container')
 
 const postActionsDeleteBtn = document.querySelector('.post__actions__button--delete')
 const postActionsEditBtn = document.querySelector('.post__actions__button--edit')
@@ -31,7 +28,6 @@ const confirmModalButtonConfirm = document.querySelector('.confirm__modal__butto
 const postId = Number(getUrlSearchParams('post_id'))
 const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
 const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
-let comments = JSON.parse(localStorage.getItem('comments'))?.filter((comment) => comment.post_id === postId) || []
 
 let activeImageIndex = 0
 
@@ -75,11 +71,11 @@ function loadPostDetails() {
     detailsTypeType.textContent = currentPost.detail.type
 
     if (currentPost.detail.price.length < 7) {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000} nghìn`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000).toLocaleString('vi-VN')} nghìn`
     } else if (currentPost.detail.price.length >= 7 && currentPost.detail.price.length <= 9) {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000000} triệu`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000).toLocaleString('vi-VN')} triệu`
     } else {
-        detailsPrice.textContent = `${Number(currentPost.detail.price) / 1000000000} tỷ`
+        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000000).toLocaleString('vi-VN')} tỷ`
     }
 
     detailsUnitPrice.textContent = Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)
@@ -87,6 +83,19 @@ function loadPostDetails() {
 
     detailsLocationValue.textContent = currentPost.address
     detailsLocationUpdated.textContent = `${momentTimezone(currentPost.created_at)}`
+
+    // check if the post is in the favorites
+    const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+    const favoritesExist = favoritesDb.find((favorite) => {
+        return (
+            favorite.post_id === Number(postId) &&
+            favorite.user_id === JSON.parse(localStorage.getItem('currentUser'))?.id
+        )
+    })
+
+    if (favoritesExist) {
+        detailsInfoSave.classList.add('active')
+    }
 }
 
 imagesList.addEventListener('click', (e) => {
@@ -120,19 +129,35 @@ prevImageBtn.addEventListener('click', () => {
 })
 
 detailsInfoSave.addEventListener('click', () => {
-    detailsInfoSave.classList.toggle('active')
+    let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
-    let postDb = JSON.parse(localStorage.getItem('favorites')) || []
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
-    const postExist = postDb.find((post) => post === postId)
+    if (!currentUser) {
+        // open login modal
+        sendEvent({
+            eventName: 'modal:auth-open',
+            detail: 'loginModal',
+        })
 
-    if (postExist) {
-        postDb = postDb.filter((post) => post !== postId)
-    } else {
-        postDb.push(postId)
+        return
     }
 
-    localStorage.setItem('favorites', JSON.stringify(postDb))
+    detailsInfoSave.classList.toggle('active')
+
+    const favoritesExist = favoritesDb.find((favorite) => {
+        return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+    })
+
+    if (favoritesExist) {
+        favoritesDb = favoritesDb.filter(
+            (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
+        )
+    } else {
+        favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(favoritesDb))
 })
 
 function renderDetails() {
@@ -309,216 +334,6 @@ document.querySelector('.details__user__info__wrapper').onclick = (e) => {
     }
 }
 
-const handleLoadComments = () => {
-    if (comments.length > 0) {
-        postComments.classList.add('has-comments')
-        handleRenderComment(comments)
-    } else {
-        postComments.classList.remove('has-comments')
-    }
-}
-
-const handleReplyComment = (commentId) => {
-    const comment = comments.find((comment) => comment.id === commentId)
-    const commentUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === comment.user_id)
-
-    commentInput.focus()
-
-    document.querySelector('.reply--input__wrapper').classList.add('active')
-    document.querySelector('.reply--input__wrapper').dataset.commentId = commentId
-    document.querySelector('.reply--input__wrapper__user').textContent = commentUser.full_name
-    document.querySelector('.reply--input__wrapper__content').textContent = comment.content
-}
-
-const renderCommentItem = (comment, allComments, level = 0) => {
-    const commentUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === comment.user_id)
-    const replies = allComments.filter((cmt) => cmt.parent_id === comment.id)
-    const replyCount = replies.length
-
-    const parentComment = allComments.find((cmt) => cmt.id === comment.parent_id)
-    const userParentComment = JSON.parse(localStorage.getItem('users')).find(
-        (user) => user?.id === parentComment?.user_id
-    )
-
-    const commentHTML = `
-        <div class="comment--item" style="margin-left: ${level < 3 ? level * 40 : 80}px">
-            <div class="comment--item__avatar">
-                <img
-                    src="${commentUser.avatar}"
-                    alt="${commentUser.full_name}"
-                    onerror="this.src='/public/static/fallback.png'"
-                />
-            </div>
-            <div class="comment--item__content__wrapper">
-                <div class="comment--item__content">
-                    <h5>${commentUser.full_name}</h5>
-                    <p><span class="comment--item__content--reply--user">${
-                        comment.parent_id ? `${userParentComment.full_name} ` : ''
-                    }</span>${comment.content}</p>
-                </div>
-                <div class="comment--item__meta">
-                    <span class="comment--item__time">${momentTimezone(comment.created_at).replace('trước', '')}</span>
-                    <div class="comment--item__actions">
-                        <button class="comment--item__action" data-comment-id="${comment.id}">
-                            <i class="fa-regular fa-comment"></i> Trả lời
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `
-
-    let repliesHTML = ''
-
-    if (replyCount > 0) {
-        repliesHTML = `
-            <div class="replies--wrapper">
-                <button class="reply--count active" data-parent-comment-id="${comment.id}" style="margin-left: ${
-            level < 3 ? (level + 1) * 40 + 14 : 140
-        }px; display: ${comment.is_show_replies ? 'none' : 'block'}">
-                    Xem ${replyCount} phản hồi
-                </button>
-                <div class="replies--container" style="display: ${comment.is_show_replies ? 'block' : 'none'}">
-                    ${replies.map((reply) => renderCommentItem(reply, allComments, level + 1)).join('')}
-                </div>
-            </div>
-        `
-    }
-
-    return commentHTML + repliesHTML
-}
-
-const handleRenderComment = (comments) => {
-    const rootComments = comments.filter((comment) => !comment.parent_id)
-
-    const htmls = rootComments.map((comment) => renderCommentItem(comment, comments)).join('')
-    document.querySelector('.comment--list').innerHTML = htmls
-}
-
-const handleComment = () => {
-    const value = commentInput.value
-
-    if (value.trim() === '') {
-        return
-    }
-
-    const replyCommentId = document.querySelector('.reply--input__wrapper.active')?.dataset.commentId
-
-    const comment = {
-        id: comments.length > 0 ? comments[comments.length - 1].id + 1 : 1,
-        post_id: postId,
-        content: value,
-        parent_id: Number(replyCommentId) || null,
-        user_id: postUser.id,
-        created_at: new Date(),
-        updated_at: new Date(),
-    }
-
-    comments.push(comment)
-
-    if (replyCommentId) {
-        comments = comments.map((cmt) => {
-            if (cmt.id === Number(replyCommentId)) {
-                return {
-                    ...cmt,
-                    children: [...(cmt.children || []), comment],
-                    is_show_replies: true,
-                }
-            }
-
-            return cmt
-        })
-    }
-
-    const handleRemoveIsShowReplies = (comments) => {
-        return comments.map((cmt) => {
-            // eslint-disable-next-line no-unused-vars
-            const { is_show_replies, children, ...cleanComment } = cmt
-            return cleanComment
-        })
-    }
-
-    localStorage.setItem('comments', JSON.stringify(handleRemoveIsShowReplies(comments)))
-
-    commentInput.value = ''
-
-    document.querySelector('.reply--input__wrapper').classList.remove('active')
-
-    handleRenderComment(comments)
-
-    postComments.classList.add('has-comments')
-}
-
-commentInput.oninput = (e) => {
-    if (e.target.value.split('\n').length === 1) {
-        commentInput.style.overflow = 'hidden'
-    } else {
-        commentInput.style.overflow = 'auto'
-    }
-
-    commentInput.style.height = 'auto'
-    commentInput.style.height = commentInput.scrollHeight + 'px'
-}
-
-commentInput.onkeydown = (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault()
-
-        handleComment()
-    }
-}
-
-commentSubmit.addEventListener('click', () => {
-    handleComment()
-})
-
-document.querySelector('.comment--list').addEventListener('click', (e) => {
-    // handle when click reply comment
-    if (e.target.closest('.comment--item__action')) {
-        const commentId = e.target.dataset.commentId
-        handleReplyComment(Number(commentId))
-    }
-
-    // handle when click show more replies
-    if (e.target.closest('.reply--count')) {
-        const button = e.target.closest('.reply--count')
-
-        const repliesContainer = button.nextElementSibling
-
-        if (repliesContainer && repliesContainer.classList.contains('replies--container')) {
-            const parentCommentId = button.dataset.parentCommentId
-
-            const isVisible = repliesContainer.style.display !== 'none'
-
-            const handleShowReplies = (cmt, value) => {
-                if (cmt.id === parentCommentId) {
-                    return {
-                        ...cmt,
-                        is_show_replies: value,
-                    }
-                }
-            }
-
-            if (isVisible) {
-                repliesContainer.style.display = 'none'
-                const replyCount = button.textContent.match(/\d+/)[0]
-                button.textContent = `Xem ${replyCount} phản hồi`
-
-                handleShowReplies(comments, false)
-            } else {
-                repliesContainer.style.display = 'block'
-                button.style.display = 'none'
-
-                handleShowReplies(comments, true)
-            }
-        }
-    }
-})
-
-document.querySelector('.reply--input__wrapper__close').addEventListener('click', () => {
-    document.querySelector('.reply--input__wrapper').classList.remove('active')
-})
-
 postActionsDeleteBtn.addEventListener('click', () => {
     document.querySelector('.confirm__modal').classList.add('active')
     document.querySelector('#overlay').classList.add('active')
@@ -554,12 +369,26 @@ postActionsEditBtn.onclick = () => {
     window.location.href = `/post.html?post_id=${postId}&type=edit`
 }
 
+function loadPostManagement() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+    if (!currentUser) {
+        document.querySelector('.post__actions__wrapper').style.display = 'none'
+        return
+    }
+
+    if (currentUser.id !== postUser.id) {
+        document.querySelector('.post__actions__wrapper').style.display = 'none'
+        return
+    }
+}
+
 renderImages()
 handleLoadCurrentImage(activeImageIndex)
 loadPostDetails()
 renderDetails()
 renderDescription()
-handleLoadComments()
 renderUserPost()
+loadPostManagement()
 
 defaultApp.init()

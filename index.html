@@ -183,6 +183,11 @@
                                         <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
                                     </a>
                                 </li>
+                                <li hidden id="header__user__action--dashboard">
+                                    <a href="dashboard.html" class="header__user__action--dashboard">
+                                        <span><i class="fa-solid fa-chart-line"></i>Dashboard</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="" class="header__user__action--favorite">
                                         <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
@@ -228,6 +233,12 @@
                                 <a href="/">
                                     <i class="fa-solid fa-house"></i>
                                     <p>Trang chủ</p>
+                                </a>
+                            </li>
+                            <li hidden id="sidebar__menu__item--dashboard">
+                                <a href="dashboard.html">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
                             <li>
@@ -324,25 +335,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter__items">
-                            <!-- Loại Bất Động Sản -->
-                            <button class="filter__item--category" data-type="apartment">
-                                <img src="/public/static/categories/apartment.svg" alt="" />
-                                <span>Căn hộ/Chung cư</span>
-                            </button>
-                            <button class="filter__item--category" data-type="house">
-                                <img src="/public/static/categories/house.svg" alt="" />
-                                <span>Nhà ở</span>
-                            </button>
-                            <button class="filter__item--category" data-type="land">
-                                <img src="/public/static/categories/land.svg" alt="" />
-                                <span>Đất nền</span>
-                            </button>
-                            <button class="filter__item--category" data-type="room">
-                                <img src="/public/static/categories/room.svg" alt="" />
-                                <span>Phòng trọ</span>
-                            </button>
-                        </div>
+                        <div class="filter__items filter__items--category"></div>
                     </div>
                 </div>
 

@@ -11,7 +11,7 @@ const authBtn = document.querySelector('.header__actions__button--auth')
 const modal = document.querySelector('#modal')
 const overlay = document.querySelector('#overlay')
 const userAvatar = document.querySelector('.header__actions__user img')
-const logoutBtn = document.querySelector('.header__user__action--logout button')
+const logoutBtn = document.querySelector('.header__user__action--logout')
 const headerSearchInput = document.querySelector('.header__search__input')
 
 const defaultApp = {
@@ -31,7 +31,7 @@ const defaultApp = {
                         type: 'success',
                     })
 
-                    this.handleLoadUI()
+                    window.location.reload()
 
                     break
                 case 'modal:toast-success':
@@ -81,8 +81,6 @@ const defaultApp = {
             localStorage.removeItem('currentUser')
 
             window.location.reload()
-
-            // this.handleLoadUI()
         }
 
         headerSearchInput.oninput = (e) => {
@@ -200,6 +198,11 @@ const defaultApp = {
             document.querySelectorAll('.header__user__action--favorite').forEach((item) => {
                 item.setAttribute('href', `user.html?nickname=${currentUser.nickname}&active_tab=favorites`)
             })
+
+            if (currentUser.role === 'admin') {
+                document.querySelector('#header__user__action--dashboard').removeAttribute('hidden')
+                document.querySelector('#sidebar__menu__item--dashboard').removeAttribute('hidden')
+            }
         } else {
             document.querySelector('.header__actions--post').classList.add('col-hidden')
             document.querySelector('.header__actions--auth').classList.remove('col-hidden')

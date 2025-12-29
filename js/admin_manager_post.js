@@ -1,5 +1,8 @@
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
+import middleware from './middleware.js'
+
+middleware()
 
 const searchInput = document.getElementById('search-input')
 const resetBtn = document.getElementById('reset-btn')
@@ -74,13 +77,6 @@ function handleLoadOverview(posts) {
 }
 
 function handleLoadPosts(posts) {
-    const categoriesMapping = {
-        apartment: 'Căn hộ/Chung cư',
-        house: 'Nhà riêng',
-        land: 'Đất nền',
-        room: 'Phòng trọ',
-    }
-
     const projectTypeMapping = {
         sell: 'Bán',
         rent: 'Cho thuê',
@@ -91,6 +87,8 @@ function handleLoadPosts(posts) {
         approved: 'Đã duyệt',
         rejected: 'Bị từ chối',
     }
+
+    const categories = JSON.parse(localStorage.getItem('categories')) || []
 
     postsTableBody.innerHTML = posts
         .map((post, index) => {
@@ -112,7 +110,9 @@ function handleLoadPosts(posts) {
                             ? 'background: #e3f2fd; color: #2196f3'
                             : 'background: #f3e5f5; color: #9c27b0'
                     }" class="post__category">
-                    ${projectTypeMapping[post.project_type]}-${categoriesMapping[post.property_category]}</span>
+                    ${projectTypeMapping[post.project_type]}-${
+                categories.find((category) => category.key === post.property_category)?.name
+            }</span>
                 </td>
                 <td>
                     <span class="post__price">${handleConvertPrice(post.detail.price.toString())}</span>
@@ -375,6 +375,22 @@ document.querySelector('#select-all').onchange = (e) => {
     }
     handleLoadPosts(currentPost)
 }
+
+function handleLoadCategories() {
+    const categories = JSON.parse(localStorage.getItem('categories')) || []
+
+    categoryFilter.innerHTML = categories
+        .map((category, index) => {
+            return `
+                ${index === 0 ? '<option value="all">Tất cả danh mục</option>' : ''}
+
+                <option value="${category.key}">Bất động sản - ${category.name}</option>
+            `
+        })
+        .join('')
+}
+
+handleLoadCategories()
 
 handleLoadPosts(currentPost)
 handleLoadOverview(currentPost)

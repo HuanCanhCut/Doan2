@@ -183,6 +183,11 @@
                                         <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
                                     </a>
                                 </li>
+                                <li hidden id="header__user__action--dashboard">
+                                    <a href="dashboard.html" class="header__user__action--dashboard">
+                                        <span><i class="fa-solid fa-chart-line"></i>Dashboard</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="" class="header__user__action--favorite">
                                         <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
@@ -228,6 +233,12 @@
                                 <a href="/">
                                     <i class="fa-solid fa-house"></i>
                                     <p>Trang chủ</p>
+                                </a>
+                            </li>
+                            <li hidden id="sidebar__menu__item--dashboard">
+                                <a href="dashboard.html">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
                             <li>
@@ -367,9 +378,9 @@
                                         >
                                     </button>
                                     <button class="post__manager__tabs--button" data-type="favorites">
-                                        <i class="fa-regular fa-truck"></i>
+                                        <i class="fa-regular fa-heart"></i>
                                         <span
-                                            >Bài viết yêu thích
+                                            >Bài viết đã thích
                                             <span class="post__manager__tabs--button--count" data-type="favorites"
                                                 >(0)</span
                                             ></span

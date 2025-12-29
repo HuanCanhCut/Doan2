@@ -183,6 +183,11 @@
                                         <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
                                     </a>
                                 </li>
+                                <li hidden id="header__user__action--dashboard">
+                                    <a href="dashboard.html" class="header__user__action--dashboard">
+                                        <span><i class="fa-solid fa-chart-line"></i>Dashboard</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="" class="header__user__action--favorite">
                                         <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
@@ -228,6 +233,12 @@
                                 <a href="/">
                                     <i class="fa-solid fa-house"></i>
                                     <p>Trang chủ</p>
+                                </a>
+                            </li>
+                            <li hidden id="sidebar__menu__item--dashboard">
+                                <a href="dashboard.html">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
                             <li>
@@ -292,12 +303,7 @@
                                         Danh mục tin đăng <span class="field--required">*</span>
                                     </h4>
                                     <div class="post__form__field">
-                                        <select class="post__form__select" id="property-category">
-                                            <option value="apartment">Bất động sản - Căn hộ/Chung cư</option>
-                                            <option value="house">Bất động sản - Nhà ở</option>
-                                            <option value="land">Bất động sản - Đất nền</option>
-                                            <option value="room">Bất động sản - Phòng trọ</option>
-                                        </select>
+                                        <select class="post__form__select" id="property-category"></select>
                                     </div>
 
                                     <div class="post__form__radio-group">

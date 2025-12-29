@@ -195,6 +195,11 @@
                                         <span><i class="fa-solid fa-user"></i> Thông tin tài khoản</span>
                                     </a>
                                 </li>
+                                <li hidden id="header__user__action--dashboard">
+                                    <a href="dashboard.html" class="header__user__action--dashboard">
+                                        <span><i class="fa-solid fa-chart-line"></i>Dashboard</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="" class="header__user__action--favorite">
                                         <span><i class="fa-solid fa-heart"></i> Tin đã thích</span>
@@ -240,6 +245,12 @@
                                 <a href="/">
                                     <i class="fa-solid fa-house"></i>
                                     <p>Trang chủ</p>
+                                </a>
+                            </li>
+                            <li hidden id="sidebar__menu__item--dashboard">
+                                <a href="dashboard.html">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
                             <li>
@@ -363,54 +374,13 @@
                         <div class="col col-12 md:col-5">
                             <div class="details__interaction__wrapper">
                                 <div class="post__actions__wrapper">
-                                    <h3>Quản lí bài viết</h3>
+                                    <h3>Quản lý bài viết</h3>
                                     <div class="post__actions__buttons">
                                         <button class="button--outline post__actions__button--delete">Xóa</button>
                                         <button class="button--primary post__actions__button--edit">Chỉnh sửa</button>
                                     </div>
                                 </div>
                                 <div class="details__user__info__wrapper"></div>
-                                <div class="post__comment__wrapper">
-                                    <h4>Bình luận</h4>
-
-                                    <div class="post__comment__wrapper__container">
-                                        <div class="comment--empty">
-                                            <i class="fa-regular fa-comments"></i>
-                                            <div>
-                                                <p>Chưa có bình luận nào</p>
-                                                <p>Hãy để lại bình luận cho người bán</p>
-                                            </div>
-                                        </div>
-                                        <div class="comment--list"></div>
-                                    </div>
-
-                                    <div class="comment--input__wrapper">
-                                        <div class="reply--input__wrapper">
-                                            Đang trả lời bình luận của
-                                            <span class="reply--input__wrapper__user">John Doe</span>
-                                            <button class="reply--input__wrapper__close">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                            <p class="reply--input__wrapper__content">zzzzzzzzz</p>
-                                        </div>
-                                        <div class="comment--input__form">
-                                            <img
-                                                src="https://maunailxinh.com/wp-content/uploads/2025/05/anh-meo-gian-cute-1.jpg"
-                                                alt="User"
-                                                class="comment--input__avatar"
-                                            />
-                                            <textarea
-                                                class="comment--input__field"
-                                                rows="1"
-                                                name="comment-input"
-                                                placeholder="Bình luận..."
-                                            ></textarea>
-                                            <button type="button" class="comment--input__submit">
-                                                <i class="fa-solid fa-paper-plane"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

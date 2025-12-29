@@ -36,7 +36,7 @@ postManagerTabs.forEach((tab) => {
 
         currentTab = tab.dataset.type
 
-        window.history.replaceState({}, '', `/user?nickname=${user.nickname}&active_tab=${currentTab}`)
+        window.history.replaceState({}, '', `/user.html?nickname=${user.nickname}&active_tab=${currentTab}`)
 
         renderUserPost(currentTab)
     }
@@ -49,7 +49,7 @@ editProfileBtn.onclick = () => {
 }
 
 // load ui based on current user
-if (currentUser.id !== user.id) {
+if (currentUser?.id !== user.id) {
     editProfileBtn.style.display = 'none'
 
     document.querySelectorAll('.post__manager__tabs--button').forEach((tab) => {
@@ -108,9 +108,14 @@ const renderUserPost = (activeTab = currentTab) => {
             })
             break
         case 'favorites':
+            const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+
             posts = posts.filter((post) => {
-                return JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+                return favoritesDb.find(
+                    (favorite) => Number(favorite.post_id) === post.id && favorite.user_id === user.id
+                )
             })
+
             break
         default:
             posts = []
@@ -119,7 +124,10 @@ const renderUserPost = (activeTab = currentTab) => {
 
     document.querySelector('.post__inner__wrapper').innerHTML = posts
         .map((post) => {
-            const isFavorite = JSON.parse(localStorage.getItem('favorites'))?.includes(post.id)
+            const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+            const isFavorite = favoritesDb.find(
+                (favorite) => favorite.post_id === post.id && favorite.user_id === user.id
+            )
 
             return `
             <a href="/details.html?post_id=${post.id}" class="col col-6 sm:col-6 md:col-4 lg:col-3 xl:col-2">
@@ -166,7 +174,7 @@ window.addEventListener('message', (e) => {
             {
                 const updatedUser = e.data.data
 
-                window.history.replaceState({}, '', `/user?nickname=${updatedUser.nickname}`)
+                window.history.replaceState({}, '', `/user.html?nickname=${updatedUser.nickname}`)
                 loadUserProfile(updatedUser)
             }
 
@@ -210,7 +218,9 @@ document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) =
             break
         case 'favorites':
             {
-                const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+                const favorites = (JSON.parse(localStorage.getItem('favorites')) || []).filter((favorite) => {
+                    return favorite.user_id === user.id
+                })
 
                 tab.textContent = `(${favorites.length})`
             }
@@ -230,21 +240,31 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
 
         const heart = e.target.closest('.post__item--heart')
 
-        heart.classList.toggle('active')
+        const postId = heart.dataset.postId
 
-        let postDb = JSON.parse(localStorage.getItem('favorites')) || []
-
-        const postId = Number(heart.dataset.postId)
-
-        const postExist = postDb.find((post) => post === postId)
-
-        if (postExist) {
-            postDb = postDb.filter((post) => post !== postId)
-        } else {
-            postDb.push(postId)
+        if (!postId) {
+            return
         }
 
-        localStorage.setItem('favorites', JSON.stringify(postDb))
+        heart.classList.toggle('active')
+
+        let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+        const favoritesExist = favoritesDb.find((favorite) => {
+            return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
+        })
+
+        if (favoritesExist) {
+            favoritesDb = favoritesDb.filter(
+                (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
+            )
+        } else {
+            favoritesDb = [...favoritesDb, { post_id: postId, user_id: currentUser.id }]
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(favoritesDb))
     }
 }
 

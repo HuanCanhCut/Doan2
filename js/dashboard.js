@@ -6,6 +6,7 @@ const toDateInput = document.querySelector('input[name="to_date"]')
 const filterBtn = document.querySelector('.filter--btn')
 
 const addCategoryBtn = document.querySelector('.button--add--category')
+const updateCategoryBtn = document.querySelector('.button--update--category')
 const categoryNameInput = document.querySelector('input[name="category_name"]')
 const categoryKeyInput = document.querySelector('input[name="category_key"]')
 const categoryManagementBodyContent = document.querySelector('.category__management__body--content')
@@ -20,12 +21,7 @@ const dashboardApp = {
         timeZone: 'Asia/Ho_Chi_Minh',
     }),
 
-    translatedCategories: {
-        apartment: 'Căn hộ/Chung cư',
-        house: 'Nhà ở',
-        land: 'Đất nền',
-        room: 'Phòng trọ',
-    },
+    currentCategoryId: null,
 
     handleLoadDate() {
         // default load 30 days ago
@@ -272,10 +268,14 @@ const dashboardApp = {
     },
 
     groupPostsByCategory(posts) {
+        const categories = JSON.parse(localStorage.getItem('categories')) || []
+
         return posts.reduce((acc, curr) => {
             if (!acc[curr.property_category]) {
                 acc[curr.property_category] = {
-                    name: curr.property_category,
+                    name:
+                        categories.find((category) => category.key === curr.property_category)?.name ||
+                        curr.property_category,
                     value: 0,
                     color: this.getRandomColor(),
                 }
@@ -346,7 +346,7 @@ const dashboardApp = {
                 return `
                     <div class="chart__item--donut--info--item">
                         <div class="chart__item--donut--info--item--color" style="background-color: ${colors[index]}"></div>
-                        <span class="chart__item--donut--info--item--name">${this.translatedCategories[item]}</span>
+                        <span class="chart__item--donut--info--item--name">${groupedPosts[item].name}</span>
                     </div>
             `
             })
@@ -370,9 +370,7 @@ const dashboardApp = {
         }, {})
 
         // only show 8 location stats
-        let locationStatsSorted = Object.values(groupedPosts)
-            .sort((a, b) => b.value - a.value)
-            .slice(0, 8)
+        let locationStatsSorted = Object.values(groupedPosts).sort((a, b) => b.value - a.value)
 
         const dateDiff = (new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24)
 
@@ -453,7 +451,7 @@ const dashboardApp = {
             .join('')
     },
 
-    handleLoadUserStats() {
+    handleLoadUser() {
         let users = JSON.parse(localStorage.getItem('users')) || []
 
         users = users.map((user) => {
@@ -463,13 +461,9 @@ const dashboardApp = {
             }
         })
 
-        users = users
-            .sort((a, b) => b.post_amount - a.post_amount)
-            .slice(0, 8)
-            .filter((user) => user.post_amount > 0)
-
-        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users.map((user) => {
-            return `
+        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users
+            .map((user) => {
+                return `
                 <div class="row">
                     <div class="col col-6">
                         <div
@@ -478,7 +472,6 @@ const dashboardApp = {
                             <img
                                 src="${user.avatar}"
                                 alt=""
-                                class="md:col-block col-hidden"
                                 onerror="this.src='/public/static/fallback.png'"
                             />
                             <div class="user__stats--item--content--info">
@@ -496,14 +489,18 @@ const dashboardApp = {
                     </div>
                     <div class="col col-3">
                         <div class="user__stats--item--content">
-                            <a href="/user?nickname=${user.nickname} ">
+                            <a href="/user.html?nickname=${user.nickname} ">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
+                            <button title="Xóa" class="user__stats--item--content--delete" data-user-id="${user.id}">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             `
-        })
+            })
+            .join('')
     },
 
     handleEvent() {
@@ -530,24 +527,30 @@ const dashboardApp = {
             this.handleDonutChart()
             this.handleLineChart()
             this.handleLoadLocationStats()
-            this.handleLoadUserStats()
+            this.handleLoadUser()
         }
 
         addCategoryBtn.onclick = () => {
-            this.handleAddCategory()
+            this.handleModifyCategory()
+        }
+
+        updateCategoryBtn.onclick = () => {
+            this.handleModifyCategory('update')
         }
 
         // handle submit when click enter in categoryKeyInput or categoryNameInput
         Array.from([categoryKeyInput, categoryNameInput]).forEach((input) => {
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
-                    this.handleAddCategory()
+                    this.handleModifyCategory()
                 }
             })
         })
 
         categoryManagementBodyContent.onclick = (e) => {
             if (e.target.closest('.action__btn--edit')) {
+                this.currentCategoryId = Number(e.target.closest('.action__btn--edit').dataset.categoryId)
+
                 const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
                 const categoryId = e.target.closest('.action__btn--edit').dataset.categoryId
 
@@ -590,9 +593,52 @@ const dashboardApp = {
                 }
             }
         }
+
+        document.querySelector('.user__stats--item--content--wrapper').onclick = (e) => {
+            if (e.target.closest('.user__stats--item--content--delete')) {
+                const userId = Number(e.target.closest('.user__stats--item--content--delete').dataset.userId)
+
+                if (!confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+                    return
+                }
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+
+                if (userId === currentUser?.id) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Bạn không thể xóa chính mình',
+                        type: 'error',
+                    })
+                }
+
+                let usersDb = JSON.parse(localStorage.getItem('users')) || []
+
+                if (usersDb.find((user) => user.id === userId).length === 0) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Người dùng không tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
+                usersDb = usersDb.filter((user) => user.id !== userId)
+
+                localStorage.setItem('users', JSON.stringify(usersDb))
+
+                this.handleLoadUser()
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Người dùng đã được xóa',
+                    type: 'success',
+                })
+            }
+        }
     },
 
-    handleAddCategory() {
+    handleModifyCategory(type = 'add') {
         if (categoryNameInput.value === '' || categoryKeyInput.value === '') {
             toast({
                 title: 'Thông báo',
@@ -602,36 +648,71 @@ const dashboardApp = {
             return
         }
 
-        const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
+        let categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
 
-        // check if category name or key already exists
-        if (
-            categoriesDb.some(
-                (category) =>
-                    category.name === categoryNameInput.value.trim() || category.key === categoryKeyInput.value.trim()
-            )
-        ) {
-            toast({
-                title: 'Thông báo',
-                message: 'Tên danh mục hoặc key đã tồn tại',
-                type: 'error',
-            })
-            return
+        switch (type) {
+            case 'add':
+                // check if category name or key already exists
+                if (
+                    categoriesDb.some(
+                        (category) =>
+                            category.name === categoryNameInput.value.trim() ||
+                            category.key === categoryKeyInput.value.trim()
+                    )
+                ) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Tên danh mục hoặc key đã tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
+                categoriesDb.push({
+                    id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
+                    name: categoryNameInput.value.trim(),
+                    key: categoryKeyInput.value.trim(),
+                })
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Danh mục đã được thêm thành công',
+                    type: 'success',
+                })
+                break
+            case 'update':
+                // check if category id not found
+                if (categoriesDb.find((category) => category.id === this.currentCategoryId).length === 0) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Danh mục không tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
+                categoriesDb = categoriesDb.map((category) => {
+                    if (category.id === this.currentCategoryId) {
+                        return {
+                            ...category,
+                            name: categoryNameInput.value.trim(),
+                            key: categoryKeyInput.value.trim(),
+                        }
+                    }
+                    return category
+                })
+
+                toast({
+                    title: 'Thành công',
+                    message: 'Danh mục đã được cập nhật thành công',
+                    type: 'success',
+                })
+                break
+            default:
+                break
         }
 
-        categoriesDb.push({
-            id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
-            name: categoryNameInput.value.trim(),
-            key: categoryKeyInput.value.trim(),
-        })
-
         localStorage.setItem('categories', JSON.stringify(categoriesDb))
-
-        toast({
-            title: 'Thành công',
-            message: 'Danh mục đã được thêm thành công',
-            type: 'success',
-        })
 
         categoryNameInput.value = ''
         categoryKeyInput.value = ''
@@ -642,6 +723,8 @@ const dashboardApp = {
     },
 
     handleLoadCategoryManagement() {
+        this.currentCategoryId = null
+
         const categories = JSON.parse(localStorage.getItem('categories')) || []
 
         categoryManagementBodyContent.innerHTML = categories
@@ -669,7 +752,7 @@ const dashboardApp = {
         this.handleDonutChart()
         this.handleLoadCategoryManagement()
         this.handleLoadLocationStats()
-        this.handleLoadUserStats()
+        this.handleLoadUser()
         this.handleEvent()
     },
 }
