@@ -18,3 +18,11 @@ export const register = async (email, password) => {
         throw error
     }
 }
+
+export const logout = async () => {
+    try {
+        await fetchClient.post('auth/logout')
+    } catch (error) {
+        throw error
+    }
+}

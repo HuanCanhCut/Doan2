@@ -30,7 +30,7 @@ const app = {
                 const { email, password } = data
 
                 try {
-                    await authService.register(email, password)
+                    const { data: newUser } = await authService.register(email, password)
 
                     localStorage.setItem('currentUser', JSON.stringify(newUser))
 

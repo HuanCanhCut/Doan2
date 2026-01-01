@@ -4,6 +4,7 @@ import sidebarApp from './sidebar.js'
 import { listenEvent, sendEvent } from './helpers/event.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import mockPosts from '../mocks/posts.js'
+import * as authService from './services/authService.js'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -77,10 +78,17 @@ const defaultApp = {
             document.querySelector('.header__actions__user__wrapper').classList.toggle('active')
         }
 
-        logoutBtn.onclick = () => {
-            localStorage.removeItem('currentUser')
-
-            window.location.reload()
+        logoutBtn.onclick = async () => {
+            try {
+                await authService.logout()
+                window.location.reload()
+            } catch (error) {
+                toast({
+                    title: 'Thất bại',
+                    message: error.message,
+                    type: 'error',
+                })
+            }
         }
 
         headerSearchInput.oninput = (e) => {
