@@ -16,7 +16,7 @@ const processQueue = (error) => {
 
 const refreshToken = async () => {
     try {
-        await fetch(`${baseURL}/auth/refresh`, {
+        await fetch(`${baseURL}auth/refresh`, {
             method: 'GET',
             credentials: 'include',
         })

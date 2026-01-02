@@ -4,7 +4,7 @@ export const login = async (email, password) => {
     try {
         const response = await fetchClient.post('auth/login', { email, password })
 
-        return response.json()
+        return await response.json()
     } catch (error) {
         throw error
     }
@@ -13,7 +13,7 @@ export const login = async (email, password) => {
 export const register = async (email, password) => {
     try {
         const response = await fetchClient.post('auth/register', { email, password })
-        return response.json()
+        return await response.json()
     } catch (error) {
         throw error
     }
