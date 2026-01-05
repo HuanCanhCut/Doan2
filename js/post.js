@@ -8,6 +8,8 @@ import convertConcurrency from './helpers/convertConcurrency.js'
 import getUrlSearchParams from './helpers/getURLSearchParams.js'
 import middleware from './middleware.js'
 import uploadToCloudinary from './helpers/uploadToCloudinary.js'
+import * as categoriesServices from './services/categoryService.js'
+import * as postsServices from './services/postService.js'
 
 const categoryBtnsOption = document.querySelectorAll('.post__form__radio')
 const roleBtnsOption = document.querySelectorAll('.post__form__role')
@@ -17,14 +19,15 @@ const concurrencyInputs = document.querySelectorAll('input[data-concurrency]')
 const propertyCategorySelect = document.querySelector('#property-category')
 
 const postApp = {
+    posts: [],
     postId: getUrlSearchParams('post_id'),
     postType: getUrlSearchParams('type'),
 
     locations: null,
     categoryType: 'sell', // sell or rent
-    roleType: 'personal', // personal or agent
+    roleType: 'user', // user or agent
     imagesFiles: [],
-    propertyCategory: 'apartment', // apartment, house, land, room
+    categoryId: 1,
 
     handleValidator() {
         Validator({
@@ -48,143 +51,137 @@ const postApp = {
                 Validator.isRequired('#description'),
             ],
             submit: async (data) => {
-                if (this.imagesFiles.length === 0) {
+                try {
+                    if (this.imagesFiles.length === 0) {
+                        toast({
+                            title: 'Cảnh báo',
+                            message: 'Vui lòng tải lên ít nhất 1 ảnh',
+                            type: 'error',
+                        })
+
+                        return
+                    }
+
+                    for (const key in data) {
+                        if (document.querySelector(`[name="${key}"]`).getAttribute('price')) {
+                            data[key] = data[key].split('.').join('')
+                        }
+                    }
+
+                    const newData = {}
+
+                    for (const key in data) {
+                        if (document.querySelector(`[name="${key}"]`).dataset.details) {
+                            if (!newData['details']) {
+                                newData['details'] = {}
+                            }
+
+                            newData['details'][key] = data[key]
+                        } else {
+                            newData[key] = data[key]
+                        }
+                    }
+
+                    const postUser = JSON.parse(localStorage.getItem('currentUser'))
+
+                    const images = await Promise.all(
+                        this.imagesFiles.map(async (image) => {
+                            if (image instanceof File) {
+                                const response = await uploadToCloudinary(
+                                    image,
+                                    'real_estate',
+                                    `${image.name}-${window.crypto.randomUUID()}`
+                                )
+                                return response.secure_url
+                            }
+
+                            return image
+                        })
+                    )
+
+                    if (this.postType === 'edit') {
+                        const updatedData = {
+                            ...newData,
+                            category_id: this.categoryId,
+                            role: this.roleType,
+                            images: JSON.stringify(images),
+                            project_type: this.categoryType,
+                            user_id: postUser.id,
+                        }
+
+                        await postsServices.updatePost(this.postId, updatedData)
+
+                        toast({
+                            title: 'Thành công',
+                            message: 'Tin của bạn đã được cập nhật thành công',
+                            type: 'success',
+                        })
+                    } else {
+                        const createPostData = {
+                            ...newData,
+                            category_id: this.categoryId,
+                            role: this.roleType,
+                            images: JSON.stringify(images),
+                            project_type: this.categoryType,
+                            user_id: postUser.id,
+                        }
+
+                        await postsServices.createPost(createPostData)
+
+                        toast({
+                            title: 'Thành công',
+                            message: 'Tin của bạn đã được đăng tải thành công',
+                            type: 'success',
+                        })
+                    }
+
+                    document.querySelectorAll('input[name]').forEach((input) => {
+                        input.value = ''
+                    })
+
+                    document.querySelectorAll('textarea[name]').forEach((textarea) => {
+                        textarea.value = ''
+                    })
+
+                    this.imagesFiles = []
+
+                    this.handleLoadImagesPreview()
+
+                    document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
+                        span.textContent = null
+                    })
+
+                    document.querySelectorAll('input[name]').forEach((input) => {
+                        input.value = ''
+                    })
+
+                    document.querySelectorAll('textarea[name]').forEach((textarea) => {
+                        textarea.value = ''
+                    })
+
+                    this.imagesFiles = []
+
+                    this.handleLoadImagesPreview()
+
+                    document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
+                        span.textContent = null
+                    })
+                } catch (error) {
+                    console.error(error)
+
                     toast({
-                        title: 'Cảnh báo',
-                        message: 'Vui lòng tải lên ít nhất 1 ảnh',
+                        title: 'Lỗi',
+                        message: error.message,
                         type: 'error',
                     })
-
-                    return
                 }
-
-                for (const key in data) {
-                    if (document.querySelector(`[name="${key}"]`).getAttribute('price')) {
-                        data[key] = data[key].split('.').join('')
-                    }
-                }
-
-                const newData = {}
-
-                for (const key in data) {
-                    if (document.querySelector(`[name="${key}"]`).dataset.detail) {
-                        if (!newData['detail']) {
-                            newData['detail'] = {}
-                        }
-
-                        newData['detail'][key] = data[key]
-                    } else {
-                        newData[key] = data[key]
-                    }
-                }
-
-                const postUser = JSON.parse(localStorage.getItem('currentUser'))
-
-                const postDb = JSON.parse(localStorage.getItem('posts')) || []
-
-                const images = await Promise.all(
-                    this.imagesFiles.map(async (image) => {
-                        const response = await uploadToCloudinary(
-                            image,
-                            'real_estate',
-                            `${image.name}-${window.crypto.randomUUID()}`
-                        )
-                        return response.secure_url
-                    })
-                )
-
-                if (this.postType === 'edit') {
-                    const newPosts = postDb.map((post) => {
-                        if (post.id === Number(this.postId)) {
-                            return {
-                                id: Number(this.postId),
-                                ...newData,
-                                property_category: this.propertyCategory,
-                                role: this.roleType,
-                                images,
-                                project_type: this.categoryType,
-                                user_id: post.user_id,
-                                post_status: 'pending', // pending, approved, rejected
-                                created_at: post.created_at,
-                                updated_at: new Date(),
-                                status: 'Chưa bàn giao', // Chưa bàn giao, đã bàn giao
-                            }
-                        }
-
-                        return post
-                    })
-
-                    localStorage.setItem('posts', JSON.stringify(newPosts))
-
-                    toast({
-                        title: 'Thành công',
-                        message: 'Tin của bạn đã được cập nhật thành công',
-                        type: 'success',
-                    })
-                } else {
-                    const updatedData = {
-                        id: postDb.length > 0 ? postDb[postDb.length - 1].id + 1 : 1,
-                        ...newData,
-                        property_category: this.propertyCategory,
-                        role: this.roleType,
-                        images,
-                        project_type: this.categoryType,
-                        user_id: postUser.id,
-                        post_status: 'pending', // pending, approved, rejected
-                        created_at: new Date(),
-                        updated_at: new Date(),
-                        status: 'Chưa bàn giao', // Chưa bàn giao, đã bàn giao
-                    }
-
-                    postDb.push(updatedData)
-
-                    localStorage.setItem('posts', JSON.stringify(postDb))
-
-                    toast({
-                        title: 'Thành công',
-                        message: 'Tin của bạn đã được đăng tải thành công',
-                        type: 'success',
-                    })
-                }
-
-                document.querySelectorAll('input[name]').forEach((input) => {
-                    input.value = ''
-                })
-
-                document.querySelectorAll('textarea[name]').forEach((textarea) => {
-                    textarea.value = ''
-                })
-
-                this.imagesFiles = []
-
-                this.handleLoadImagesPreview()
-
-                document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
-                    span.textContent = null
-                })
-
-                document.querySelectorAll('input[name]').forEach((input) => {
-                    input.value = ''
-                })
-
-                document.querySelectorAll('textarea[name]').forEach((textarea) => {
-                    textarea.value = ''
-                })
-
-                this.imagesFiles = []
-
-                this.handleLoadImagesPreview()
-
-                document.querySelectorAll('.form-concurrency-converted').forEach((span) => {
-                    span.textContent = null
-                })
             },
         })
     },
 
     handleSubmitLocation(locations) {
         this.locations = locations
-        const addressBd = document.querySelector('#address_bd')
+        const administrativeAddress = document.querySelector('#administrative_address')
 
         const addressArr = []
 
@@ -194,9 +191,9 @@ const postApp = {
             }
         }
 
-        addressBd.value = addressArr.reverse().join(' - ')
+        administrativeAddress.value = addressArr.reverse().join(', ')
 
-        const formMessage = getParentElement(addressBd, '.form-group').querySelector('.form-message')
+        const formMessage = getParentElement(administrativeAddress, '.form-group').querySelector('.form-message')
 
         if (addressArr.length !== 3) {
             formMessage.innerText = 'Vui lòng chọn đầy đủ địa chỉ BDS'
@@ -261,7 +258,7 @@ const postApp = {
         })
 
         propertyCategorySelect.onchange = (e) => {
-            this.propertyCategory = e.target.value
+            this.categoryId = e.target.value
         }
 
         roleBtnsOption.forEach((btn) => {
@@ -334,97 +331,130 @@ const postApp = {
         })
     },
 
-    fillFormData() {
+    async fillFormData() {
         if (this.postType === 'edit') {
-            const post = JSON.parse(localStorage.getItem('posts'))?.find((post) => post.id === Number(this.postId))
+            try {
+                const { data: post } = await postsServices.getPostById(this.postId)
 
-            if (post) {
-                document.querySelector('.post__form__select').value = post.property_category
+                if (post) {
+                    this.categoryId = post.json_category.id
+                    document.querySelector('.post__form__select').value = post.json_category.id
 
-                this.categoryType = post.project_type
-                this.propertyCategory = post.property_category
-                this.imagesFiles = post.images.map((image) => {
-                    return {
-                        preview: image,
+                    this.categoryType = post.project_type
+                    this.categoryId = post.json_category.id
+                    this.imagesFiles = JSON.parse(post.images).map((image) => {
+                        return {
+                            preview: image,
+                        }
+                    })
+
+                    this.handleLoadImagesPreview()
+
+                    // set category type
+                    document.querySelector('.post__form__radio.active').classList.remove('active')
+
+                    document
+                        .querySelector(`.post__form__radio[data-type="${post.project_type}"]`)
+                        .classList.add('active')
+
+                    // set role
+                    document.querySelector('.post__form__role.active').classList.remove('active')
+
+                    document.querySelector(`.post__form__role[data-type="${post.role}"]`).classList.add('active')
+
+                    this.roleType = post.role
+
+                    for (const key in post) {
+                        const input = document.querySelector(`input[name="${key}"]`)
+                        const textarea = document.querySelector(`textarea[name="${key}"]`)
+
+                        if (input) {
+                            input.value = post[key]
+                        }
+
+                        if (textarea) {
+                            textarea.value = post[key]
+                        }
                     }
+
+                    for (const key in post.json_post_detail) {
+                        const input = document.querySelector(`input[name="${key}"]`)
+
+                        if (input) {
+                            // by default, data type is decimal (14, 2), so we need split two numbers of the decimal part
+                            if (input.getAttribute('price')) {
+                                input.value = convertConcurrencyToNumber(
+                                    Number(post.json_post_detail[key].split('.')[0])
+                                )
+                            } else {
+                                input.value = post.json_post_detail[key]
+                            }
+                        }
+                    }
+
+                    document.querySelector('.post__form__submit').textContent = 'Cập nhật'
+                }
+            } catch (error) {
+                toast({
+                    title: 'Lỗi',
+                    message: error.message,
+                    type: 'error',
                 })
-
-                this.handleLoadImagesPreview()
-
-                // set category type
-                document.querySelector('.post__form__radio.active').classList.remove('active')
-
-                document.querySelector(`.post__form__radio[data-type="${post.project_type}"]`).classList.add('active')
-
-                // set role
-                document.querySelector('.post__form__role.active').classList.remove('active')
-
-                document.querySelector(`.post__form__role[data-type="${post.role}"]`).classList.add('active')
-
-                this.roleType = post.role
-
-                for (const key in post) {
-                    const input = document.querySelector(`input[name="${key}"]`)
-                    const textarea = document.querySelector(`textarea[name="${key}"]`)
-
-                    if (input) {
-                        input.value = post[key]
-                    }
-
-                    if (textarea) {
-                        textarea.value = post[key]
-                    }
-                }
-
-                for (const key in post.detail) {
-                    const input = document.querySelector(`input[name="${key}"]`)
-
-                    if (input) {
-                        input.value = post.detail[key]
-                    }
-                }
-
-                document.querySelector('.post__form__submit').textContent = 'Cập nhật'
             }
         }
     },
 
-    handleLoadCategory() {
-        const categories = JSON.parse(localStorage.getItem('categories')) || []
-        const htmls = categories.map((category) => {
-            return `
-                <option value="${category.key}">Bất động sản - ${category.name}</option>
-            `
-        })
+    async handleLoadCategory() {
+        try {
+            const { data: categories } = await categoriesServices.getCategories()
 
-        document.querySelector('.post__form__select').innerHTML = htmls.join('')
+            const htmls = categories.map((category) => {
+                return `
+                    <option value="${category.id}">Bất động sản - ${category.name}</option>
+                `
+            })
+
+            document.querySelector('.post__form__select').innerHTML = htmls.join('')
+        } catch (error) {
+            toast({
+                title: 'Lỗi',
+                message: 'Không thể tải danh mục bất động sản',
+                type: 'error',
+            })
+        }
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         defaultApp.init()
         new locationsDropdownApp(
             document.querySelector('#form__location'),
             this.postType === 'edit'
-                ? (() => {
-                      const post = JSON.parse(localStorage.getItem('posts'))?.find(
-                          (post) => post.id === Number(this.postId)
-                      )
+                ? (async () => {
+                      try {
+                          const { data: post } = await postsServices.getPostById(this.postId)
 
-                      const [ward, district, province] = post.address_bd.split(' - ')
+                          const [ward, district, province] = post.administrative_address.split(' - ')
 
-                      return {
-                          province,
-                          district,
-                          ward,
+                          return {
+                              province,
+                              district,
+                              ward,
+                          }
+                      } catch (error) {
+                          return {
+                              province: '',
+                              district: '',
+                              ward: '',
+                          }
                       }
                   })()
                 : null
         ).init(this.handleSubmitLocation.bind(this))
 
         // if mode is edit, fill form data
-        this.fillFormData()
-        this.handleLoadCategory()
+        await this.fillFormData()
+        await this.handleLoadCategory()
         this.handleValidator()
         this.handleEvent()
     },

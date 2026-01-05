@@ -1,6 +1,6 @@
 import Validator from './Validator.js'
-import mockUser from '../mocks/users.js'
 import middleware from './middleware.js'
+import * as authService from './services/authService.js'
 
 const app = {
     handleEvent() {
@@ -29,59 +29,27 @@ const app = {
             submit: async (data) => {
                 const { email, password } = data
 
-                const users = JSON.parse(localStorage.getItem('users')) || []
+                try {
+                    const { data: newUser } = await authService.register(email, password)
 
-                const hasUser = users.some((user) => user.email === email)
+                    localStorage.setItem('currentUser', JSON.stringify(newUser))
 
-                if (hasUser) {
-                    document.querySelector('.error-message').innerText = 'Email đã tồn tại'
-                    return
+                    window.parent.postMessage(
+                        {
+                            type: 'modal:auth-success',
+                            data: { message: 'Đăng ký tài khoản thành công' },
+                        },
+                        '*'
+                    )
+                } catch (error) {
+                    document.querySelector('.error-message').innerText = error.message
                 }
-
-                const lastUserId = users.length > 0 ? users[users.length - 1].id + 1 : 1
-
-                let nickname = email.split('@')[0]
-                let nicknameCount = 0
-
-                while (
-                    users.some((user) => {
-                        return (
-                            user.nickname.startsWith(nickname) &&
-                            (isNaN(Number(user.nickname.substring(nickname.length))) ||
-                                Number(user.nickname.substring(nickname.length)) === 0)
-                        )
-                    })
-                ) {
-                    nicknameCount++
-                    nickname = `${nickname}${nicknameCount}`
-                }
-
-                const newUser = {
-                    ...mockUser,
-                    id: lastUserId,
-                    email,
-                    password,
-                    full_name: email.split('@')[0],
-                    avatar: 'https://thichtrangtri.com/wp-content/uploads/2025/05/anh-meo-gian-cute-3.jpg',
-                    nickname,
-                }
-
-                localStorage.setItem('users', JSON.stringify([...users, newUser]))
-                localStorage.setItem('currentUser', JSON.stringify(newUser))
-
-                window.parent.postMessage(
-                    {
-                        type: 'modal:auth-success',
-                        data: { message: 'Đăng ký tài khoản thành công' },
-                    },
-                    '*'
-                )
             },
         })
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         this.handleEvent()
         this.handleRegister()
     },

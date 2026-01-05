@@ -1,13 +1,15 @@
 import defaultApp from './default.js'
-import getParentElement from './helpers/getParentElement.js'
 import { convertConcurrencyToNumber } from './helpers/convertConcurrency.js'
-import { handleSetPosition } from './popperWrapper.js'
-import mockPosts from '../mocks/posts.js'
-import { momentTimezone } from './helpers/momentTimezone.js'
 import { listenEvent, sendEvent } from './helpers/event.js'
 import { getDistrict, getProvince } from './helpers/getLocations.js'
+import getParentElement from './helpers/getParentElement.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
+import { momentTimezone } from './helpers/momentTimezone.js'
 import middleware from './middleware.js'
+import { handleSetPosition } from './popperWrapper.js'
+import * as postServices from './services/postService.js'
+import toast from './toast.js'
+import * as categoryServices from './services/categoryService.js'
 
 const filterItemsButton = document.querySelectorAll('.filter__item--button')
 const applyPriceFilterButton = document.querySelector('.price_min_max_apply')
@@ -27,14 +29,14 @@ const postTabs = document.querySelectorAll('.post__tabs button')
 const postTabsLine = document.querySelector('.post__tabs--line')
 
 const app = {
-    posts: JSON.parse(localStorage.getItem('posts')) || mockPosts || [],
+    posts: [],
     locations: {
         province: '',
         district: '',
         ward: '',
     },
     filters: {
-        categories: 'sell' /* sell or rent */,
+        categories: '' /* sell or rent */,
         type: [], // apartment, house, land, room
         price: {
             start: 0,
@@ -44,36 +46,10 @@ const app = {
         location: '',
     },
     filterActive: null,
-    postType: 'all', // all, agent, personal
-
-    handleFilterPost() {
-        const filteredPosts = this.posts
-            .filter((post) => {
-                return post.status === 'Chưa bàn giao' && post.post_status === 'approved'
-            })
-            .filter((post) => {
-                const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
-                if (!matchCategory) return false
-
-                const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.property_category)
-                if (!matchType) return false
-
-                const matchPostType = this.postType === 'all' || post.role === this.postType
-                if (!matchPostType) return false
-
-                if (this.filters.price.active) {
-                    const matchPrice =
-                        post.detail.price >= this.filters.price.start && post.detail.price <= this.filters.price.end
-                    if (!matchPrice) return false
-                }
-
-                const matchLocation = this.filters.location === '' || post.address_bd.includes(this.filters.location)
-                if (!matchLocation) return false
-
-                return true
-            })
-
-        return filteredPosts
+    postType: 'all', // all, agent, user
+    params: {
+        page: 1,
+        per_page: 15,
     },
 
     // Mua bán / Giá bán
@@ -140,7 +116,7 @@ const app = {
         })
 
         // Filter by price
-        applyPriceFilterButton.onclick = () => {
+        applyPriceFilterButton.onclick = async () => {
             const priceMin = Number(priceMinInput.value.split('.').join(''))
             const priceMax = Number(priceMaxInput.value.split('.').join(''))
 
@@ -160,7 +136,15 @@ const app = {
 
             this.handleCloseDropdownFilter()
 
-            this.handleRenderPost(this.handleFilterPost())
+            this.params = {
+                ...this.params,
+                min_price: priceMin,
+                max_price: priceMax,
+            }
+
+            await this.handleFetchPost()
+
+            this.handleRenderPost()
         }
 
         // Reset filter by price
@@ -181,7 +165,7 @@ const app = {
 
         // Filter by type
         filterItemDropdownButtons.forEach((btn) => {
-            btn.onclick = () => {
+            btn.onclick = async () => {
                 filterItemDropdownButtons.forEach((btn) => {
                     if (btn.dataset.parent === this.filterActive) {
                         btn.querySelector('.checkbox').classList.remove('checked')
@@ -195,7 +179,14 @@ const app = {
 
                 this.filters[btn.dataset.parent] = btn.dataset.value
 
-                this.handleRenderPost(this.handleFilterPost())
+                this.params = {
+                    ...this.params,
+                    project_type: btn.dataset.value,
+                }
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             }
         })
 
@@ -237,14 +228,21 @@ const app = {
 
                         btn.classList.toggle('active')
 
-                        this.handleRenderPost(this.handleFilterPost())
+                        this.params = {
+                            ...this.params,
+                            property_categories: this.filters.type,
+                        }
+                        ;(async () => {
+                            await this.handleFetchPost()
+                            this.handleRenderPost()
+                        })()
                     }
                 })
             }
         }
 
         postTabs.forEach((btn) => {
-            btn.onclick = (e) => {
+            btn.onclick = async (e) => {
                 postTabsLine.style.left = `${e.target.offsetLeft}px`
                 postTabsLine.style.width = `${e.target.offsetWidth}px`
 
@@ -255,7 +253,14 @@ const app = {
                 btn.classList.add('active')
                 this.postType = btn.dataset.type
 
-                this.handleRenderPost(this.handleFilterPost())
+                this.params = {
+                    ...this.params,
+                    role: this.postType,
+                }
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             }
 
             btn.onmouseover = (e) => {
@@ -270,7 +275,7 @@ const app = {
         })
 
         // handle when click on heart icon
-        postInner.onclick = (e) => {
+        postInner.onclick = async (e) => {
             if (e.target.closest('.post__item--heart')) {
                 if (e.target.closest('.post__item')) {
                     e.preventDefault()
@@ -288,7 +293,7 @@ const app = {
 
                 e.target.closest('.post__item--heart').classList.toggle('active')
 
-                this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
+                await this.handleToggleLikePost(Number(e.target.closest('.post__item--heart').dataset.id))
             }
         }
 
@@ -301,7 +306,7 @@ const app = {
         })
 
         sidebarFilterByPriceList.forEach((li) => {
-            li.onclick = () => {
+            li.onclick = async () => {
                 document.querySelectorAll('.sidebar__filter--by--price__list li').forEach((li) => {
                     li.classList.remove('active')
                 })
@@ -312,11 +317,24 @@ const app = {
                 this.filters.price.end = Number(li.dataset.max) || Infinity
                 this.filters.price.active = true
 
-                this.handleRenderPost(this.handleFilterPost())
+                if (this.filters.price.start === 0 && this.filters.price.end === Infinity) {
+                    delete this.params.min_price
+                    delete this.params.max_price
+                } else {
+                    this.params = {
+                        ...this.params,
+                        min_price: this.filters.price.start,
+                        max_price: this.filters.price.end,
+                    }
+                }
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             }
         })
 
-        sidebarFilterByLocationListWrapper.onclick = (e) => {
+        sidebarFilterByLocationListWrapper.onclick = async (e) => {
             if (e.target.closest('.sidebar__filter--by--location__list li')) {
                 const liElement = e.target.closest('.sidebar__filter--by--location__list li')
                 const value = liElement.dataset.value
@@ -329,7 +347,14 @@ const app = {
 
                 liElement.classList.add('active')
 
-                this.handleRenderPost(this.handleFilterPost())
+                this.params = {
+                    ...this.params,
+                    location: this.filters.location,
+                }
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             }
         }
 
@@ -350,9 +375,16 @@ const app = {
                     }
                 }
 
-                this.filters.location = addressArr.reverse().join(' - ')
+                this.filters.location = addressArr.reverse().join(', ')
 
-                this.handleRenderPost(this.handleFilterPost())
+                this.params = {
+                    ...this.params,
+                    location: this.filters.location,
+                }
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             },
         })
 
@@ -365,7 +397,11 @@ const app = {
 
                 this.filters.location = detail.province
 
-                this.handleRenderPost(this.handleFilterPost())
+                delete this.params.location
+
+                await this.handleFetchPost()
+
+                this.handleRenderPost()
             },
         })
 
@@ -410,28 +446,39 @@ const app = {
         document.querySelector('.sidebar__filter--by--location__list').innerHTML = allHtmls + htmls
     },
 
-    handleToggleLikePost(postId) {
+    async handleToggleLikePost(postId) {
         if (postId) {
-            let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
+            const post = this.posts.find((post) => post.id === postId)
 
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
-            const favoritesExist = favoritesDb.find((favorite) => {
-                return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
-            })
-
-            if (favoritesExist) {
-                favoritesDb = favoritesDb.filter(
-                    (favorite) => favorite.post_id !== postId || favorite.user_id !== currentUser?.id
-                )
+            if (post.is_favorite) {
+                try {
+                    await postServices.unlikePost(postId)
+                } catch (error) {
+                    toast({
+                        message: error.message,
+                        type: 'error',
+                    })
+                }
             } else {
-                favoritesDb = [
-                    ...favoritesDb,
-                    { post_id: postId, user_id: JSON.parse(localStorage.getItem('currentUser')).id },
-                ]
+                try {
+                    await postServices.likePost(postId)
+                } catch (error) {
+                    toast({
+                        message: error.message,
+                        type: 'error',
+                    })
+                }
             }
 
-            localStorage.setItem('favorites', JSON.stringify(favoritesDb))
+            this.posts = this.posts.map((post) => {
+                if (post.id === postId) {
+                    return {
+                        ...post,
+                        is_favorite: !post.is_favorite,
+                    }
+                }
+                return post
+            })
         }
     },
 
@@ -439,20 +486,19 @@ const app = {
         postTabsLine.style.width = `${postTabs[0].offsetWidth}px`
     },
 
-    handleRenderPost(posts = this.posts) {
+    handleRenderPost() {
         if (!localStorage.getItem('posts')) {
             localStorage.setItem('posts', JSON.stringify(this.posts))
         }
 
-        postInner.innerHTML = posts
+        postInner.innerHTML = this.posts
             .map((post) => {
-                const user = JSON.parse(localStorage.getItem('users'))?.find((user) => user.id === post.user_id) || null
                 return `
                     <a href="/details.html?post_id=${post.id}" class="post__item" data-id="${post.id}">
                         <div class="post__item__image__wrapper">
                             <img
                                 onerror="this.src='/public/static/fallback.png'"
-                                src="${post.images[0]}"
+                                src="${JSON.parse(this.posts[0].images)[0]}"
                                 alt=""
                             />
                             <div class="post__item__image">
@@ -466,52 +512,42 @@ const app = {
                                 ${post.title}
                             </h3>
                             <span class="post__item__info__description">
-                                <span class="post__item__info__description--bedrooms">${post.detail.bedrooms}PN</span>
-                                <span class="post__item__info__description--type">${post.detail.type}</span>
+                                <span class="post__item__info__description--bedrooms">${
+                                    post.json_post_detail.bedrooms
+                                }PN</span>
+                                <span class="post__item__info__description--type">${post.json_category.name}</span>
                             </span>
                             <div class="post__item__info__wrapper__price__wrapper">
                                 <span class="post__item__info__wrapper__price">${handleConvertPrice(
-                                    post.detail.price
+                                    post.json_post_detail.price
                                 )}</span>
-                                <span>${Number(post.detail.price / post.detail.area / 1000000).toFixed(2)} tr/m²</span>
-                                <span>${post.detail.area}m²</span>
+                                <span>${Number(
+                                    post.json_post_detail.price / post.json_post_detail.area / 1000000
+                                ).toFixed(2)} tr/m²</span>
+                                <span>${post.json_post_detail.area}m²</span>
                             </div>
                             <span class="post__item__info__wrapper__location">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span>${post.address + ' - ' + post.address_bd}</span>
+                                <span>${post.address + ' - ' + post.administrative_address}</span>
                             </span>
 
                             <div class="post__item__info--user">
                                 <div class="post__item__info--user__item">
                                     <img
                                         onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU'"
-                                        src="${user?.avatar}"
+                                        src="${post.json_user.avatar || ''}"
                                         alt=""
                                     />
-                                    <span>${user?.full_name}</span>
+                                    <span>${post.json_user.full_name}</span>
                                 </div>
 
                                 <span class="post__item__info--user--post--length">
                                     <i class="fa-solid fa-briefcase"></i>
-                                    <span>${
-                                        JSON.parse(localStorage.getItem('posts')).filter((postUser) => {
-                                            return post.user_id === postUser.user_id
-                                        }).length
-                                    } bài đăng</span>
+                                    <span>${post.json_user.post_count} bài đăng</span>
                                 </span>
                             </div>
                         </div>
-                        <button class="post__item--heart ${
-                            JSON.parse(localStorage.getItem('currentUser'))
-                                ? JSON.parse(localStorage.getItem('favorites'))?.some(
-                                      (favorite) =>
-                                          favorite.post_id === post.id &&
-                                          favorite.user_id === JSON.parse(localStorage.getItem('currentUser')).id
-                                  )
-                                    ? 'active'
-                                    : ''
-                                : ''
-                        }" data-id="${post.id}">
+                        <button class="post__item--heart ${post.is_favorite ? 'active' : ''}" data-id="${post.id}">
                             <i class="fa-regular fa-heart"></i>
                             <i class="fa-solid fa-heart"></i>
                         </button>
@@ -521,24 +557,46 @@ const app = {
             .join('')
     },
 
-    handleLoadCategory() {
-        const categories = JSON.parse(localStorage.getItem('categories')) || []
-        const htmls = categories.map((category) => {
-            return `
+    async handleLoadCategory() {
+        try {
+            const { data: categories } = await categoryServices.getCategories()
+
+            const htmls = categories.map((category) => {
+                return `
                 <button class="filter__item--category" data-type="${category.key}">
                     <span>${category.name}</span>
                 </button>
             `
-        })
+            })
 
-        document.querySelector('.filter__items--category').innerHTML = htmls.join('')
+            document.querySelector('.filter__items--category').innerHTML = htmls.join('')
+        } catch (error) {
+            toast({
+                message: error.message,
+                type: 'error',
+            })
+        }
+    },
+
+    async handleFetchPost() {
+        try {
+            const { data } = await postServices.getPosts({ params: this.params })
+
+            this.posts = data
+        } catch (error) {
+            toast({
+                message: error.message,
+                type: 'error',
+            })
+        }
     },
 
     async init() {
-        middleware()
+        await middleware()
+        await this.handleFetchPost()
         await this.handleRenderSidebarFilterByLocation()
-        this.handleRenderPost(this.handleFilterPost())
-        this.handleLoadCategory()
+        this.handleRenderPost()
+        await this.handleLoadCategory()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()

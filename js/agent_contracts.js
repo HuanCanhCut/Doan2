@@ -1,5 +1,5 @@
 import middleware from './middleware.js'
-middleware();
+await middleware();
 
 const ADMIN_CONTRACTS_KEY = 'real_estate_contracts'; 
 
