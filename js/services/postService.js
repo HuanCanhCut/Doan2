@@ -40,3 +40,30 @@ export const unlikePost = async (postId) => {
         throw error
     }
 }
+
+export const getPostById = async (postId) => {
+    try {
+        const response = await fetchClient.get(`posts/${postId}`)
+        return await response.json()
+    } catch (error) {
+        throw error
+    }
+}
+
+export const createPost = async (data) => {
+    try {
+        const response = await fetchClient.post(`posts`, data)
+        return await response.json()
+    } catch (error) {
+        throw error
+    }
+}
+
+export const updatePost = async (postId, data) => {
+    try {
+        const response = await fetchClient.put(`posts/${postId}/update`, data)
+        return await response.json()
+    } catch (error) {
+        throw error
+    }
+}

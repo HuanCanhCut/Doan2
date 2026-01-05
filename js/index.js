@@ -52,34 +52,6 @@ const app = {
         per_page: 15,
     },
 
-    handleFilterPost() {
-        const filteredPosts = this.posts.filter((post) => {
-            const matchCategory = this.filters.categories === '' || post.project_type === this.filters.categories
-            if (!matchCategory) return false
-
-            const matchType = this.filters.type.length === 0 || this.filters.type.includes(post.json_category.key)
-            if (!matchType) return false
-
-            const matchPostType = this.postType === 'all' || post.role === this.postType
-            if (!matchPostType) return false
-
-            if (this.filters.price.active) {
-                const matchPrice =
-                    post.json_post_detail.price >= this.filters.price.start &&
-                    post.json_post_detail.price <= this.filters.price.end
-                if (!matchPrice) return false
-            }
-
-            const matchLocation =
-                this.filters.location === '' || post.administrative_address.includes(this.filters.location)
-            if (!matchLocation) return false
-
-            return true
-        })
-
-        return filteredPosts
-    },
-
     // Mua bán / Giá bán
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {

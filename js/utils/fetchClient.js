@@ -102,6 +102,15 @@ export const post = async (path, data = {}, options = {}) => {
     return response
 }
 
+export const put = async (path, data = {}, options = {}) => {
+    const response = await request(path, {
+        ...options,
+        method: 'PUT',
+        body: JSON.stringify(data),
+    })
+    return response
+}
+
 export const patch = async (path, data = {}, options = {}) => {
     const response = await request(path, {
         ...options,

@@ -15,8 +15,10 @@ const middleware = async () => {
     let currentUser = null
 
     try {
-        const { data: currentUser } = await meServices.getCurrentUser()
-        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+        const { data: user } = await meServices.getCurrentUser()
+        localStorage.setItem('currentUser', JSON.stringify(user))
+
+        currentUser = user
     } catch (error) {
         localStorage.removeItem('currentUser')
     }
