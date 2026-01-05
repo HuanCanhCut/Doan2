@@ -31,7 +31,7 @@ const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.i
 
 let activeImageIndex = 0
 
-// render images
+// Hàm renderImages dùng để hiển thị danh sách ảnh của bài viết hiện tại
 function renderImages() {
     imagesList.innerHTML = currentPost.images
         .map((img, index) => {
@@ -47,6 +47,7 @@ function renderImages() {
         .join('')
 }
 
+//// Hàm handleLoadCurrentImage dùng để hiển thị ảnh được chọn theo index
 function handleLoadCurrentImage(index) {
     imagesPreviewImg.style.backgroundImage = `url(${currentPost.images[index]})`
 
@@ -65,6 +66,7 @@ function handleLoadCurrentImage(index) {
     imagesPreviewCount.textContent = `${Number(index) + 1}/${currentPost.images.length}`
 }
 
+//Hàm loadPostDetails dùng để hiển thị thông tin chi tiết của bài đăng
 function loadPostDetails() {
     detailsTitle.textContent = currentPost.title
     detailsTypeBedrooms.textContent = currentPost.detail.bedrooms
@@ -98,6 +100,7 @@ function loadPostDetails() {
     }
 }
 
+//Bắt sự kiện click vào danh sách ảnh thumbnail
 imagesList.addEventListener('click', (e) => {
     if (e.target.closest('img')) {
         document.querySelector('.details__info__images__list img.active').classList.remove('active')
@@ -108,6 +111,7 @@ imagesList.addEventListener('click', (e) => {
     }
 })
 
+//Xử lý khi click nút Next để chuyển sang ảnh tiếp theo
 nextImageBtn.addEventListener('click', () => {
     activeImageIndex++
 
@@ -118,6 +122,7 @@ nextImageBtn.addEventListener('click', () => {
     handleLoadCurrentImage(activeImageIndex)
 })
 
+//Xử lý khi click nút Prev để quay về ảnh trước đó
 prevImageBtn.addEventListener('click', () => {
     activeImageIndex--
 
@@ -128,6 +133,7 @@ prevImageBtn.addEventListener('click', () => {
     handleLoadCurrentImage(activeImageIndex)
 })
 
+//Xử lý sự kiện lưu / bỏ lưu bài đăng (yêu thích)
 detailsInfoSave.addEventListener('click', () => {
     let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
@@ -145,6 +151,7 @@ detailsInfoSave.addEventListener('click', () => {
 
     detailsInfoSave.classList.toggle('active')
 
+    //Kiểm tra bài đăng đã được lưu chưa
     const favoritesExist = favoritesDb.find((favorite) => {
         return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
     })
@@ -160,6 +167,7 @@ detailsInfoSave.addEventListener('click', () => {
     localStorage.setItem('favorites', JSON.stringify(favoritesDb))
 })
 
+//Hàm renderDetails dùng để hiển thị danh sách thông tin chi tiết của bài đăng
 function renderDetails() {
     const dataMapping = [
         {
@@ -213,7 +221,7 @@ function renderDetails() {
             image: 'public/static/toilets.png',
         },
     ]
-
+    //Render danh sách chi tiết, chỉ hiển thị các mục có dữ liệu
     document.querySelector('.details__info--details__list').innerHTML = dataMapping
         .map((data) => {
             if (!data.value) {
@@ -236,7 +244,7 @@ function renderDetails() {
         })
         .join('')
 }
-
+//Hàm renderDescription dùng để hiển thị mô tả bài đăng và thông tin liên hệ
 function renderDescription() {
     document.querySelector('.details__info__description--content').textContent = currentPost.description
     document.querySelector('.details__info__description--contact--value').textContent = postUser.phone
@@ -251,7 +259,9 @@ function renderDescription() {
     })
 }
 
+//Hàm renderUserPost dùng để hiển thị thông tin người đăng bài
 function renderUserPost() {
+    //Mapping vai trò người dùng với label và icon
     const roleMapping = {
         user: {
             label: 'Cá nhân',
@@ -266,7 +276,7 @@ function renderUserPost() {
             icon: '<i class="fa-solid fa-user-tie"></i>',
         },
     }
-
+    //Đếm số lượng bài đăng của người dùng
     const postLength = JSON.parse(localStorage.getItem('posts')).filter((post) => {
         return post.user_id === currentPost.user_id
     }).length
@@ -368,7 +378,7 @@ confirmModalButtonConfirm.addEventListener('click', () => {
 postActionsEditBtn.onclick = () => {
     window.location.href = `/post.html?post_id=${postId}&type=edit`
 }
-
+//Hàm loadPostManagement dùng để kiểm soát quyền quản lý bài đăng
 function loadPostManagement() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 

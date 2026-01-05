@@ -21,7 +21,7 @@ let filterState = {
     type: 'all',
     category: 'all',
 }
-
+//Hàm handleLoadOverview dùng để hiển thị thống kê tổng quan bài đăng
 function handleLoadOverview(posts) {
     const overview = [
         {
@@ -173,6 +173,7 @@ function handleLoadPosts(posts) {
     count.textContent = `${currentPost.length}/${JSON.parse(localStorage.getItem('posts')).length}`
 }
 
+//Hàm handleFilter dùng để lọc danh sách bài đăng theo các điều kiện
 function handleFilter() {
     currentPost = JSON.parse(localStorage.getItem('posts')).filter((post) => {
         const searchMatch =
@@ -192,7 +193,7 @@ function handleFilter() {
 
     return currentPost
 }
-
+// Hàm handleApplyFilter dùng để áp dụng bộ lọc khi người dùng thay đổi input
 function handleApplyFilter(e, key) {
     const value = e.target.value
 
@@ -202,7 +203,7 @@ function handleApplyFilter(e, key) {
 
     handleLoadPosts(filtered)
 }
-
+// Tìm kiếm theo từ khóa (gõ đến đâu lọc đến đó)
 searchInput.oninput = (e) => {
     handleApplyFilter(e, 'search')
 }
@@ -248,7 +249,7 @@ postsTableBody.onclick = (e) => {
         const postId = isMatchBtn.dataset.id
 
         const post = currentPost.find((post) => post.id === Number(postId))
-
+        //Chỉ cho thao tác khi bài đó đang được tick chọn (đảm bảo đúng flow chọn nhiều)
         if (!selectedPost.includes(Number(postId))) {
             return
         }
@@ -367,6 +368,7 @@ postsTableBody.onclick = (e) => {
 
 document.querySelector('#select-all').onchange = (e) => {
     if (e.target.checked) {
+        // Nếu chọn tất cả → thêm toàn bộ id bài đăng vào selectedPost
         JSON.parse(localStorage.getItem('posts')).forEach((post) => {
             selectedPost.push(post.id)
         })
@@ -375,7 +377,7 @@ document.querySelector('#select-all').onchange = (e) => {
     }
     handleLoadPosts(currentPost)
 }
-
+// Hàm handleLoadCategories dùng để render danh sách danh mục vào bộ lọc
 function handleLoadCategories() {
     const categories = JSON.parse(localStorage.getItem('categories')) || []
 

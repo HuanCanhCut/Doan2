@@ -16,6 +16,7 @@ const allowedTabs = ['approved', 'pending', 'rejected', 'not_delivered', 'delive
 
 let currentTab = allowedTabs.includes(getUrlSearchParams('active_tab')) ? getUrlSearchParams('active_tab') : 'approved'
 
+//Duyệt qua tất cả tab trong khu vực quản lý bài đăng
 postManagerTabs.forEach((tab) => {
     if (tab.dataset.type === currentTab) {
         tab.classList.add('active')
@@ -48,7 +49,7 @@ editProfileBtn.onclick = () => {
     overlay.classList.add('active')
 }
 
-// load ui based on current user
+//Nếu người đang xem KHÔNG phải chủ trang cá nhân
 if (currentUser?.id !== user.id) {
     editProfileBtn.style.display = 'none'
 
@@ -61,6 +62,7 @@ if (currentUser?.id !== user.id) {
     })
 }
 
+//Hàm loadUserProfile dùng để hiển thị thông tin hồ sơ người dùng
 const loadUserProfile = (user) => {
     document.querySelector('.profile__detail--value--email').textContent = user.email
     document.querySelector('.profile__detail--value--phone').textContent = user.phone
@@ -83,7 +85,7 @@ const handleConvertPrice = (amount) => {
         return `${Number(amount) / 1000000000} tỷ`
     }
 }
-
+//Hàm renderUserPost dùng để render danh sách bài đăng của user theo tab đang chọn
 const renderUserPost = (activeTab = currentTab) => {
     const dataMapping = {
         not_delivered: 'Chưa bàn giao',
@@ -111,7 +113,9 @@ const renderUserPost = (activeTab = currentTab) => {
             const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
             posts = posts.filter((post) => {
-                return favoritesDb.find((favorite) => favorite.post_id === post.id && favorite.user_id === user.id)
+                return favoritesDb.find(
+                    (favorite) => Number(favorite.post_id) === post.id && favorite.user_id === user.id
+                )
             })
             break
         default:
@@ -119,6 +123,7 @@ const renderUserPost = (activeTab = currentTab) => {
             break
     }
 
+    //Render danh sách bài đăng ra giao diện
     document.querySelector('.post__inner__wrapper').innerHTML = posts
         .map((post) => {
             const favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
@@ -167,6 +172,7 @@ const renderUserPost = (activeTab = currentTab) => {
 
 window.addEventListener('message', (e) => {
     switch (e.data.type) {
+        //Khi có sự kiện yêu cầu reload lại thông tin user
         case 'user:reload-profile':
             {
                 const updatedUser = e.data.data
@@ -181,6 +187,7 @@ window.addEventListener('message', (e) => {
     }
 })
 
+//Cập nhật số lượng bài đăng cho từng tab quản lý
 document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) => {
     const dataMapping = {
         not_delivered: 'Chưa bàn giao',
@@ -215,7 +222,9 @@ document.querySelectorAll('.post__manager__tabs--button--count').forEach((tab) =
             break
         case 'favorites':
             {
-                const favorites = JSON.parse(localStorage.getItem('favorites')) || []
+                const favorites = (JSON.parse(localStorage.getItem('favorites')) || []).filter((favorite) => {
+                    return favorite.user_id === user.id
+                })
 
                 tab.textContent = `(${favorites.length})`
             }
@@ -230,7 +239,7 @@ renderUserPost()
 
 document.querySelector('.post__inner__wrapper').onclick = (e) => {
     if (e.target.closest('.post__item--heart')) {
-        // ngăn chuyển hướng khi click vào heart
+        // ngăn chuyển hướng sang trang chi tiết khi click vào heart
         e.preventDefault()
 
         const heart = e.target.closest('.post__item--heart')
@@ -246,7 +255,7 @@ document.querySelector('.post__inner__wrapper').onclick = (e) => {
         let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
         const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
+        //Kiểm tra bài đăng đã được lưu chưa
         const favoritesExist = favoritesDb.find((favorite) => {
             return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
         })

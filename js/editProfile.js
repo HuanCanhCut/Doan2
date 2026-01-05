@@ -116,7 +116,7 @@ nicknameInput.oninput = (e) => {
         '.nickname-link'
     ).textContent = `${window.location.origin}/user.html?nickname=${e.target.value}`
 }
-
+//Hàm fillFormValue dùng để đổ dữ liệu user hiện tại vào form
 const fillFormValue = () => {
     nicknameInput.value = currentUser?.nickname
     document.querySelector('#full_name').value = currentUser?.full_name
