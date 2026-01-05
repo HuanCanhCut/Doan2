@@ -1,5 +1,5 @@
 import middleware from './middleware.js'
-middleware();
+await middleware();
 
 const DataService = {
   KEY: 'real_estate_contracts',

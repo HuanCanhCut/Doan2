@@ -613,6 +613,16 @@ const dashboardApp = {
                 }
 
                 let usersDb = JSON.parse(localStorage.getItem('users')) || []
+
+                if (usersDb.find((user) => user.id === userId).length === 0) {
+                    toast({
+                        title: 'Thông báo',
+                        message: 'Người dùng không tồn tại',
+                        type: 'error',
+                    })
+                    return
+                }
+
                 usersDb = usersDb.filter((user) => user.id !== userId)
 
                 localStorage.setItem('users', JSON.stringify(usersDb))
@@ -735,8 +745,8 @@ const dashboardApp = {
             .join('')
     },
 
-    init() {
-        middleware()
+    async init() {
+        await middleware()
         this.handleLoadDate()
         this.handleLoadOverview(fromDateInput.value, toDateInput.value)
         this.handleDonutChart()

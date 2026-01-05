@@ -2,7 +2,7 @@ import handleConvertPrice from './helpers/handleConvertPrice.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
 import middleware from './middleware.js'
 
-middleware()
+await middleware()
 
 const searchInput = document.getElementById('search-input')
 const resetBtn = document.getElementById('reset-btn')

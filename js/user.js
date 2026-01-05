@@ -2,7 +2,8 @@ import defaultApp from './default.js'
 import getUrlSearchParams from './helpers/getURLSearchParams.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
 import middleware from './middleware.js'
-middleware()
+
+await middleware()
 
 const postManagerTabs = document.querySelectorAll('.post__manager__tabs--button')
 const editProfileBtn = document.querySelector('.profile__info--edit')
@@ -117,6 +118,7 @@ const renderUserPost = (activeTab = currentTab) => {
                     (favorite) => Number(favorite.post_id) === post.id && favorite.user_id === user.id
                 )
             })
+
             break
         default:
             posts = []

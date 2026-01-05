@@ -1,5 +1,5 @@
 import middleware from './middleware.js'
-middleware();
+await middleware();
 
 const sampleData = [
   // 2023
