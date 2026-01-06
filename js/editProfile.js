@@ -1,9 +1,11 @@
 import Validator from './Validator.js'
+import * as meServices from './services/meService.js'
+import toast from './toast.js'
 
 const nicknameInput = document.querySelector('#nickname')
 const profileImageInput = document.querySelector('#profile-image')
 
-const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+let { data: currentUser } = await meServices.getCurrentUser()
 
 let avatar = null
 
@@ -66,30 +68,32 @@ Validator({
     submit: async (data) => {
         const { nickname, full_name, phone } = data
 
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-
         const updatedUser = {
-            ...currentUser,
+            avatar_url: 'https://weart.vn/wp-content/uploads/2025/06/chu-meo-cute-voi-bieu-cam-ngo-ngac-to-mo.jpg',
             nickname,
             full_name,
-            phone,
+            phone_number: phone,
         }
 
-        const users = JSON.parse(localStorage.getItem('users'))
+        try {
+            const res = await meServices.updatedUser(updatedUser)
 
-        const updatedUsers = users.map((user) => {
-            if (user.id === currentUser?.id) {
-                return updatedUser
-            }
-            return user
-        })
+            currentUser = res.data
 
-        localStorage.setItem('users', JSON.stringify(updatedUsers))
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser))
+            window.parent.postMessage(
+                { type: 'modal:toast-success', data: { message: 'Cập nhật hồ sơ thành công' } },
+                '*'
+            )
 
-        window.parent.postMessage({ type: 'modal:toast-success', data: { message: 'Cập nhật hồ sơ thành công' } }, '*')
-        window.parent.postMessage({ type: 'modal:close' }, '*')
-        window.parent.postMessage({ type: 'user:reload-profile', data: updatedUser }, '*')
+            window.parent.postMessage({ type: 'modal:close' }, '*')
+            window.parent.postMessage({ type: 'user:reload-profile', data: updatedUser }, '*')
+        } catch (error) {
+            toast({
+                title: 'Lỗi',
+                message: error.message,
+                type: 'error',
+            })
+        }
     },
 })
 
@@ -120,7 +124,7 @@ nicknameInput.oninput = (e) => {
 const fillFormValue = () => {
     nicknameInput.value = currentUser?.nickname
     document.querySelector('#full_name').value = currentUser?.full_name
-    document.querySelector('#phone').value = currentUser?.phone
+    document.querySelector('#phone').value = currentUser?.phone_number
 }
 
 fillFormValue()

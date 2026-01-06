@@ -47,7 +47,7 @@ const middleware = async () => {
         }
 
         if (isAdminRoute) {
-            if (JSON.parse(currentUser).role !== 'admin') {
+            if (currentUser.role !== 'admin') {
                 window.location.href = '/'
             }
 

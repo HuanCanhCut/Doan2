@@ -5,6 +5,7 @@ import { listenEvent, sendEvent } from './helpers/event.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import mockPosts from '../mocks/posts.js'
 import * as authService from './services/authService.js'
+import * as meServices from './services/meService.js'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -187,8 +188,8 @@ const defaultApp = {
     },
 
     // load ui after login/logout
-    handleLoadUI() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    async handleLoadUI() {
+        const { data: currentUser } = await meServices.getCurrentUser()
 
         if (currentUser) {
             document.querySelector('.header__actions--post').classList.remove('col-hidden')
@@ -242,7 +243,9 @@ const defaultApp = {
 
     init() {
         this.handleEvent()
-        this.handleLoadUI()
+        ;(async () => {
+            await this.handleLoadUI()
+        })()
         new locationsDropdownApp(document.querySelector('#header__location')).init(this.handleSubmitLocation.bind(this))
         sidebarApp.init()
     },
