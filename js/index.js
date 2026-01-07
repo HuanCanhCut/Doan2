@@ -52,6 +52,8 @@ const app = {
         per_page: 15,
     },
 
+    meta: null,
+
     // Mua bán / Giá bán
     handleLoadFilterActive() {
         filterItemsButton.forEach((btn) => {
@@ -411,6 +413,63 @@ const app = {
                 this.handleCloseDropdownFilter()
             }
         })
+
+        document.querySelector('.pagination').onclick = async (e) => {
+            if (e.target.closest('.pagination__page-number')) {
+                const pageValue = Number(e.target.textContent)
+
+                if (isNaN(pageValue)) {
+                    return
+                }
+
+                this.params = {
+                    ...this.params,
+                    page: pageValue,
+                }
+
+                const { data, meta } = await postServices.getPosts({ params: this.params })
+
+                this.meta = meta
+
+                this.posts = data
+
+                this.handleRenderPost()
+                this.handleLoadPagination()
+            }
+
+            if (e.target.closest('.pagination__btn')) {
+                const btnType = e.target.dataset.page
+
+                if (btnType === 'prev') {
+                    if (this.params.page === 1) {
+                        return
+                    }
+
+                    this.params = {
+                        ...this.params,
+                        page: this.params.page - 1,
+                    }
+                } else if (btnType === 'next') {
+                    if (this.params.page === this.meta?.pagination?.total_pages) {
+                        return
+                    }
+
+                    this.params = {
+                        ...this.params,
+                        page: this.params.page + 1,
+                    }
+                }
+
+                const { data, meta } = await postServices.getPosts({ params: this.params })
+
+                this.meta = meta
+
+                this.posts = data
+
+                this.handleRenderPost()
+                this.handleLoadPagination()
+            }
+        }
     },
 
     async handleRenderSidebarFilterByLocation() {
@@ -580,9 +639,10 @@ const app = {
 
     async handleFetchPost() {
         try {
-            const { data } = await postServices.getPosts({ params: this.params })
+            const { data, meta } = await postServices.getPosts({ params: this.params })
 
             this.posts = data
+            this.meta = meta
         } catch (error) {
             toast({
                 message: error.message,
@@ -591,12 +651,39 @@ const app = {
         }
     },
 
+    handleLoadPagination() {
+        const {
+            pagination: { total_pages },
+        } = this.meta
+
+        let pages = []
+
+        if (total_pages <= 8) {
+            for (let i = 1; i <= total_pages; i++) {
+                pages.push(i)
+            }
+        } else {
+            pages.push(1, 2, 3, 4, '...', total_pages - 3, total_pages - 2, total_pages - 1, total_pages)
+        }
+
+        document.querySelector('.pagination__pages-numbers').innerHTML = pages
+            .map((page) => {
+                return `
+                    <span class="pagination__page-number ${
+                        this.params.page === page ? 'active' : ''
+                    }" data-page="${page}">${page}</span>
+                `
+            })
+            .join('')
+    },
+
     async init() {
         await middleware()
         await this.handleFetchPost()
         await this.handleRenderSidebarFilterByLocation()
         this.handleRenderPost()
         await this.handleLoadCategory()
+        this.handleLoadPagination()
         this.handleEvent()
         this.handleInitTabs()
         defaultApp.init()
