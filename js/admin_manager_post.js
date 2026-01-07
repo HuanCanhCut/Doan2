@@ -367,6 +367,57 @@ async function handleLoadCategories() {
         .join('')
 }
 
+function handleLoadPagination() {
+    const {
+        pagination: { total_pages },
+    } = meta
+
+    let pages = []
+
+    if (total_pages <= 8) {
+        for (let i = 1; i <= total_pages; i++) {
+            pages.push(i)
+        }
+    } else {
+        pages.push(1, 2, 3, 4, '...', total_pages - 3, total_pages - 2, total_pages - 1, total_pages)
+    }
+
+    document.querySelector('.pagination__pages-numbers').innerHTML = pages
+        .map((page) => {
+            return `
+                <span class="pagination__page-number ${
+                    meta.pagination.current_page === page && 'active'
+                }">${page}</span>
+            `
+        })
+        .join('')
+}
+
+handleLoadPagination()
+
+document.querySelector('.pagination__pages-numbers').onclick = async (e) => {
+    if (e.target.closest('.pagination__page-number')) {
+        console.log(e.target)
+
+        const pageValue = Number(e.target.textContent)
+
+        if (isNaN(pageValue)) {
+            return
+        }
+
+        const { data: postData, meta: metaData } = await analyticsServices.getPostsManager({
+            params: { page: pageValue, per_page: PER_PAGE, ...filterState },
+        })
+
+        meta = metaData
+
+        currentPosts = postData
+
+        handleLoadPosts(currentPosts)
+        handleLoadPagination()
+    }
+}
+
 await handleLoadCategories()
 
 handleLoadPosts(currentPosts)
