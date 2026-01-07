@@ -67,3 +67,14 @@ export const updatePost = async (postId, data) => {
         throw error
     }
 }
+
+export const searchPosts = async (q, page = 1, per_page = 10) => {
+    try {
+        const response = await fetchClient.get(
+            `posts/search?q=${encodeURIComponent(q)}&page=${page}&per_page=${per_page}`
+        )
+        return await response.json()
+    } catch (error) {
+        throw error
+    }
+}

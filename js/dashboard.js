@@ -1,5 +1,8 @@
 import middleware from './middleware.js'
 import toast from './toast.js'
+import * as analyticsServices from './services/analyticsServices.js'
+import * as categoryServices from './services/categoryService.js'
+import * as userServices from './services/userService.js'
 
 const fromDateInput = document.querySelector('input[name="from_date"]')
 const toDateInput = document.querySelector('input[name="to_date"]')
@@ -12,8 +15,6 @@ const categoryKeyInput = document.querySelector('input[name="category_key"]')
 const categoryManagementBodyContent = document.querySelector('.category__management__body--content')
 
 const dashboardApp = {
-    posts: JSON.parse(localStorage.getItem('posts')) || [],
-
     dateFormatter: new Intl.DateTimeFormat('vi-VN', {
         year: 'numeric',
         month: '2-digit',
@@ -35,182 +36,48 @@ const dashboardApp = {
         toDateInput.value = todayStr
     },
 
-    handleLoadOverview(fromDate, toDate) {
-        const dateDiff = (new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24)
+    async handleLoadOverview(fromDate, toDate) {
+        try {
+            const { data: overviewData } = await analyticsServices.analyticsOverview(fromDate, toDate)
 
-        // Get date from fromDate - dateDiff
-        const lookBackDate = new Date(new Date(fromDate).getTime() - (dateDiff + 1) * 24 * 60 * 60 * 1000)
-
-        // Get date in format (YYYY-MM-DD)
-        const lookBackDateStr = lookBackDate.toISOString().split('T')[0]
-
-        // load overview
-        const overview = [
-            {
-                label: 'Tổng tin đăng',
-                value: () => {
-                    return this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
-
-                        return (
-                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                        )
-                    }).length
+            // load overview
+            const overview = [
+                {
+                    label: 'Tổng tin đăng',
+                    value: overviewData.total_posts,
+                    color: 'var(--accent)',
+                    backgroundColor: '#ffaa7d2e',
+                    icon: 'fa-solid fa-mobile-screen',
+                    percent: overviewData.total_posts_growth_percent,
                 },
-                color: 'var(--accent)',
-                backgroundColor: '#ffaa7d2e',
-                icon: 'fa-solid fa-mobile-screen',
-                percent: () => {
-                    const currentPostsAmount = this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
-
-                        return (
-                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                        )
-                    })
-
-                    const lookBackPostsAmount = this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
-
-                        return (
-                            postDate.toISOString().split('T')[0] >=
-                                new Date(lookBackDateStr).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(fromDate).toISOString().split('T')[0]
-                        )
-                    })
-
-                    if (lookBackPostsAmount.length === 0) {
-                        return currentPostsAmount.length * 100
-                    }
-
-                    const percent =
-                        ((currentPostsAmount.length - lookBackPostsAmount.length) / lookBackPostsAmount.length) * 100
-
-                    return Number(percent.toFixed(2))
+                {
+                    label: 'Tin đã duyệt',
+                    value: overviewData.approved_posts,
+                    color: 'var(--success)',
+                    backgroundColor: '#0bb07924',
+                    icon: 'fa-solid fa-circle-check',
+                    percent: overviewData.approved_posts_growth_percent,
                 },
-            },
-            {
-                label: 'Tin đã duyệt',
-                value: () => {
-                    return this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
-
-                        return (
-                            post.post_status === 'approved' &&
-                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                        )
-                    }).length
+                {
+                    label: 'Chờ duyệt',
+                    value: overviewData.pending_posts,
+                    color: '#f59e0b',
+                    backgroundColor: '#f59f0b28',
+                    icon: 'fa-solid fa-clock',
                 },
-                color: 'var(--success)',
-                backgroundColor: '#0bb07924',
-                icon: 'fa-solid fa-circle-check',
-                percent: () => {
-                    const currentPostsAmount = this.posts.filter((post) => {
-                        const postDate = new Date(post.updated_at)
-
-                        return (
-                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0] &&
-                            post.post_status === 'approved'
-                        )
-                    })
-
-                    const lookBackPostsAmount = this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
-
-                        return (
-                            postDate.toISOString().split('T')[0] >=
-                                new Date(lookBackDateStr).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(fromDate).toISOString().split('T')[0] &&
-                            post.post_status === 'approved'
-                        )
-                    })
-
-                    if (lookBackPostsAmount.length === 0) {
-                        return currentPostsAmount.length * 100
-                    }
-
-                    const percent =
-                        ((currentPostsAmount.length - lookBackPostsAmount.length) / lookBackPostsAmount.length) * 100
-
-                    return Number(percent.toFixed(2))
+                {
+                    label: 'Người dùng',
+                    value: overviewData.users,
+                    color: '#6a6aff',
+                    backgroundColor: '#7878ff24',
+                    icon: 'fa-solid fa-users-rectangle',
+                    percent: overviewData.users_growth_percent,
                 },
-            },
-            {
-                label: 'Chờ duyệt',
-                value: () => {
-                    return this.posts.filter((post) => {
-                        const postDate = new Date(post.created_at)
+            ]
 
-                        return (
-                            post.post_status === 'pending' &&
-                            postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                        )
-                    }).length
-                },
-                color: '#f59e0b',
-                backgroundColor: '#f59f0b28',
-                icon: 'fa-solid fa-clock',
-            },
-            {
-                label: 'Người dùng',
-                value: () => {
-                    return (
-                        JSON.parse(localStorage.getItem('users'))?.filter((user) => {
-                            const userDate = new Date(user.created_at)
-
-                            return (
-                                userDate.toISOString().split('T')[0] >=
-                                    new Date(fromDate).toISOString().split('T')[0] &&
-                                userDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                            )
-                        }).length || 0
-                    )
-                },
-                color: '#6a6aff',
-                backgroundColor: '#7878ff24',
-                icon: 'fa-solid fa-users-rectangle',
-                percent: () => {
-                    const users = JSON.parse(localStorage.getItem('users')) || []
-
-                    const currentUsersAmount = users.filter((user) => {
-                        const userDate = new Date(user.created_at)
-
-                        return (
-                            userDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                            userDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-                        )
-                    })
-
-                    const lookBackUsersAmount = users.filter((user) => {
-                        const userDate = new Date(user.created_at)
-
-                        return (
-                            userDate.toISOString().split('T')[0] >=
-                                new Date(lookBackDateStr).toISOString().split('T')[0] &&
-                            userDate.toISOString().split('T')[0] <= new Date(fromDate).toISOString().split('T')[0]
-                        )
-                    })
-
-                    if (lookBackUsersAmount.length === 0) {
-                        return currentUsersAmount.length * 100
-                    }
-
-                    const percent =
-                        ((currentUsersAmount.length - lookBackUsersAmount.length) / lookBackUsersAmount.length) * 100
-
-                    return Number(percent.toFixed(2))
-                },
-            },
-        ]
-
-        document.querySelector('.overview__container').innerHTML = overview
-            .map((item) => {
-                return `
+            document.querySelector('.overview__container').innerHTML = overview
+                .map((item) => {
+                    return `
                 <div class="col col-12 sm:col-6 lg:col-4 md:col-6 xl:col-3">
                     <div class="analytics__item">
                         <div
@@ -221,7 +88,7 @@ const dashboardApp = {
                         </div>
                         <div>
                             <span class="analytics__item--title">${item.label}</span>
-                            <h1 style="font-size: 2.8rem; font-weight: 700; margin: 12px auto">${item.value()}</h1>
+                            <h1 style="font-size: 2.8rem; font-weight: 700; margin: 12px auto">${item.value}</h1>
                             <p
                                 style="
                                     font-size: 1.3rem;
@@ -229,9 +96,9 @@ const dashboardApp = {
                                     align-items: center;
                                     color: ${
                                         item.percent
-                                            ? item.percent() > 0
+                                            ? item.percent > 0
                                                 ? 'var(--success)'
-                                                : item.percent() === 0
+                                                : item.percent === 0
                                                 ? 'gray'
                                                 : 'var(--danger)'
                                             : 'gray'
@@ -241,21 +108,28 @@ const dashboardApp = {
                             >
                                 ${
                                     item.percent
-                                        ? item.percent() > 0
+                                        ? item.percent > 0
                                             ? '<i class="fa-solid fa-arrow-up"></i>'
-                                            : item.percent() === 0
+                                            : item.percent === 0
                                             ? '<i class="fa-solid fa-minus"></i>'
                                             : '<i class="fa-solid fa-arrow-down"></i>'
                                         : '<i class="fa-solid fa-minus"></i>'
                                 }
-                                ${item.percent ? item.percent() + '%' : item.value()}
+                                ${item.percent ? item.percent + '%' : item.value}
                             </p>
                         </div>
                     </div>
                 </div>
             `
+                })
+                .join('')
+        } catch (error) {
+            toast({
+                title: 'Lỗi',
+                message: error.message,
+                type: 'error',
             })
-            .join('')
+        }
     },
 
     getRandomColor() {
@@ -286,23 +160,12 @@ const dashboardApp = {
         }, {})
     },
 
-    filterPostsByDate(fromDate, toDate) {
-        return this.posts.filter((post) => {
-            const postDate = new Date(post.created_at)
+    async handleDonutChart() {
+        const { data: categories } = await categoryServices.getCategories()
 
-            return (
-                postDate.toISOString().split('T')[0] >= new Date(fromDate).toISOString().split('T')[0] &&
-                postDate.toISOString().split('T')[0] <= new Date(toDate).toISOString().split('T')[0]
-            )
-        })
-    },
-
-    handleDonutChart() {
-        const groupedPosts = this.groupPostsByCategory(this.filterPostsByDate(fromDateInput.value, toDateInput.value))
-
-        const data = Object.values(groupedPosts).map((item) => item.value)
-        const colors = Object.values(groupedPosts).map((item) => item.color)
-        const names = Object.values(groupedPosts).map((item) => item.name)
+        const data = categories.map((item) => item.percentage)
+        const colors = categories.map((item) => this.getRandomColor())
+        const names = categories.map((item) => item.name)
 
         const total = data.reduce((a, b) => a + b, 0)
 
@@ -341,136 +204,86 @@ const dashboardApp = {
 
         document.querySelector('.chart__item--donut').innerHTML = svgContent
 
-        document.querySelector('.chart__item--donut--info').innerHTML = Object.keys(groupedPosts)
+        document.querySelector('.chart__item--donut--info').innerHTML = categories
             .map((item, index) => {
                 return `
                     <div class="chart__item--donut--info--item">
                         <div class="chart__item--donut--info--item--color" style="background-color: ${colors[index]}"></div>
-                        <span class="chart__item--donut--info--item--name">${groupedPosts[item].name}</span>
+                        <span class="chart__item--donut--info--item--name">${item.name}</span>
                     </div>
             `
             })
             .join('')
     },
 
-    handleLoadLocationStats() {
-        const fromDate = fromDateInput.value
-        const toDate = toDateInput.value
+    async handleLoadLocationStats() {
+        try {
+            const fromDate = fromDateInput.value
+            const toDate = toDateInput.value
 
-        const groupedPosts = this.filterPostsByDate(fromDate, toDate).reduce((acc, curr) => {
-            if (!acc[curr.address_bd]) {
-                acc[curr.address_bd] = {
-                    name: curr.address_bd,
-                    value: 0,
-                }
-            }
+            const { data: locationStatsSorted } = await analyticsServices.getLocationStatsSorted(fromDate, toDate)
 
-            acc[curr.address_bd].value++
-            return acc
-        }, {})
-
-        // only show 8 location stats
-        let locationStatsSorted = Object.values(groupedPosts).sort((a, b) => b.value - a.value)
-
-        const dateDiff = (new Date(toDate) - new Date(fromDate)) / (1000 * 60 * 60 * 24)
-
-        // Get date from fromDate - dateDiff
-        const lookBackDate = new Date(new Date(fromDate).getTime() - (dateDiff + 1) * 24 * 60 * 60 * 1000)
-
-        // Get date in format (YYYY-MM-DD)
-        const lookBackDateStr = lookBackDate.toISOString().split('T')[0]
-
-        const groupedPostsLookBack = this.filterPostsByDate(lookBackDateStr, fromDate).reduce((acc, curr) => {
-            if (!acc[curr.address_bd]) {
-                acc[curr.address_bd] = {
-                    name: curr.address_bd,
-                    value: 0,
-                }
-            }
-
-            acc[curr.address_bd].value++
-            return acc
-        }, {})
-
-        locationStatsSorted = locationStatsSorted.map((item) => {
-            const name = item.name
-
-            const percent = Number(((item.value / this.posts.length) * 100).toFixed(2))
-
-            if (groupedPostsLookBack[name]) {
-                const growth =
-                    ((item.value - groupedPostsLookBack[name].value) / groupedPostsLookBack[name].value) * 100
-
-                return {
-                    ...item,
-                    growth,
-                    percent,
-                }
-            } else {
-                return {
-                    ...item,
-                    growth: item.value * 100,
-                    percent,
-                }
-            }
-        })
-
-        document.querySelector('.location__stats--item--content--wrapper').innerHTML = locationStatsSorted
-            .map((item) => {
-                return `
+            document.querySelector('.location__stats--item--content--wrapper').innerHTML = locationStatsSorted
+                .map((item) => {
+                    return `
                     <div class="row">
                         <div class="col col-3">
                             <div class="location__stats--item--content">
-                                ${item.name}
+                                ${item.address}
                             </div>
                         </div>
                         <div class="col col-3">
-                            <div class="location__stats--item--content">${item.value}</div>
+                            <div class="location__stats--item--content">${item.post_count}</div>
                         </div>
                         <div class="col col-3">
                             <div class="location__stats--item--content" style="color: ${
-                                item.growth > 0 ? 'var(--success)' : item.growth === 0 ? 'gray' : 'var(--danger)'
+                                item.growth_rate > 0
+                                    ? 'var(--success)'
+                                    : item.growth_rate === 0
+                                    ? 'gray'
+                                    : 'var(--danger)'
                             }">
                                 ${
-                                    item.growth > 0
+                                    item.growth_rate > 0
                                         ? '<i class="fa-solid fa-arrow-up"></i>'
-                                        : item.growth === 0
+                                        : item.growth_rate === 0
                                         ? '<i class="fa-solid fa-minus"></i>'
                                         : '<i class="fa-solid fa-arrow-down"></i>'
-                                } <span>${item.growth}%</span>
+                                } <span>${item.growth_rate}%</span>
                             </div>
                         </div>
                         <div class="col col-3">
                             <div class="location__stats--item--content">
-                                <span>${item.percent}%</span>
+                                <span>${item.percentage.toFixed(1)}%</span>
                             </div>
                         </div>
                     </div>
                 `
+                })
+                .join('')
+        } catch (error) {
+            toast({
+                title: 'Lỗi',
+                message: error.message,
+                type: 'error',
             })
-            .join('')
+        }
     },
 
-    handleLoadUser() {
-        let users = JSON.parse(localStorage.getItem('users')) || []
+    async handleLoadUser() {
+        try {
+            const { data: users } = await userServices.getAllUsers(1, 10)
 
-        users = users.map((user) => {
-            return {
-                ...user,
-                post_amount: this.posts.filter((post) => post.user_id === user.id).length,
-            }
-        })
-
-        document.querySelector('.user__stats--item--content--wrapper').innerHTML = users
-            .map((user) => {
-                return `
+            document.querySelector('.user__stats--item--content--wrapper').innerHTML = users
+                .map((user) => {
+                    return `
                 <div class="row">
                     <div class="col col-6">
                         <div
                             class="user__stats--item--content user__stats--item--content--user"
                         >
                             <img
-                                src="${user.avatar}"
+                                src="${user.avatar_url || ''}"
                                 alt=""
                                 onerror="this.src='/public/static/fallback.png'"
                             />
@@ -485,7 +298,7 @@ const dashboardApp = {
                         </div>
                     </div>
                     <div class="col col-3">
-                        <div class="user__stats--item--content">${user.post_amount}</div>
+                        <div class="user__stats--item--content">${user.post_count}</div>
                     </div>
                     <div class="col col-3">
                         <div class="user__stats--item--content">
@@ -499,12 +312,19 @@ const dashboardApp = {
                     </div>
                 </div>
             `
+                })
+                .join('')
+        } catch (error) {
+            toast({
+                title: 'Lỗi',
+                message: error.message,
+                type: 'error',
             })
-            .join('')
+        }
     },
 
     handleEvent() {
-        filterBtn.onclick = () => {
+        filterBtn.onclick = async () => {
             if (fromDateInput.value === '') {
                 // 1970-01-01
                 fromDateInput.value = new Date(1970, 0, 1).toISOString().split('T')[0]
@@ -524,18 +344,17 @@ const dashboardApp = {
             }
 
             this.handleLoadOverview(fromDateInput.value, toDateInput.value)
-            this.handleDonutChart()
-            this.handleLineChart()
+            await this.handleDonutChart()
             this.handleLoadLocationStats()
             this.handleLoadUser()
         }
 
-        addCategoryBtn.onclick = () => {
-            this.handleModifyCategory()
+        addCategoryBtn.onclick = async () => {
+            await this.handleModifyCategory('add')
         }
 
-        updateCategoryBtn.onclick = () => {
-            this.handleModifyCategory('update')
+        updateCategoryBtn.onclick = async () => {
+            await this.handleModifyCategory('update')
         }
 
         // handle submit when click enter in categoryKeyInput or categoryNameInput
@@ -547,14 +366,15 @@ const dashboardApp = {
             })
         })
 
-        categoryManagementBodyContent.onclick = (e) => {
+        categoryManagementBodyContent.onclick = async (e) => {
+            const { data: categories } = await categoryServices.getCategories()
+
             if (e.target.closest('.action__btn--edit')) {
                 this.currentCategoryId = Number(e.target.closest('.action__btn--edit').dataset.categoryId)
 
-                const categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
                 const categoryId = e.target.closest('.action__btn--edit').dataset.categoryId
 
-                const category = categoriesDb.find((category) => category.id === Number(categoryId))
+                const category = categories.find((category) => category.id === Number(categoryId))
 
                 if (category) {
                     categoryNameInput.value = category.name
@@ -571,15 +391,12 @@ const dashboardApp = {
                     return
                 }
 
-                let categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
                 const categoryId = e.target.closest('.action__btn--delete').dataset.categoryId
 
-                const category = categoriesDb.find((category) => category.id === Number(categoryId))
+                const category = categories.find((category) => category.id === Number(categoryId))
 
                 if (category) {
-                    categoriesDb = categoriesDb.filter((category) => category.id !== Number(categoryId))
-
-                    localStorage.setItem('categories', JSON.stringify(categoriesDb))
+                    await categoryServices.deleteCategory(Number(categoryId))
 
                     toast({
                         title: 'Thành công',
@@ -587,14 +404,14 @@ const dashboardApp = {
                         type: 'success',
                     })
 
-                    this.handleLoadCategoryManagement()
+                    await this.handleLoadCategoryManagement()
 
                     return
                 }
             }
         }
 
-        document.querySelector('.user__stats--item--content--wrapper').onclick = (e) => {
+        document.querySelector('.user__stats--item--content--wrapper').onclick = async (e) => {
             if (e.target.closest('.user__stats--item--content--delete')) {
                 const userId = Number(e.target.closest('.user__stats--item--content--delete').dataset.userId)
 
@@ -612,20 +429,7 @@ const dashboardApp = {
                     })
                 }
 
-                let usersDb = JSON.parse(localStorage.getItem('users')) || []
-
-                if (usersDb.find((user) => user.id === userId).length === 0) {
-                    toast({
-                        title: 'Thông báo',
-                        message: 'Người dùng không tồn tại',
-                        type: 'error',
-                    })
-                    return
-                }
-
-                usersDb = usersDb.filter((user) => user.id !== userId)
-
-                localStorage.setItem('users', JSON.stringify(usersDb))
+                await userServices.deleteUser(userId)
 
                 this.handleLoadUser()
 
@@ -638,7 +442,7 @@ const dashboardApp = {
         }
     },
 
-    handleModifyCategory(type = 'add') {
+    async handleModifyCategory(type = 'add') {
         if (categoryNameInput.value === '' || categoryKeyInput.value === '') {
             toast({
                 title: 'Thông báo',
@@ -648,84 +452,64 @@ const dashboardApp = {
             return
         }
 
-        let categoriesDb = JSON.parse(localStorage.getItem('categories')) || []
-
         switch (type) {
             case 'add':
-                // check if category name or key already exists
-                if (
-                    categoriesDb.some(
-                        (category) =>
-                            category.name === categoryNameInput.value.trim() ||
-                            category.key === categoryKeyInput.value.trim()
-                    )
-                ) {
+                try {
+                    await categoryServices.addCategory({
+                        name: categoryNameInput.value.trim(),
+                        key: categoryKeyInput.value.trim(),
+                    })
+
+                    toast({
+                        title: 'Thành công',
+                        message: 'Danh mục đã được thêm thành công',
+                        type: 'success',
+                    })
+                } catch (error) {
                     toast({
                         title: 'Thông báo',
-                        message: 'Tên danh mục hoặc key đã tồn tại',
+                        message: error.message,
                         type: 'error',
                     })
-                    return
                 }
-
-                categoriesDb.push({
-                    id: Math.max(...categoriesDb.map((category) => category.id), 0) + 1,
-                    name: categoryNameInput.value.trim(),
-                    key: categoryKeyInput.value.trim(),
-                })
-
-                toast({
-                    title: 'Thành công',
-                    message: 'Danh mục đã được thêm thành công',
-                    type: 'success',
-                })
                 break
             case 'update':
-                // check if category id not found
-                if (categoriesDb.find((category) => category.id === this.currentCategoryId).length === 0) {
+                try {
+                    await categoryServices.updateCategory({
+                        id: Number(this.currentCategoryId),
+                        name: categoryNameInput.value.trim(),
+                        key: categoryKeyInput.value.trim(),
+                    })
+
+                    toast({
+                        title: 'Thành công',
+                        message: 'Danh mục đã được cập nhật thành công',
+                        type: 'success',
+                    })
+                } catch (error) {
                     toast({
                         title: 'Thông báo',
-                        message: 'Danh mục không tồn tại',
+                        message: error.message,
                         type: 'error',
                     })
-                    return
                 }
-
-                categoriesDb = categoriesDb.map((category) => {
-                    if (category.id === this.currentCategoryId) {
-                        return {
-                            ...category,
-                            name: categoryNameInput.value.trim(),
-                            key: categoryKeyInput.value.trim(),
-                        }
-                    }
-                    return category
-                })
-
-                toast({
-                    title: 'Thành công',
-                    message: 'Danh mục đã được cập nhật thành công',
-                    type: 'success',
-                })
                 break
             default:
                 break
         }
-
-        localStorage.setItem('categories', JSON.stringify(categoriesDb))
 
         categoryNameInput.value = ''
         categoryKeyInput.value = ''
 
         categoryNameInput.focus()
 
-        this.handleLoadCategoryManagement()
+        await this.handleLoadCategoryManagement()
     },
 
-    handleLoadCategoryManagement() {
+    async handleLoadCategoryManagement() {
         this.currentCategoryId = null
 
-        const categories = JSON.parse(localStorage.getItem('categories')) || []
+        const { data: categories } = await categoryServices.getCategories()
 
         categoryManagementBodyContent.innerHTML = categories
             .map((category) => {
@@ -748,11 +532,11 @@ const dashboardApp = {
     async init() {
         await middleware()
         this.handleLoadDate()
-        this.handleLoadOverview(fromDateInput.value, toDateInput.value)
-        this.handleDonutChart()
-        this.handleLoadCategoryManagement()
-        this.handleLoadLocationStats()
-        this.handleLoadUser()
+        await this.handleLoadOverview(fromDateInput.value, toDateInput.value)
+        await this.handleDonutChart()
+        await this.handleLoadCategoryManagement()
+        await this.handleLoadLocationStats()
+        await this.handleLoadUser()
         this.handleEvent()
     },
 }

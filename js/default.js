@@ -5,6 +5,7 @@ import { listenEvent, sendEvent } from './helpers/event.js'
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import mockPosts from '../mocks/posts.js'
 import * as authService from './services/authService.js'
+import * as postService from './services/postService.js'
 
 const loginBtn = document.querySelector('.header__actions__button--login')
 const registerBtn = document.querySelector('.header__actions__button--register')
@@ -135,45 +136,39 @@ const defaultApp = {
                 return async (searchValue) => {
                     clearTimeout(timeoutId)
                     timeoutId = setTimeout(async () => {
-                        const searchResult = this.posts.filter((post) => {
-                            searchValue = searchValue.toLowerCase()
-
-                            return (
-                                post.title.toLowerCase().includes(searchValue) ||
-                                post.address_bd.toLowerCase().normalize().includes(searchValue) ||
-                                post.address.toLowerCase().includes(searchValue) ||
-                                (post.address + ' ' + post.address_bd).toLowerCase().includes(searchValue)
-                            )
-                        })
+                        const { data: searchResult } = await postService.searchPosts(searchValue, 1, 5)
 
                         if (searchResult.length > 0) {
                             document.querySelector('.header__search__result').classList.add('active')
                             document.querySelector('.header__search__result').innerHTML = searchResult
-                                .slice(0, 5)
                                 .map((post) => {
-                                    return `
-                                        <a class="header__search__result__item" href="details.html?post_id=1">
-                                            <img
-                                                src="${post.images[0]}"
-                                                alt=""
-                                            />
-                                            <div class="header__search__result__item--info">
-                                                <h4>${post.title}</h4>
-                                                <p>
-                                                    <span class="header__search__result__item--info__price">${handleConvertPrice(
-                                                        post.detail.price
-                                                    )}</span>
-                                                    <span class="header__search__result__item--info__price__m2">${Number(
-                                                        post.detail.price / post.detail.area / 1000000
-                                                    ).toFixed(2)} tr/m²</span
-                                                    ><span class="header__search__result__item--info__price__m2">${
-                                                        post.detail.area
-                                                    }m²</span>
-                                                </p>
-                                                <p>${post.address + ' - ' + post.address_bd}</p>
-                                            </div>
-                                        </a>
-                                `
+                                    if (post.json_post_detail) {
+                                        return `
+                                            <a class="header__search__result__item" href="details.html?post_id=1">
+                                                <img
+                                                    src="${JSON.parse(post.images)[0]}"
+                                                    alt=""
+                                                />
+                                                <div class="header__search__result__item--info">
+                                                    <h4>${post.title}</h4>
+                                                    <p>
+                                                        <span class="header__search__result__item--info__price">${handleConvertPrice(
+                                                            Number(post.json_post_detail?.price)
+                                                        )}</span>
+                                                        <span class="header__search__result__item--info__price__m2">${Number(
+                                                            post.json_post_detail.price /
+                                                                post.json_post_detail.area /
+                                                                1000000
+                                                        ).toFixed(2)} tr/m²</span
+                                                        ><span class="header__search__result__item--info__price__m2">${
+                                                            post.json_post_detail.area
+                                                        }m²</span>
+                                                    </p>
+                                                    <p>${post.address + ' - ' + post.administrative_address}</p>
+                                                </div>
+                                            </a>
+                                        `
+                                    }
                                 })
                                 .join('')
                         }
