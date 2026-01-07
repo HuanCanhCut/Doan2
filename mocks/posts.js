@@ -261,7 +261,7 @@ export default [
         description: 'Căn hộ view hồ bơi, tầng trung, giá tốt cho khách thuê dài hạn.\n\nsdt: 0966888777',
         property_category: 'apartment',
         project_type: 'rent',
-        user_id: 1,
+        user_id: 2,
         post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
@@ -342,7 +342,7 @@ export default [
         description: 'Mặt tiền 8m, đường lớn, phù hợp mở showroom, ngân hàng.\n\nsdt: 0911888999',
         property_category: 'house',
         project_type: 'sell',
-        user_id: 1,
+        user_id: 2,
         post_status: 'rejected', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
@@ -453,7 +453,7 @@ export default [
         description: 'Studio nhỏ gọn, đầy đủ tiện nghi, phù hợp người đi làm.\n\nsdt: 0944222333',
         property_category: 'apartment',
         project_type: 'rent',
-        user_id: 1,
+        user_id: 2,
         post_status: 'approved', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),
@@ -594,7 +594,7 @@ export default [
         description: 'Biệt thự sân vườn, nội thất cao cấp, khu dân trí cao.\n\nsdt: 0933111444',
         property_category: 'house',
         project_type: 'rent',
-        user_id: 1,
+        user_id: 2,
         post_status: 'approved', // approved, pending, rejected
         status: 'Chưa bàn giao',
         created_at: new Date(),

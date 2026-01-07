@@ -422,6 +422,74 @@ body {
     color: #666;
 }
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pagination button {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.pagination__pages-numbers {
+    display: flex;
+    align-items: center;
+}
+
+.pagination span:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.pagination__page-number {
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    padding: 10px 16px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+}
+
+.pagination__page-number.active {
+    background-color: #1f29372a;
+}
+
+.pagination-container button:nth-child(1) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.pagination-container button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .pagination__page-number {
+        padding: 4px 12px;
+    }
+
+    .pagination button {
+        padding: 4px 12px;
+    }
+}
+
 @media (max-width: 900px) {
     .app {
         grid-template-columns: 1fr;

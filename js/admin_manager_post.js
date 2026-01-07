@@ -1,6 +1,9 @@
 import handleConvertPrice from './helpers/handleConvertPrice.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
 import middleware from './middleware.js'
+import * as analyticsServices from './services/analyticsService.js'
+import * as managerPostServices from './services/managerPostService.js'
+import * as categoryServices from './services/categoryService.js'
 
 await middleware()
 
@@ -11,43 +14,48 @@ const typeFilter = document.getElementById('type-filter')
 const categoryFilter = document.getElementById('category-filter')
 const postsTableBody = document.querySelector('#posts-table-body')
 
-let currentPost = JSON.parse(localStorage.getItem('posts')) || []
+const PER_PAGE = 10
+
+let { data: currentPosts, meta } = await analyticsServices.getPostsManager({ params: { page: 1, per_page: PER_PAGE } })
+const { data: categories } = await categoryServices.getCategories()
 
 let selectedPost = []
 
 let filterState = {
     search: '',
-    status: 'all',
-    type: 'all',
-    category: 'all',
+    post_status: 'all',
+    project_type: 'all',
+    category_id: 0,
 }
+//Hàm handleLoadOverview dùng để hiển thị thống kê tổng quan bài đăng
+async function handleLoadOverview() {
+    const { data: overviewData } = await analyticsServices.getPostsAnalyticsOverview()
 
-function handleLoadOverview(posts) {
     const overview = [
         {
             label: 'Tổng số tin đăng',
-            value: () => posts.length,
+            value: () => overviewData.total,
             icon: 'fa-solid fa-mobile-screen',
             color: 'var(--accent)',
             backgroundColor: '#ffaa7d2e',
         },
         {
             label: 'Đã duyệt',
-            value: () => posts.filter((post) => post.post_status === 'approved').length,
+            value: () => overviewData.approved_count,
             icon: 'fa-solid fa-circle-check',
             color: 'var(--success)',
             backgroundColor: '#0bb07924',
         },
         {
             label: 'Chờ duyệt',
-            value: () => posts.filter((post) => post.post_status === 'pending').length,
+            value: () => overviewData.pending_count,
             icon: 'fa-solid fa-clock',
             color: '#f59e0b',
             backgroundColor: '#f59f0b28',
         },
         {
             label: 'Bị từ chối',
-            value: () => posts.filter((post) => post.post_status === 'rejected').length,
+            value: () => overviewData.rejected_count,
             icon: 'fa-solid fa-ban',
             color: '#ff3434ff',
             backgroundColor: '#ff343424',
@@ -88,8 +96,6 @@ function handleLoadPosts(posts) {
         rejected: 'Bị từ chối',
     }
 
-    const categories = JSON.parse(localStorage.getItem('categories')) || []
-
     postsTableBody.innerHTML = posts
         .map((post, index) => {
             return `
@@ -102,7 +108,7 @@ function handleLoadPosts(posts) {
                 <td>${index + 1}</td>
                 <td>
                     <div class="post__title">${post.title}</div>
-                    <small style="color: #999; font-size: 1.2rem">${post.address_bd}</small>
+                    <small style="color: #999; font-size: 1.2rem">${post.administrative_address}</small>
                 </td>
                 <td>
                     <span style="${
@@ -111,11 +117,11 @@ function handleLoadPosts(posts) {
                             : 'background: #f3e5f5; color: #9c27b0'
                     }" class="post__category">
                     ${projectTypeMapping[post.project_type]}-${
-                categories.find((category) => category.key === post.property_category)?.name
+                categories.find((category) => category.id === post.category_id)?.name
             }</span>
                 </td>
                 <td>
-                    <span class="post__price">${handleConvertPrice(post.detail.price.toString())}</span>
+                    <span class="post__price">${handleConvertPrice(Number(post.json_post_detail.price))}</span>
                 </td>
                 <td>
                     <span class="post__status" style="${
@@ -170,61 +176,51 @@ function handleLoadPosts(posts) {
         })
         .join('')
 
-    count.textContent = `${currentPost.length}/${JSON.parse(localStorage.getItem('posts')).length}`
+    count.textContent = `${currentPosts.length}/${meta.pagination.total}`
 }
 
-function handleFilter() {
-    currentPost = JSON.parse(localStorage.getItem('posts')).filter((post) => {
-        const searchMatch =
-            !filterState.search ||
-            post.title.toLowerCase().includes(filterState.search.toLocaleLowerCase()) ||
-            post.address.toLowerCase().includes(filterState.search.toLocaleLowerCase()) ||
-            post.address_bd.toLowerCase().includes(filterState.search.toLocaleLowerCase())
-
-        const statusMatch = filterState.status === 'all' || post.post_status === filterState.status
-
-        const typeMatch = filterState.type === 'all' || post.project_type === filterState.type
-
-        const categoryMatch = filterState.category === 'all' || post.property_category === filterState.category
-
-        return searchMatch && statusMatch && typeMatch && categoryMatch
+//Hàm handleFilter dùng để lọc danh sách bài đăng theo các điều kiện
+async function handleFilter() {
+    currentPosts = await analyticsServices.getPostsManager({
+        params: { page: meta.pagination.current_page, per_page: PER_PAGE, ...filterState },
     })
 
-    return currentPost
+    return currentPosts
 }
-
-function handleApplyFilter(e, key) {
+// Hàm handleApplyFilter dùng để áp dụng bộ lọc khi người dùng thay đổi input
+async function handleApplyFilter(e, key) {
     const value = e.target.value
 
     filterState[key] = value
 
-    const filtered = handleFilter()
+    const { data: filtered } = await handleFilter()
 
     handleLoadPosts(filtered)
 }
 
-searchInput.oninput = (e) => {
-    handleApplyFilter(e, 'search')
+// Tìm kiếm theo từ khóa (gõ đến đâu lọc đến đó)
+searchInput.oninput = async (e) => {
+    await handleApplyFilter(e, 'search')
 }
 
-statusFilter.onchange = (e) => {
-    handleApplyFilter(e, 'status')
+statusFilter.onchange = async (e) => {
+    await handleApplyFilter(e, 'post_status')
 }
 
-typeFilter.onchange = (e) => {
-    handleApplyFilter(e, 'type')
+typeFilter.onchange = async (e) => {
+    await handleApplyFilter(e, 'project_type')
 }
 
-categoryFilter.onchange = (e) => {
-    handleApplyFilter(e, 'category')
+categoryFilter.onchange = async (e) => {
+    await handleApplyFilter(e, 'category_id')
 }
 
-resetBtn.onclick = () => {
+resetBtn.onclick = async () => {
     filterState = {
         search: '',
-        status: 'all',
-        type: 'all',
-        category: 'all',
+        post_status: 'all',
+        project_type: 'all',
+        category_id: 0,
     }
 
     Array.from([statusFilter, typeFilter, categoryFilter]).forEach((select) => {
@@ -233,13 +229,13 @@ resetBtn.onclick = () => {
 
     searchInput.value = ''
 
-    const filtered = handleFilter()
+    const { data: filtered } = await handleFilter()
 
     handleLoadPosts(filtered)
     handleLoadOverview(filtered)
 }
 
-postsTableBody.onclick = (e) => {
+postsTableBody.onclick = async (e) => {
     // handle when click action btn
     const isMatchBtn = e.target.closest('.action__btn')
 
@@ -247,8 +243,8 @@ postsTableBody.onclick = (e) => {
     if (isMatchBtn) {
         const postId = isMatchBtn.dataset.id
 
-        const post = currentPost.find((post) => post.id === Number(postId))
-
+        const post = currentPosts.find((post) => post.id === Number(postId))
+        //Chỉ cho thao tác khi bài đó đang được tick chọn (đảm bảo đúng flow chọn nhiều)
         if (!selectedPost.includes(Number(postId))) {
             return
         }
@@ -265,7 +261,7 @@ postsTableBody.onclick = (e) => {
 
                 if (confirm(`Bạn có chắc chắn muốn duyệt bài đăng này không?`)) {
                     isConfirm = true
-                    typeConfirm = 'approved'
+                    typeConfirm = 'approve'
                 }
 
                 break
@@ -287,63 +283,45 @@ postsTableBody.onclick = (e) => {
 
                 if (confirm(`Bạn có chắc chắn muốn từ chối bài đăng này không?`)) {
                     isConfirm = true
-                    typeConfirm = 'rejected'
+                    typeConfirm = 'reject'
                 }
 
                 break
             case 'delete':
                 if (confirm(`Bạn có chắc chắn muốn xóa bài đăng này không?`)) {
-                    localStorage.setItem(
-                        'posts',
-                        JSON.stringify(
-                            JSON.parse(localStorage.getItem('posts'))?.filter((p) => p.id !== Number(postId))
-                        )
-                    )
+                    await managerPostServices.deletePost(postId)
 
-                    currentPost = currentPost.filter((p) => p.id !== Number(postId))
+                    currentPosts = currentPosts.filter((p) => p.id !== Number(postId))
 
-                    handleLoadPosts(currentPost)
+                    handleLoadPosts(currentPosts)
 
-                    handleLoadOverview(JSON.parse(localStorage.getItem('posts')) || [])
+                    handleLoadOverview()
                 }
                 break
         }
 
         if (isConfirm) {
-            currentPost = currentPost.map((p) => {
+            await managerPostServices.modifyPostStatus(postId, typeConfirm)
+
+            currentPosts = currentPosts.map((p) => {
                 if (selectedPost.includes(p.id)) {
                     return {
                         ...p,
-                        post_status: typeConfirm,
+                        post_status:
+                            typeConfirm === 'approve' ? 'approved' : typeConfirm === 'pending' ? 'pending' : 'rejected',
                     }
                 }
 
                 return p
             })
 
-            localStorage.setItem(
-                'posts',
-                JSON.stringify(
-                    JSON.parse(localStorage.getItem('posts'))?.map((p) => {
-                        if (selectedPost.includes(p.id)) {
-                            return {
-                                ...p,
-                                post_status: typeConfirm,
-                            }
-                        }
-
-                        return p
-                    })
-                )
-            )
-
             selectedPost = []
 
             document.querySelector('#select-all').checked = false
 
-            handleLoadPosts(currentPost)
+            handleLoadPosts(currentPosts)
 
-            handleLoadOverview(JSON.parse(localStorage.getItem('posts')) || [])
+            handleLoadOverview()
         }
     }
 
@@ -361,36 +339,86 @@ postsTableBody.onclick = (e) => {
             selectedPost.push(Number(postId))
         }
 
-        handleLoadPosts(currentPost)
+        handleLoadPosts(currentPosts)
     }
 }
 
 document.querySelector('#select-all').onchange = (e) => {
     if (e.target.checked) {
-        JSON.parse(localStorage.getItem('posts')).forEach((post) => {
+        // Nếu chọn tất cả → thêm toàn bộ id bài đăng vào selectedPost
+        currentPosts.forEach((post) => {
             selectedPost.push(post.id)
         })
     } else {
         selectedPost = []
     }
-    handleLoadPosts(currentPost)
+    handleLoadPosts(currentPosts)
 }
-
-function handleLoadCategories() {
-    const categories = JSON.parse(localStorage.getItem('categories')) || []
-
+// Hàm handleLoadCategories dùng để render danh sách danh mục vào bộ lọc
+async function handleLoadCategories() {
     categoryFilter.innerHTML = categories
         .map((category, index) => {
             return `
                 ${index === 0 ? '<option value="all">Tất cả danh mục</option>' : ''}
 
-                <option value="${category.key}">Bất động sản - ${category.name}</option>
+                <option value="${category.id}">Bất động sản - ${category.name}</option>
             `
         })
         .join('')
 }
 
-handleLoadCategories()
+function handleLoadPagination() {
+    const {
+        pagination: { total_pages },
+    } = meta
 
-handleLoadPosts(currentPost)
-handleLoadOverview(currentPost)
+    let pages = []
+
+    if (total_pages <= 8) {
+        for (let i = 1; i <= total_pages; i++) {
+            pages.push(i)
+        }
+    } else {
+        pages.push(1, 2, 3, 4, '...', total_pages - 3, total_pages - 2, total_pages - 1, total_pages)
+    }
+
+    document.querySelector('.pagination__pages-numbers').innerHTML = pages
+        .map((page) => {
+            return `
+                <span class="pagination__page-number ${
+                    meta.pagination.current_page === page && 'active'
+                }">${page}</span>
+            `
+        })
+        .join('')
+}
+
+handleLoadPagination()
+
+document.querySelector('.pagination__pages-numbers').onclick = async (e) => {
+    if (e.target.closest('.pagination__page-number')) {
+        console.log(e.target)
+
+        const pageValue = Number(e.target.textContent)
+
+        if (isNaN(pageValue)) {
+            return
+        }
+
+        const { data: postData, meta: metaData } = await analyticsServices.getPostsManager({
+            params: { page: pageValue, per_page: PER_PAGE, ...filterState },
+        })
+
+        meta = metaData
+
+        currentPosts = postData
+
+        handleLoadPosts(currentPosts)
+        handleLoadPagination()
+    }
+}
+
+await handleLoadCategories()
+
+handleLoadPosts(currentPosts)
+handleLoadOverview()

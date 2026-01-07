@@ -3,6 +3,7 @@ import { sendEvent } from './helpers/event.js'
 import getUrlSearchParams from './helpers/getURLSearchParams.js'
 import { momentTimezone } from './helpers/momentTimezone.js'
 import toast from './toast.js'
+import { getPostById } from './services/postService.js'
 
 const nextImageBtn = document.querySelector('.details__info__images__preview__btn--next')
 const prevImageBtn = document.querySelector('.details__info__images__preview__btn--prev')
@@ -26,14 +27,16 @@ const confirmModalButtonCancel = document.querySelector('.confirm__modal__button
 const confirmModalButtonConfirm = document.querySelector('.confirm__modal__button--confirm')
 
 const postId = Number(getUrlSearchParams('post_id'))
-const currentPost = JSON.parse(localStorage.getItem('posts')).find((post) => post.id === postId)
-const postUser = JSON.parse(localStorage.getItem('users')).find((user) => user.id === currentPost.user_id)
+
+const { data: currentPost } = await getPostById(postId)
+
+const postUser = currentPost.json_user
 
 let activeImageIndex = 0
 
-// render images
+// Hàm renderImages dùng để hiển thị danh sách ảnh của bài viết hiện tại
 function renderImages() {
-    imagesList.innerHTML = currentPost.images
+    imagesList.innerHTML = JSON.parse(currentPost.images)
         .map((img, index) => {
             return `
              <img
@@ -47,8 +50,9 @@ function renderImages() {
         .join('')
 }
 
+//// Hàm handleLoadCurrentImage dùng để hiển thị ảnh được chọn theo index
 function handleLoadCurrentImage(index) {
-    imagesPreviewImg.style.backgroundImage = `url(${currentPost.images[index]})`
+    imagesPreviewImg.style.backgroundImage = `url(${JSON.parse(currentPost.images)[index]})`
 
     const imageListItem = document.querySelector(`.details__info__images__list img[data-index="${index}"]`)
 
@@ -62,24 +66,33 @@ function handleLoadCurrentImage(index) {
     })
     imageListItem.classList.add('active')
 
-    imagesPreviewCount.textContent = `${Number(index) + 1}/${currentPost.images.length}`
+    imagesPreviewCount.textContent = `${Number(index) + 1}/${JSON.parse(currentPost.images).length}`
 }
 
+//Hàm loadPostDetails dùng để hiển thị thông tin chi tiết của bài đăng
 function loadPostDetails() {
     detailsTitle.textContent = currentPost.title
-    detailsTypeBedrooms.textContent = currentPost.detail.bedrooms
-    detailsTypeType.textContent = currentPost.detail.type
+    detailsTypeBedrooms.textContent = currentPost.json_post_detail.bedrooms
+    detailsTypeType.textContent = currentPost.json_post_detail.type
 
-    if (currentPost.detail.price.length < 7) {
-        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000).toLocaleString('vi-VN')} nghìn`
-    } else if (currentPost.detail.price.length >= 7 && currentPost.detail.price.length <= 9) {
-        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000).toLocaleString('vi-VN')} triệu`
+    if (currentPost.json_post_detail.price.length < 7) {
+        detailsPrice.textContent = `${(Number(currentPost.json_post_detail.price) / 1000).toLocaleString(
+            'vi-VN'
+        )} nghìn`
+    } else if (currentPost.json_post_detail.price.length >= 7 && currentPost.json_post_detail.price.length <= 9) {
+        detailsPrice.textContent = `${(Number(currentPost.json_post_detail.price) / 1000000).toLocaleString(
+            'vi-VN'
+        )} triệu`
     } else {
-        detailsPrice.textContent = `${(Number(currentPost.detail.price) / 1000000000).toLocaleString('vi-VN')} tỷ`
+        detailsPrice.textContent = `${(Number(currentPost.json_post_detail.price) / 1000000000).toLocaleString(
+            'vi-VN'
+        )} tỷ`
     }
 
-    detailsUnitPrice.textContent = Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)
-    detailsAcreageValue.textContent = currentPost.detail.area
+    detailsUnitPrice.textContent = Number(
+        currentPost.json_post_detail.price / currentPost.json_post_detail.area / 1000000
+    ).toFixed(2)
+    detailsAcreageValue.textContent = currentPost.json_post_detail.area
 
     detailsLocationValue.textContent = currentPost.address
     detailsLocationUpdated.textContent = `${momentTimezone(currentPost.created_at)}`
@@ -98,6 +111,7 @@ function loadPostDetails() {
     }
 }
 
+//Bắt sự kiện click vào danh sách ảnh thumbnail
 imagesList.addEventListener('click', (e) => {
     if (e.target.closest('img')) {
         document.querySelector('.details__info__images__list img.active').classList.remove('active')
@@ -108,26 +122,29 @@ imagesList.addEventListener('click', (e) => {
     }
 })
 
+//Xử lý khi click nút Next để chuyển sang ảnh tiếp theo
 nextImageBtn.addEventListener('click', () => {
     activeImageIndex++
 
-    if (activeImageIndex >= currentPost.images.length) {
+    if (activeImageIndex >= JSON.parse(currentPost.images).length) {
         activeImageIndex = 0
     }
 
     handleLoadCurrentImage(activeImageIndex)
 })
 
+//Xử lý khi click nút Prev để quay về ảnh trước đó
 prevImageBtn.addEventListener('click', () => {
     activeImageIndex--
 
     if (activeImageIndex < 0) {
-        activeImageIndex = currentPost.images.length - 1
+        activeImageIndex = JSON.parse(currentPost.images).length - 1
     }
 
     handleLoadCurrentImage(activeImageIndex)
 })
 
+//Xử lý sự kiện lưu / bỏ lưu bài đăng (yêu thích)
 detailsInfoSave.addEventListener('click', () => {
     let favoritesDb = JSON.parse(localStorage.getItem('favorites')) || []
 
@@ -145,6 +162,7 @@ detailsInfoSave.addEventListener('click', () => {
 
     detailsInfoSave.classList.toggle('active')
 
+    //Kiểm tra bài đăng đã được lưu chưa
     const favoritesExist = favoritesDb.find((favorite) => {
         return favorite.post_id === Number(postId) && favorite.user_id === currentUser?.id
     })
@@ -160,6 +178,7 @@ detailsInfoSave.addEventListener('click', () => {
     localStorage.setItem('favorites', JSON.stringify(favoritesDb))
 })
 
+//Hàm renderDetails dùng để hiển thị danh sách thông tin chi tiết của bài đăng
 function renderDetails() {
     const dataMapping = [
         {
@@ -169,51 +188,53 @@ function renderDetails() {
         },
         {
             label: 'Loại hình nhà ở',
-            value: currentPost.detail.type,
+            value: currentPost.json_post_detail.type,
             image: 'public/static/house_type.png',
         },
         {
             label: 'Diện tích',
-            value: currentPost.detail.area,
+            value: currentPost.json_post_detail.area,
             image: 'public/static/size.png',
         },
         {
             label: 'Giá/m²',
-            value: `${Number(currentPost.detail.price / currentPost.detail.area / 1000000).toFixed(2)} triệu/m²`,
+            value: `${Number(currentPost.json_post_detail.price / currentPost.json_post_detail.area / 1000000).toFixed(
+                2
+            )} triệu/m²`,
             image: 'public/static/price_m2.png',
         },
         {
             label: 'Hướng cửa chính',
-            value: currentPost.detail.main_door,
+            value: currentPost.json_post_detail.main_door,
             image: 'public/static/direction.png',
         },
         {
             label: 'Hướng ban công',
-            value: currentPost.detail.balcony,
+            value: currentPost.json_post_detail.balcony,
             image: 'public/static/balcony_direction.png',
         },
         {
             label: 'Giấy tờ pháp lý',
-            value: currentPost.detail.legal_documents,
+            value: currentPost.json_post_detail.legal_documents,
             image: 'public/static/property_legal_document.png',
         },
         {
             label: 'Tình trạng nội thất',
-            value: currentPost.detail.interior_status,
+            value: currentPost.json_post_detail.interior_status,
             image: 'public/static/interior_status.png',
         },
         {
             label: 'Số phòng ngủ',
-            value: currentPost.detail.bedrooms,
+            value: currentPost.json_post_detail.bedrooms,
             image: 'public/static/rooms.png',
         },
         {
             label: 'Số phòng vệ sinh',
-            value: currentPost.detail.bathrooms,
+            value: currentPost.json_post_detail.bathrooms,
             image: 'public/static/toilets.png',
         },
     ]
-
+    //Render danh sách chi tiết, chỉ hiển thị các mục có dữ liệu
     document.querySelector('.details__info--details__list').innerHTML = dataMapping
         .map((data) => {
             if (!data.value) {
@@ -236,7 +257,7 @@ function renderDetails() {
         })
         .join('')
 }
-
+//Hàm renderDescription dùng để hiển thị mô tả bài đăng và thông tin liên hệ
 function renderDescription() {
     document.querySelector('.details__info__description--content').textContent = currentPost.description
     document.querySelector('.details__info__description--contact--value').textContent = postUser.phone
@@ -251,7 +272,9 @@ function renderDescription() {
     })
 }
 
+//Hàm renderUserPost dùng để hiển thị thông tin người đăng bài
 function renderUserPost() {
+    //Mapping vai trò người dùng với label và icon
     const roleMapping = {
         user: {
             label: 'Cá nhân',
@@ -266,7 +289,7 @@ function renderUserPost() {
             icon: '<i class="fa-solid fa-user-tie"></i>',
         },
     }
-
+    //Đếm số lượng bài đăng của người dùng
     const postLength = JSON.parse(localStorage.getItem('posts')).filter((post) => {
         return post.user_id === currentPost.user_id
     }).length
@@ -279,7 +302,7 @@ function renderUserPost() {
                 onerror="this.src='/public/static/fallback.png'"
             />
             <div class="details__user__info__wrapper__content">
-                <h3>${postUser.full_name}</h3>
+                <a href="/user.html?nickname=${postUser.nickname}">${postUser.full_name}</a>
                 <p class="details__user__info__wrapper__content--role">
                     ${roleMapping[postUser.role].icon}
                     <span>${roleMapping[postUser.role].label}</span>
@@ -368,7 +391,7 @@ confirmModalButtonConfirm.addEventListener('click', () => {
 postActionsEditBtn.onclick = () => {
     window.location.href = `/post.html?post_id=${postId}&type=edit`
 }
-
+//Hàm loadPostManagement dùng để kiểm soát quyền quản lý bài đăng
 function loadPostManagement() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
